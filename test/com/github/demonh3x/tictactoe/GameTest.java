@@ -11,4 +11,10 @@ public class GameTest {
         Game g = new Game();
         assertThat(g.hasAWinner(), is(false));
     }
+
+    @Test
+    public void IsNotADraw() {
+        Game g = new Game();
+        assertThat(g.isADraw(), is(false));
+    }
 }

@@ -4,4 +4,8 @@ public class Game {
     public Boolean hasAWinner() {
         return false;
     }
+
+    public Boolean isADraw() {
+        return false;
+    }
 }
