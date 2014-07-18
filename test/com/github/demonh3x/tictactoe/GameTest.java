@@ -1,26 +1,29 @@
 package com.github.demonh3x.tictactoe;
 
-import org.junit.Before;
+import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
+@RunWith(HierarchicalContextRunner.class)
 public class GameTest {
-    private Game g;
+    public class GivenANewGame {
+        private Game newGame;
 
-    @Before
-    public void GivenANewGame() {
-        g = new Game();
-    }
+        public GivenANewGame() {
+            newGame = new Game();
+        }
 
-    @Test
-    public void ThereIsNoWinner() {
-        assertThat(g.hasAWinner(), is(false));
-    }
+        @Test
+        public void ThereIsNoWinner() {
+            assertThat(newGame.hasAWinner(), is(false));
+        }
 
-    @Test
-    public void IsNotADraw() {
-        assertThat(g.isADraw(), is(false));
+        @Test
+        public void IsNotADraw() {
+            assertThat(newGame.isADraw(), is(false));
+        }
     }
 }
