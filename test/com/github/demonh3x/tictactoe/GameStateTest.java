@@ -29,11 +29,6 @@ public class GameStateTest {
         }
 
         @Test
-        public void ThereIsNoWinner() {
-            assertThat(emptyGameState.hasAWinner(), is(false));
-        }
-
-        @Test
         public void IsNotFinished() {
             assertThat(emptyGameState.isFinished(), is(false));
         }
