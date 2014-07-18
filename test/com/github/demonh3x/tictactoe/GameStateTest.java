@@ -33,4 +33,21 @@ public class GameStateTest {
             assertThat(emptyGameState.isFinished(), is(false));
         }
     }
+
+    public class GivenAFullGameStateWithNoLines {
+        private final GameState fullGameStateWithNoLines;
+
+        public GivenAFullGameStateWithNoLines() {
+            fullGameStateWithNoLines = createGameState(
+                    X, X, O,
+                    O, O, X,
+                    X, X, O
+            );
+        }
+
+        @Test
+        public void IsFinished() {
+            assertThat(fullGameStateWithNoLines.isFinished(), is(true));
+        }
+    }
 }
