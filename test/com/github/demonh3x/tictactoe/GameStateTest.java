@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 @RunWith(HierarchicalContextRunner.class)
 public class GameStateTest {
     public class GivenAnEmptyGameState {
-        private GameState emptyGameState;
+        private final GameState emptyGameState;
 
         public GivenAnEmptyGameState() {
             emptyGameState = new GameState();
