@@ -9,11 +9,23 @@ import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(HierarchicalContextRunner.class)
 public class GameStateTest {
+    private static final Object _ = new Object();
+    private static final Object X = new Object();
+    private static final Object O = new Object();
+
+    private GameState createGameState(Object ... objs) {
+        return new GameState();
+    }
+
     public class GivenAnEmptyGameState {
         private final GameState emptyGameState;
 
         public GivenAnEmptyGameState() {
-            emptyGameState = new GameState();
+            emptyGameState = createGameState(
+                    _, _, _,
+                    _, _, _,
+                    _, _, _
+            );
         }
 
         @Test
