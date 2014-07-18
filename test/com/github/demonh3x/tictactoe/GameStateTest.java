@@ -8,22 +8,22 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(HierarchicalContextRunner.class)
-public class GameTest {
-    public class GivenANewGame {
-        private Game newGame;
+public class GameStateTest {
+    public class GivenAnEmptyGameState {
+        private GameState emptyGameState;
 
-        public GivenANewGame() {
-            newGame = new Game();
+        public GivenAnEmptyGameState() {
+            emptyGameState = new GameState();
         }
 
         @Test
         public void ThereIsNoWinner() {
-            assertThat(newGame.hasAWinner(), is(false));
+            assertThat(emptyGameState.hasAWinner(), is(false));
         }
 
         @Test
         public void IsNotADraw() {
-            assertThat(newGame.isADraw(), is(false));
+            assertThat(emptyGameState.isADraw(), is(false));
         }
     }
 }
