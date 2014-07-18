@@ -22,8 +22,8 @@ public class GameStateTest {
         }
 
         @Test
-        public void IsNotADraw() {
-            assertThat(emptyGameState.isADraw(), is(false));
+        public void IsNotFinished() {
+            assertThat(emptyGameState.isFinished(), is(false));
         }
     }
 }

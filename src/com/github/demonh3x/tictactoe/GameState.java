@@ -5,7 +5,7 @@ public class GameState {
         return false;
     }
 
-    public Boolean isADraw() {
+    public Boolean isFinished() {
         return false;
     }
 }
