@@ -9,12 +9,12 @@ import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(HierarchicalContextRunner.class)
 public class GameStateTest {
-    private static final Object _ = new Object();
-    private static final Object X = new Object();
-    private static final Object O = new Object();
+    private static final Piece _ = null;
+    private static final Piece X = new Piece();
+    private static final Piece O = new Piece();
 
-    private GameState createGameState(Object ... objs) {
-        return new GameState();
+    private GameState createGameState(Piece... pieces) {
+        return new GameState(pieces);
     }
 
     public class GivenAnEmptyGameState {
