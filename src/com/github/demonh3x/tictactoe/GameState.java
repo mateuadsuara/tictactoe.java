@@ -16,6 +16,8 @@ public class GameState {
     }
 
     private boolean hasALine() {
-        return pieces[6] != null && pieces[7] != null && pieces[8] != null;
+        return pieces[6] == pieces[7] &&
+                pieces[7] == pieces[8] &&
+                pieces[8] != null;
     }
 }
