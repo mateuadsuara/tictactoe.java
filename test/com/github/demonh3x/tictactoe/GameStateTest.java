@@ -4,16 +4,29 @@ import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.function.Supplier;
+
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(HierarchicalContextRunner.class)
 public class GameStateTest {
-    private static final Piece _ = null;
-    private static final Piece X = new Piece();
-    private static final Piece O = new Piece();
+    private static final Piece xPieceInstance = new Piece();
+    private static final Piece oPieceInstance = new Piece();
 
-    private GameState createGameState(Piece... pieces) {
+    private static final Supplier<Piece> _ = () -> null;
+    private static final Supplier<Piece> X = () -> xPieceInstance;
+    private static final Supplier<Piece> O = () -> oPieceInstance;
+
+    @SafeVarargs
+    private final GameState createGameState(Supplier<Piece>... literalPieces) {
+        Piece[] pieces = new Piece[literalPieces.length];
+
+        int i = 0;
+        for (Supplier<Piece> lp : literalPieces){
+            pieces[i++] = lp.get();
+        }
+
         return new GameState(pieces);
     }
 
