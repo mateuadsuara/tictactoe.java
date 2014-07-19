@@ -7,10 +7,6 @@ public class GameState {
         this.pieces = pieces;
     }
 
-    public Boolean hasAWinner() {
-        return false;
-    }
-
     public Boolean isFinished() {
         return pieces[0] != null;
     }
