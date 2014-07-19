@@ -17,37 +17,30 @@ public class GameStateTest {
         return new GameState(pieces);
     }
 
-    public class GivenAnEmptyGameState {
-        private final GameState emptyGameState;
+    public class IsFinished {
+        private void assertIsNotFinished(GameState gs) {
+            assertThat(gs.isFinished(), is(false));
+        }
+        private void assertIsFinished(GameState gs) {
+            assertThat(gs.isFinished(), is(true));
+        }
 
-        public GivenAnEmptyGameState() {
-            emptyGameState = createGameState(
+        @Test
+        public void GivenAnEmptyGameState_IsNot() {
+            assertIsNotFinished(createGameState(
                     _, _, _,
                     _, _, _,
                     _, _, _
-            );
+            ));
         }
 
         @Test
-        public void IsNotFinished() {
-            assertThat(emptyGameState.isFinished(), is(false));
-        }
-    }
-
-    public class GivenAFullGameStateWithNoLines {
-        private final GameState fullGameStateWithNoLines;
-
-        public GivenAFullGameStateWithNoLines() {
-            fullGameStateWithNoLines = createGameState(
+        public void GivenAFullGameStateWitoutLines_Is() {
+            assertIsFinished(createGameState(
                     X, X, O,
                     O, O, X,
                     X, X, O
-            );
-        }
-
-        @Test
-        public void IsFinished() {
-            assertThat(fullGameStateWithNoLines.isFinished(), is(true));
+            ));
         }
     }
 }
