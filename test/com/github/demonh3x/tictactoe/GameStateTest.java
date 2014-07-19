@@ -51,5 +51,14 @@ public class GameStateTest {
                     X, X, X
             ));
         }
+
+        @Test
+        public void GivenSomePiecesWithoutAnyLine_IsNot() {
+            assertIsNotFinished(createGameState(
+                    _, _, _,
+                    _, X, O,
+                    X, O, X
+            ));
+        }
     }
 }
