@@ -8,7 +8,14 @@ public class GameState {
     }
 
     public Boolean isFinished() {
-        return pieces[0] != null ||
-                pieces[6] != null && pieces[7] != null && pieces[8] != null;
+        return isFull() || hasALine();
+    }
+
+    private boolean isFull() {
+        return pieces[0] != null;
+    }
+
+    private boolean hasALine() {
+        return pieces[6] != null && pieces[7] != null && pieces[8] != null;
     }
 }
