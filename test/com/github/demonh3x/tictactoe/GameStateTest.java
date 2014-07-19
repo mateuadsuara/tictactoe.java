@@ -17,16 +17,13 @@ public class GameStateTest {
         return new GameState(pieces);
     }
 
-    public class IsFinished {
+    public class IsNotFinished {
         private void assertIsNotFinished(GameState gs) {
             assertThat(gs.isFinished(), is(false));
         }
-        private void assertIsFinished(GameState gs) {
-            assertThat(gs.isFinished(), is(true));
-        }
 
         @Test
-        public void GivenAnEmptyGameState_IsNot() {
+        public void GivenAnEmptyGameState() {
             assertIsNotFinished(createGameState(
                     _, _, _,
                     _, _, _,
@@ -35,7 +32,22 @@ public class GameStateTest {
         }
 
         @Test
-        public void GivenAFullGameStateWitoutLines_Is() {
+        public void GivenSomePiecesWithoutAnyLine() {
+            assertIsNotFinished(createGameState(
+                    _, _, _,
+                    _, X, O,
+                    X, O, X
+            ));
+        }
+    }
+
+    public class IsFinished {
+        private void assertIsFinished(GameState gs) {
+            assertThat(gs.isFinished(), is(true));
+        }
+
+        @Test
+        public void GivenAFullGameStateWitoutLines() {
             assertIsFinished(createGameState(
                     X, X, O,
                     O, O, X,
@@ -44,20 +56,11 @@ public class GameStateTest {
         }
 
         @Test
-        public void GivenALine_Is() {
+        public void GivenALine() {
             assertIsFinished(createGameState(
                     _, _, _,
                     O, _, O,
                     X, X, X
-            ));
-        }
-
-        @Test
-        public void GivenSomePiecesWithoutAnyLine_IsNot() {
-            assertIsNotFinished(createGameState(
-                    _, _, _,
-                    _, X, O,
-                    X, O, X
             ));
         }
     }
