@@ -42,5 +42,14 @@ public class GameStateTest {
                     X, X, O
             ));
         }
+
+        @Test
+        public void GivenALine_Is() {
+            assertIsFinished(createGameState(
+                    _, _, _,
+                    O, _, O,
+                    X, X, X
+            ));
+        }
     }
 }
