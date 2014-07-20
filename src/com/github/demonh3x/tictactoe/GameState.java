@@ -8,6 +8,9 @@ public class GameState {
     private final List<Piece> pieces;
 
     public GameState(List<Piece> pieces) {
+        if (pieces.size() != 9)
+            throw new IllegalArgumentException("A game state should have 9 pieces!");
+
         this.pieces = pieces;
     }
 

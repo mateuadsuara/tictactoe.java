@@ -19,6 +19,27 @@ public class GameStateTest {
         return new GameState(Arrays.asList(pieces));
     }
 
+    public class InvalidConstruction {
+        @Test(expected = IllegalArgumentException.class)
+        public void withNotEnoughPieces() {
+            createGameState(
+                    _, _, _,
+                    _, _, _,
+                    _, _
+            );
+        }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void withTooManyPieces() {
+            createGameState(
+                    _, _, _,
+                    _, _, _,
+                    _, _, _,
+                    _
+            );
+        }
+    }
+
     public class IsNotFinished {
         private void assertIsNotFinished(GameState gs) {
             assertThat(gs.isFinished(), is(false));
