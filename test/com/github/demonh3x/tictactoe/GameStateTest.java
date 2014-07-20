@@ -41,6 +41,20 @@ public class GameStateTest {
                     X, O, X
             ));
         }
+
+        @Test
+        public void GivenAlmostFullGameWithoutAnyLine() {
+            assertIsNotFinished(createGameState(
+                    X, O, X,
+                    O, _, O,
+                    X, O, X
+            ));
+            assertIsNotFinished(createGameState(
+                    X, _, X,
+                    X, O, O,
+                    O, X, O
+            ));
+        }
     }
 
     public class IsFinished {
