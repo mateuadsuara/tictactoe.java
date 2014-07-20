@@ -14,7 +14,11 @@ public class GameState {
     }
 
     private boolean isFull() {
-        return pieces.stream().allMatch((p) -> p != null);
+        for (Piece p : pieces){
+            if (p == null) return false;
+        }
+
+        return true;
     }
 
     private boolean hasALine() {
