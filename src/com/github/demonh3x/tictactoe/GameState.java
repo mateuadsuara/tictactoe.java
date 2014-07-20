@@ -16,9 +16,9 @@ public class GameState {
     }
 
     private boolean isFull() {
-        for (Piece p : pieces){
-            if (p == null) return false;
-        }
+        for (Piece p : pieces)
+            if (p == null)
+                return false;
 
         return true;
     }
