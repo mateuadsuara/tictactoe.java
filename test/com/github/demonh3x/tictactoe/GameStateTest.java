@@ -65,14 +65,44 @@ public class GameStateTest {
         @Test
         public void GivenALine() {
             assertIsFinished(createGameState(
-                    _, _, _,
-                    O, _, O,
+                    X, X, X,
+                    O, _, _,
+                    O, _, _
+            ));
+            assertIsFinished(createGameState(
+                    O, _, _,
+                    X, X, X,
+                    O, _, _
+            ));
+            assertIsFinished(createGameState(
+                    O, _, _,
+                    O, _, _,
                     X, X, X
             ));
             assertIsFinished(createGameState(
-                    _, _, X,
-                    O, X, O,
+                    X, O, _,
+                    X, O, _,
                     X, _, _
+            ));
+            assertIsFinished(createGameState(
+                    O, X, _,
+                    O, X, _,
+                    _, X, _
+            ));
+            assertIsFinished(createGameState(
+                    O, _, X,
+                    O, _, X,
+                    _, _, X
+            ));
+            assertIsFinished(createGameState(
+                    O, _, X,
+                    O, X, _,
+                    X, _, _
+            ));
+            assertIsFinished(createGameState(
+                    X, _, _,
+                    O, X, _,
+                    O, _, X
             ));
         }
     }
