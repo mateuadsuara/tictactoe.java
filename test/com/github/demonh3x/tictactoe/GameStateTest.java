@@ -4,7 +4,10 @@ import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -19,15 +22,12 @@ public class GameStateTest {
     private static final Supplier<Piece> O = () -> oPieceInstance;
 
     @SafeVarargs
-    private final GameState createGameState(Supplier<Piece>... literalPieces) {
-        Piece[] pieces = new Piece[literalPieces.length];
+    private final GameState createGameState(Supplier<Piece>... suppliers) {
+        List<Piece> pieces = Arrays.asList(suppliers).stream()
+                .map((pieceSupplier) -> pieceSupplier.get())
+                .collect(Collectors.toList());
 
-        int i = 0;
-        for (Supplier<Piece> lp : literalPieces){
-            pieces[i++] = lp.get();
-        }
-
-        return new GameState(pieces);
+        return new GameState(pieces.toArray(new Piece[suppliers.length]));
     }
 
     public class IsNotFinished {
