@@ -69,4 +69,8 @@ public class GameState {
 
         return linePieces;
     }
+
+    public Player getWinner() {
+        return null;
+    }
 }
