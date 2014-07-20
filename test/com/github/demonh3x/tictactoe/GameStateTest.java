@@ -34,15 +34,6 @@ public class GameStateTest {
         }
 
         @Test
-        public void GivenSomePiecesWithoutAnyLine() {
-            assertIsNotFinished(createGameState(
-                    _, _, _,
-                    _, X, O,
-                    X, O, X
-            ));
-        }
-
-        @Test
         public void GivenAlmostFullGameWithoutAnyLine() {
             assertIsNotFinished(createGameState(
                     X, O, X,
