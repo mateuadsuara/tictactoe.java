@@ -46,7 +46,7 @@ public class GameStateTest {
         }
 
         @Test
-        public void GivenAnEmptyGameState() {
+        public void givenAnEmptyGameState() {
             assertIsNotFinished(createGameState(
                     _, _, _,
                     _, _, _,
@@ -55,7 +55,7 @@ public class GameStateTest {
         }
 
         @Test
-        public void GivenAlmostFullGameWithoutAnyLine() {
+        public void givenAlmostFullGameWithoutAnyLine() {
             assertIsNotFinished(createGameState(
                     X, O, X,
                     O, _, O,
@@ -75,7 +75,7 @@ public class GameStateTest {
         }
 
         @Test
-        public void GivenAFullGameStateWithoutLines() {
+        public void givenAFullGameStateWithoutLines() {
             assertIsFinished(createGameState(
                     X, X, O,
                     O, O, X,
@@ -84,7 +84,7 @@ public class GameStateTest {
         }
 
         @Test
-        public void GivenALine() {
+        public void givenALine() {
             assertIsFinished(createGameState(
                     X, X, X,
                     O, _, _,
