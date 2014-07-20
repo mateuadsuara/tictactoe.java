@@ -27,7 +27,7 @@ public class GameStateTest {
                 .map((pieceSupplier) -> pieceSupplier.get())
                 .collect(Collectors.toList());
 
-        return new GameState(pieces.toArray(new Piece[suppliers.length]));
+        return new GameState(pieces);
     }
 
     public class IsNotFinished {

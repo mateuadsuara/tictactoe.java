@@ -1,9 +1,11 @@
 package com.github.demonh3x.tictactoe;
 
-public class GameState {
-    private final Piece[] pieces;
+import java.util.List;
 
-    public GameState(Piece... pieces) {
+public class GameState {
+    private final List<Piece> pieces;
+
+    public GameState(List<Piece> pieces) {
         this.pieces = pieces;
     }
 
@@ -12,12 +14,12 @@ public class GameState {
     }
 
     private boolean isFull() {
-        return pieces[0] != null;
+        return pieces.get(0) != null;
     }
 
     private boolean hasALine() {
-        return pieces[6] == pieces[7] &&
-                pieces[7] == pieces[8] &&
-                pieces[8] != null;
+        return pieces.get(6) == pieces.get(7) &&
+                pieces.get(7) == pieces.get(8) &&
+                pieces.get(8) != null;
     }
 }
