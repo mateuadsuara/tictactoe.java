@@ -69,6 +69,11 @@ public class GameStateTest {
                     O, _, O,
                     X, X, X
             ));
+            assertIsFinished(createGameState(
+                    _, _, X,
+                    O, X, O,
+                    X, _, _
+            ));
         }
     }
 }
