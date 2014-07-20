@@ -49,7 +49,7 @@ public class GameStateTest {
         }
 
         @Test
-        public void GivenAFullGameStateWitoutLines() {
+        public void GivenAFullGameStateWithoutLines() {
             assertIsFinished(createGameState(
                     X, X, O,
                     O, O, X,
