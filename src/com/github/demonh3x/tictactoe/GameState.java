@@ -27,6 +27,10 @@ public class GameState {
     }
 
     private boolean hasALine() {
+        return getWinningLine() != null;
+    }
+
+    private List<Piece> getWinningLine() {
         List<List<Integer>> possibleLines = Arrays.asList(
                 Arrays.asList(0, 1, 2),
                 Arrays.asList(3, 4, 5),
@@ -41,14 +45,13 @@ public class GameState {
         );
 
         for (List<Integer> line : possibleLines)
-            if (isAWinningLine(line))
-                return true;
+            if (isAWinningLine(getPiecesInTheLine(line)))
+                return getPiecesInTheLine(line);
 
-        return false;
+        return null;
     }
 
-    private boolean isAWinningLine(List<Integer> line) {
-        List<Piece> piecesInTheLine = getPiecesInTheLine(line);
+    private boolean isAWinningLine(List<Piece> piecesInTheLine) {
         Piece firstPiece = piecesInTheLine.get(0);
 
         if (firstPiece == null)
@@ -71,6 +74,11 @@ public class GameState {
     }
 
     public Player getWinner() {
-        return null;
+        List<Piece> winningLine = getWinningLine();
+
+        if (winningLine == null)
+            return null;
+
+        return winningLine.get(0).owner;
     }
 }
