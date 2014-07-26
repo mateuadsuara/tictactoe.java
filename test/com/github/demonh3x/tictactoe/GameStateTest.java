@@ -23,6 +23,49 @@ public class GameStateTest {
         return new GameState(Arrays.asList(pieces));
     }
 
+    final GameState[] gameStatesWithLineOfX = {
+            createGameState(
+                    X, X, X,
+                    O, _, _,
+                    O, _, _
+            ),
+            createGameState(
+                    O, _, _,
+                    X, X, X,
+                    O, _, _
+            ),
+            createGameState(
+                    O, _, _,
+                    O, _, _,
+                    X, X, X
+            ),
+            createGameState(
+                    X, O, _,
+                    X, O, _,
+                    X, _, _
+            ),
+            createGameState(
+                    O, X, _,
+                    O, X, _,
+                    _, X, _
+            ),
+            createGameState(
+                    O, _, X,
+                    O, _, X,
+                    _, _, X
+            ),
+            createGameState(
+                    O, _, X,
+                    O, X, _,
+                    X, _, _
+            ),
+            createGameState(
+                    X, _, _,
+                    O, X, _,
+                    O, _, X
+            )
+    };
+
     public class InvalidConstruction {
         @Test(expected = IllegalArgumentException.class)
         public void withNotEnoughPieces() {
@@ -74,8 +117,9 @@ public class GameStateTest {
     }
 
     public class IsFinished {
-        private void assertIsFinished(GameState gs) {
-            assertThat(gs.isFinished(), is(true));
+        private void assertIsFinished(GameState... states) {
+            for (GameState gs : states)
+                assertThat(gs.isFinished(), is(true));
         }
 
         @Test
@@ -89,46 +133,7 @@ public class GameStateTest {
 
         @Test
         public void givenALine() {
-            assertIsFinished(createGameState(
-                    X, X, X,
-                    O, _, _,
-                    O, _, _
-            ));
-            assertIsFinished(createGameState(
-                    O, _, _,
-                    X, X, X,
-                    O, _, _
-            ));
-            assertIsFinished(createGameState(
-                    O, _, _,
-                    O, _, _,
-                    X, X, X
-            ));
-            assertIsFinished(createGameState(
-                    X, O, _,
-                    X, O, _,
-                    X, _, _
-            ));
-            assertIsFinished(createGameState(
-                    O, X, _,
-                    O, X, _,
-                    _, X, _
-            ));
-            assertIsFinished(createGameState(
-                    O, _, X,
-                    O, _, X,
-                    _, _, X
-            ));
-            assertIsFinished(createGameState(
-                    O, _, X,
-                    O, X, _,
-                    X, _, _
-            ));
-            assertIsFinished(createGameState(
-                    X, _, _,
-                    O, X, _,
-                    O, _, X
-            ));
+            assertIsFinished(gameStatesWithLineOfX);
         }
     }
 
@@ -164,14 +169,7 @@ public class GameStateTest {
 
         @Test
         public void givenALine() {
-            assertTheWinner(
-                    xPlayer,
-                    createGameState(
-                        X, X, X,
-                        O, _, _,
-                        O, _, _
-                    )
-            );
+            assertTheWinner(xPlayer, gameStatesWithLineOfX);
         }
     }
 }
