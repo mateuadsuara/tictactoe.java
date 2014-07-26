@@ -171,5 +171,14 @@ public class GameStateTest {
         public void givenALineOfX() {
             assertTheWinner(xPlayer, gameStatesWithLineOfX);
         }
+
+        @Test
+        public void givenALineOfO() {
+            assertTheWinner(oPlayer, createGameState(
+                    O, O, O,
+                    X, _, _,
+                    X, _, _
+            ));
+        }
     }
 }
