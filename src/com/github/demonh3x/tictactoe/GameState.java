@@ -76,9 +76,7 @@ public class GameState {
     public boolean hasWon(Player possibleWinner) {
         List<Piece> winningLine = getWinningLine();
 
-        if (winningLine == null)
-            return false;
-
-        return winningLine.get(0).isOwnedBy(possibleWinner);
+        return winningLine != null &&
+               winningLine.get(0).isOwnedBy(possibleWinner);
     }
 }
