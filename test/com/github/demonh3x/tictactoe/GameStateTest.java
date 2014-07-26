@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 
 import java.util.Arrays;
 
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -139,7 +138,10 @@ public class GameStateTest {
 
     public class ThereIsNoWinner {
         private void assertNoWinner(GameState gs) {
-            assertThat(gs.getWinner(), is(nullValue()));
+            Player[] players = {xPlayer, oPlayer};
+
+            for (Player p : players)
+                assertThat(gs.hasWon(p), is(false));
         }
 
         @Test
@@ -164,7 +166,7 @@ public class GameStateTest {
     public class ThereIsAWinner {
         private void assertTheWinner(Player p, GameState... states){
             for (GameState gs : states)
-                assertThat(gs.getWinner(), is(p));
+                assertThat(gs.hasWon(p), is(true));
         }
 
         @Test

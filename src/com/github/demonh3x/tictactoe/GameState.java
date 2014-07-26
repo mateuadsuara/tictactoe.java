@@ -73,12 +73,12 @@ public class GameState {
         return linePieces;
     }
 
-    public Player getWinner() {
+    public boolean hasWon(Player possibleWinner) {
         List<Piece> winningLine = getWinningLine();
 
         if (winningLine == null)
-            return null;
+            return false;
 
-        return winningLine.get(0).owner;
+        return winningLine.get(0).isOwnedBy(possibleWinner);
     }
 }
