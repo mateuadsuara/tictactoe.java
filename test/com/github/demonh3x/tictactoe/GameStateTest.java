@@ -168,7 +168,7 @@ public class GameStateTest {
         }
 
         @Test
-        public void givenALine() {
+        public void givenALineOfX() {
             assertTheWinner(xPlayer, gameStatesWithLineOfX);
         }
     }
