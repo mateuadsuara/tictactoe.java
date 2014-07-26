@@ -12,9 +12,12 @@ import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(HierarchicalContextRunner.class)
 public class GameStateTest {
+    private static final Player xPlayer = new Player();
+    private static final Player oPlayer = new Player();
+
     private static final Piece _ = null;
-    private static final Piece X = new Piece();
-    private static final Piece O = new Piece();
+    private static final Piece X = new Piece(xPlayer);
+    private static final Piece O = new Piece(oPlayer);
 
     private GameState createGameState(Piece... pieces) {
         return new GameState(Arrays.asList(pieces));
@@ -150,6 +153,25 @@ public class GameStateTest {
                     O, O, X,
                     X, X, O
             ));
+        }
+    }
+
+    public class ThereIsAWinner {
+        private void assertTheWinner(Player p, GameState... states){
+            for (GameState gs : states)
+                assertThat(gs.getWinner(), is(p));
+        }
+
+        @Test
+        public void givenALine() {
+            assertTheWinner(
+                    xPlayer,
+                    createGameState(
+                        X, X, X,
+                        O, _, _,
+                        O, _, _
+                    )
+            );
         }
     }
 }
