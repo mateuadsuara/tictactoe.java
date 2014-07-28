@@ -1,6 +1,7 @@
 package com.github.demonh3x.tictactoe.cli;
 
 import com.github.demonh3x.tictactoe.GameState;
+import com.github.demonh3x.tictactoe.Location;
 import com.github.demonh3x.tictactoe.Piece;
 import com.github.demonh3x.tictactoe.Player;
 
@@ -31,7 +32,7 @@ public class CliRenderer {
     private String renderRow(GameState state, int x) {
         String row = WALL;
         for (int y = 0; y < GameState.COLUMNS; y++){
-            final Piece piece = state.lookAt(x, y);
+            final Piece piece = state.lookAt(new Location(x, y));
             final String renderedPiece = renderPiece(piece);
             row += renderedPiece + WALL;
         }

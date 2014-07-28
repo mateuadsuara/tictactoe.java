@@ -19,8 +19,8 @@ public class GameState {
         this.pieces = Collections.unmodifiableList(pieces);
     }
 
-    public Piece lookAt(int x, int y){
-        final int index = (x * ROWS) + y;
+    public Piece lookAt(Location loc){
+        final int index = (loc.x * ROWS) + loc.y;
 
         return pieces.get(index);
     }
