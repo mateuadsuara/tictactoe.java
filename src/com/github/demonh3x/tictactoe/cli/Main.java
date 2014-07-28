@@ -10,14 +10,12 @@ public class Main {
     public static void main(String ... args){
         final Player xPlayer = new Player();
         final Player oPlayer = new Player();
-        final CliRenderer renderer = new CliRenderer(xPlayer, oPlayer);
-
-        renderer.render(
-                new GameState(
-                        Arrays.<Piece>asList(
-                                new Piece(xPlayer), new Piece(oPlayer), null, null, null, null, null, null, null
-                        )
+        final GameState gameState = new GameState(
+                Arrays.<Piece>asList(
+                        new Piece(xPlayer), new Piece(oPlayer), null, null, null, null, null, null, null
                 )
         );
+
+        new CliRenderer(xPlayer, oPlayer, gameState).render();
     }
 }

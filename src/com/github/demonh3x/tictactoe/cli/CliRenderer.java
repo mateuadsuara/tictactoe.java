@@ -8,14 +8,16 @@ import com.github.demonh3x.tictactoe.Player;
 public class CliRenderer {
     private final Player xOwner;
     private final Player oOwner;
+    private final GameState state;
 
-    public CliRenderer(Player xOwner, Player oOwner){
+    public CliRenderer(Player xOwner, Player oOwner, GameState state){
         this.xOwner = xOwner;
         this.oOwner = oOwner;
+        this.state = state;
     }
 
-    public void render(GameState state){
-        System.out.println(renderState(state));
+    public void render(){
+        System.out.println(renderState(this.state));
     }
 
     private String renderState(GameState state) {
