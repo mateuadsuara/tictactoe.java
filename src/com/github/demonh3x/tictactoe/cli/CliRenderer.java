@@ -8,9 +8,6 @@ public class CliRenderer {
     public static final String WALL = "|";
     public static final String FLOOR = "+-+-+-+\n";
 
-    private static final int ROWS = 3;
-    private static final int COLS = 3;
-
     private final Player xOwner;
     private final Player oOwner;
 
@@ -25,17 +22,16 @@ public class CliRenderer {
 
     private String renderState(GameState state) {
         String renderedState = FLOOR;
-        for (int x = 0; x < ROWS; x++){
+        for (int x = 0; x < GameState.ROWS; x++){
             renderedState += renderRow(state, x) + "\n" + FLOOR;
         }
         return renderedState;
     }
 
-    private String renderRow(GameState state, int rowIndex) {
+    private String renderRow(GameState state, int x) {
         String row = WALL;
-        for (int y = 0; y < COLS; y++){
-            final int index = (rowIndex * ROWS) + y;
-            final Piece piece = state.pieces.get(index);
+        for (int y = 0; y < GameState.COLUMNS; y++){
+            final Piece piece = state.lookAt(x, y);
             final String renderedPiece = renderPiece(piece);
             row += renderedPiece + WALL;
         }

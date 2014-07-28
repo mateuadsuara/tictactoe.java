@@ -6,13 +6,22 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameState {
-    public final List<Piece> pieces;
+    private final List<Piece> pieces;
+
+    public static final int ROWS = 3;
+    public static final int COLUMNS = 3;
 
     public GameState(List<Piece> pieces) {
         if (pieces.size() != 9)
             throw new IllegalArgumentException("A game state should have 9 pieces!");
 
         this.pieces = Collections.unmodifiableList(pieces);
+    }
+
+    public Piece lookAt(int x, int y){
+        final int index = (x * ROWS) + y;
+
+        return pieces.get(index);
     }
 
     public Boolean isFinished() {
