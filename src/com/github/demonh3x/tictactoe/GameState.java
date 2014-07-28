@@ -10,10 +10,11 @@ public class GameState {
 
     public static final int ROWS = 3;
     public static final int COLUMNS = 3;
+    private static final int REQUIRED_AMOUNT_OF_PIECES = ROWS * COLUMNS;
 
     public GameState(List<Piece> pieces) {
-        if (pieces.size() != 9)
-            throw new IllegalArgumentException("A game state should have 9 pieces!");
+        if (pieces.size() != REQUIRED_AMOUNT_OF_PIECES)
+            throw new IllegalArgumentException("A game state should have " + REQUIRED_AMOUNT_OF_PIECES + " pieces!");
 
         this.pieces = Collections.unmodifiableList(pieces);
     }
