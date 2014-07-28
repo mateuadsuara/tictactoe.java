@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameState {
-    private final List<Piece> pieces;
-
     public static final int ROWS = 3;
     public static final int COLUMNS = 3;
     private static final int REQUIRED_AMOUNT_OF_PIECES = ROWS * COLUMNS;
+
+    private final List<Piece> pieces;
 
     public GameState(List<Piece> pieces) {
         if (pieces.size() != REQUIRED_AMOUNT_OF_PIECES)
