@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 
 import java.util.Arrays;
 
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -83,6 +84,38 @@ public class GameStateTest {
                     _, _, _,
                     _
             );
+        }
+    }
+
+    public class LookAt {
+        @Test
+        public void anEmptyLocation_ReturnsNull() {
+            final GameState gameState = createGameState(
+                    _, X, X,
+                    X, O, O,
+                    O, O, X
+            );
+            assertThat(gameState.lookAt(new Location(0, 0)), is(_));
+        }
+
+        @Test
+        public void aLocationContainingAXPiece_ReturnsAXPiece() {
+            final GameState gameState = createGameState(
+                    _, _, _,
+                    _, X, _,
+                    _, _, _
+            );
+            assertThat(gameState.lookAt(new Location(1, 1)), is(X));
+        }
+
+        @Test
+        public void aLocationContainingAOPiece_ReturnsAOPiece() {
+            final GameState gameState = createGameState(
+                    _, _, _,
+                    _, _, _,
+                    _, _, O
+            );
+            assertThat(gameState.lookAt(new Location(2, 2)), is(O));
         }
     }
 
