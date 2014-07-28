@@ -2,16 +2,17 @@ package com.github.demonh3x.tictactoe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class GameState {
-    private final List<Piece> pieces;
+    public final List<Piece> pieces;
 
     public GameState(List<Piece> pieces) {
         if (pieces.size() != 9)
             throw new IllegalArgumentException("A game state should have 9 pieces!");
 
-        this.pieces = pieces;
+        this.pieces = Collections.unmodifiableList(pieces);
     }
 
     public Boolean isFinished() {
