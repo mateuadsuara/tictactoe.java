@@ -16,6 +16,7 @@ public class Main {
                 )
         );
 
-        new CliRenderer(xPlayer, oPlayer, gameState).render();
+        final String rendered = new TextRenderer(xPlayer, oPlayer, gameState).render();
+        System.out.println(rendered);
     }
 }

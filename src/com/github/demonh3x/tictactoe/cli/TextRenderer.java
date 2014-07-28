@@ -5,22 +5,18 @@ import com.github.demonh3x.tictactoe.Location;
 import com.github.demonh3x.tictactoe.Piece;
 import com.github.demonh3x.tictactoe.Player;
 
-public class CliRenderer {
+public class TextRenderer {
     private final Player xOwner;
     private final Player oOwner;
     private final GameState state;
 
-    public CliRenderer(Player xOwner, Player oOwner, GameState state){
+    public TextRenderer(Player xOwner, Player oOwner, GameState state){
         this.xOwner = xOwner;
         this.oOwner = oOwner;
         this.state = state;
     }
 
-    public void render(){
-        System.out.println(renderState());
-    }
-
-    private String renderState() {
+    public String render() {
         return String.format(
                 "   x 0   1   2\n" +
                 " y +---+---+---+\n" +
