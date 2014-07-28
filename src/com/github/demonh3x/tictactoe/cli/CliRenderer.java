@@ -6,9 +6,6 @@ import com.github.demonh3x.tictactoe.Piece;
 import com.github.demonh3x.tictactoe.Player;
 
 public class CliRenderer {
-    public static final String WALL = "|";
-    public static final String FLOOR = "+-+-+-+\n";
-
     private final Player xOwner;
     private final Player oOwner;
 
@@ -22,21 +19,35 @@ public class CliRenderer {
     }
 
     private String renderState(GameState state) {
-        String renderedState = FLOOR;
-        for (int x = 0; x < GameState.ROWS; x++){
-            renderedState += renderRow(state, x) + "\n" + FLOOR;
-        }
-        return renderedState;
+        return String.format(
+                "   x 0   1   2\n" +
+                " y +---+---+---+\n" +
+                " 0 | %s | %s | %s |\n" +
+                "   +---+---+---+\n" +
+                " 1 | %s | %s | %s |\n" +
+                "   +---+---+---+\n" +
+                " 2 | %s | %s | %s |\n" +
+                "   +---+---+---+",
+                getRenderedPieces(state)
+        );
     }
 
-    private String renderRow(GameState state, int x) {
-        String row = WALL;
-        for (int y = 0; y < GameState.COLUMNS; y++){
-            final Piece piece = state.lookAt(new Location(x, y));
-            final String renderedPiece = renderPiece(piece);
-            row += renderedPiece + WALL;
-        }
-        return row;
+    private String[] getRenderedPieces(GameState state) {
+        return new String[]{
+                    getRenderedPiece(state, 0, 0),
+                    getRenderedPiece(state, 1, 0),
+                    getRenderedPiece(state, 2, 0),
+                    getRenderedPiece(state, 0, 1),
+                    getRenderedPiece(state, 1, 1),
+                    getRenderedPiece(state, 2, 1),
+                    getRenderedPiece(state, 0, 2),
+                    getRenderedPiece(state, 1, 2),
+                    getRenderedPiece(state, 2, 2)
+            };
+    }
+
+    private String getRenderedPiece(GameState state, int x, int y) {
+        return renderPiece(state.lookAt(new Location(x, y)));
     }
 
     private String renderPiece(Piece piece) {
