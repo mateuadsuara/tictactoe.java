@@ -17,10 +17,10 @@ public class CliRenderer {
     }
 
     public void render(){
-        System.out.println(renderState(this.state));
+        System.out.println(renderState());
     }
 
-    private String renderState(GameState state) {
+    private String renderState() {
         return String.format(
                 "   x 0   1   2\n" +
                 " y +---+---+---+\n" +
@@ -30,25 +30,25 @@ public class CliRenderer {
                 "   +---+---+---+\n" +
                 " 2 | %s | %s | %s |\n" +
                 "   +---+---+---+",
-                getRenderedPieces(state)
+                getRenderedPieces()
         );
     }
 
-    private String[] getRenderedPieces(GameState state) {
+    private String[] getRenderedPieces() {
         return new String[]{
-                    getRenderedPiece(state, 0, 0),
-                    getRenderedPiece(state, 1, 0),
-                    getRenderedPiece(state, 2, 0),
-                    getRenderedPiece(state, 0, 1),
-                    getRenderedPiece(state, 1, 1),
-                    getRenderedPiece(state, 2, 1),
-                    getRenderedPiece(state, 0, 2),
-                    getRenderedPiece(state, 1, 2),
-                    getRenderedPiece(state, 2, 2)
+                    getRenderedPiece(0, 0),
+                    getRenderedPiece(1, 0),
+                    getRenderedPiece(2, 0),
+                    getRenderedPiece(0, 1),
+                    getRenderedPiece(1, 1),
+                    getRenderedPiece(2, 1),
+                    getRenderedPiece(0, 2),
+                    getRenderedPiece(1, 2),
+                    getRenderedPiece(2, 2)
             };
     }
 
-    private String getRenderedPiece(GameState state, int x, int y) {
+    private String getRenderedPiece(int x, int y) {
         return renderPiece(state.lookAt(new Location(x, y)));
     }
 
