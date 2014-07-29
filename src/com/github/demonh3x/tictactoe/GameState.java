@@ -19,14 +19,6 @@ public class GameState {
         this.pieces = Collections.unmodifiableList(pieces);
     }
 
-    public Piece lookAt(Location l){
-        return pieces.get(getIndex(l));
-    }
-
-    private int getIndex(Location l) {
-        return (l.y * ROWS) + l.x;
-    }
-
     public Boolean isFinished() {
         return isFull() || hasALine();
     }
@@ -91,6 +83,14 @@ public class GameState {
 
         return winningLine != null &&
                winningLine.get(0).isOwnedBy(possibleWinner);
+    }
+
+    public Piece lookAt(Location l){
+        return pieces.get(getIndex(l));
+    }
+
+    private int getIndex(Location l) {
+        return (l.y * ROWS) + l.x;
     }
 
     public GameState put(Piece p, Location l) {
