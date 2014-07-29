@@ -6,6 +6,18 @@ import com.github.demonh3x.tictactoe.Piece;
 import com.github.demonh3x.tictactoe.Player;
 
 public class TextRenderer {
+    private static final Location[] locationsInRenderingOrder = {
+            new Location(0, 0),
+            new Location(1, 0),
+            new Location(2, 0),
+            new Location(0, 1),
+            new Location(1, 1),
+            new Location(2, 1),
+            new Location(0, 2),
+            new Location(1, 2),
+            new Location(2, 2)
+    };
+
     private final Player xOwner;
     private final Player oOwner;
     private final GameState state;
@@ -31,21 +43,15 @@ public class TextRenderer {
     }
 
     private String[] getRenderedPieces() {
-        return new String[]{
-                    getRenderedPiece(0, 0),
-                    getRenderedPiece(1, 0),
-                    getRenderedPiece(2, 0),
-                    getRenderedPiece(0, 1),
-                    getRenderedPiece(1, 1),
-                    getRenderedPiece(2, 1),
-                    getRenderedPiece(0, 2),
-                    getRenderedPiece(1, 2),
-                    getRenderedPiece(2, 2)
-            };
-    }
+        String[] renderedPieces = new String[locationsInRenderingOrder.length];
 
-    private String getRenderedPiece(int x, int y) {
-        return renderPiece(state.lookAt(new Location(x, y)));
+        int i = 0;
+        for (Location l : locationsInRenderingOrder){
+            renderedPieces[i] = renderPiece(state.lookAt(l));
+            i++;
+        }
+
+        return renderedPieces;
     }
 
     private String renderPiece(Piece piece) {
