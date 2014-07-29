@@ -6,7 +6,7 @@ import com.github.demonh3x.tictactoe.Piece;
 import com.github.demonh3x.tictactoe.Player;
 
 public class TextRenderer {
-    private static final Location[] locationsInRenderingOrder = {
+    private static final Location[] LOCATIONS_IN_RENDERING_ORDER = {
             new Location(0, 0),
             new Location(1, 0),
             new Location(2, 0),
@@ -43,10 +43,10 @@ public class TextRenderer {
     }
 
     private String[] getRenderedPieces() {
-        String[] renderedPieces = new String[locationsInRenderingOrder.length];
+        String[] renderedPieces = new String[LOCATIONS_IN_RENDERING_ORDER.length];
 
         int i = 0;
-        for (Location l : locationsInRenderingOrder){
+        for (Location l : LOCATIONS_IN_RENDERING_ORDER){
             renderedPieces[i] = renderPiece(state.lookAt(l));
             i++;
         }
