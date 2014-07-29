@@ -29,7 +29,7 @@ public class GameLogic {
         this.gs = gs;
     }
 
-    public Boolean isFinished() {
+    public boolean isFinished() {
         return isFull() || hasALine();
     }
 
