@@ -5,8 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -20,7 +18,17 @@ public class GameStateTest {
     private static final Piece O = new Piece(oPlayer);
 
     private GameState createGameState(Piece... pieces) {
-        return new GameState(Arrays.asList(pieces));
+        final GameState gameState = GameState.empty();
+        return gameState
+                .put(pieces[0], new Location(0, 0))
+                .put(pieces[1], new Location(1, 0))
+                .put(pieces[2], new Location(2, 0))
+                .put(pieces[3], new Location(0, 1))
+                .put(pieces[4], new Location(1, 1))
+                .put(pieces[5], new Location(2, 1))
+                .put(pieces[6], new Location(0, 2))
+                .put(pieces[7], new Location(1, 2))
+                .put(pieces[8], new Location(2, 2));
     }
 
     final GameState[] gameStatesWithLineOfX = {
@@ -65,27 +73,6 @@ public class GameStateTest {
                     O, _, X
             )
     };
-
-    public class InvalidConstruction {
-        @Test(expected = IllegalArgumentException.class)
-        public void withNotEnoughPieces() {
-            createGameState(
-                    _, _, _,
-                    _, _, _,
-                    _, _
-            );
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void withTooManyPieces() {
-            createGameState(
-                    _, _, _,
-                    _, _, _,
-                    _, _, _,
-                    _
-            );
-        }
-    }
 
     public class LookAt {
         @Test

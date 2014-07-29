@@ -1,20 +1,21 @@
 package com.github.demonh3x.tictactoe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class GameState {
     public static final int ROWS = 3;
     public static final int COLUMNS = 3;
-    private static final int REQUIRED_AMOUNT_OF_PIECES = ROWS * COLUMNS;
+
+    public static GameState empty(){
+        return new GameState(Arrays.<Piece>asList(null, null, null, null, null, null, null, null, null));
+    }
 
     private final List<Piece> pieces;
 
-    public GameState(List<Piece> pieces) {
-        if (pieces.size() != REQUIRED_AMOUNT_OF_PIECES)
-            throw new IllegalArgumentException("A game state should have " + REQUIRED_AMOUNT_OF_PIECES + " pieces!");
-
+    private GameState(List<Piece> pieces) {
         this.pieces = Collections.unmodifiableList(pieces);
     }
 
