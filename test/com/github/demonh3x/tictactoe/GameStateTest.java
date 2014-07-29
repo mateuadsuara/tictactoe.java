@@ -147,7 +147,7 @@ public class GameStateTest {
 
     public class IsNotFinished {
         private void assertIsNotFinished(GameState gs) {
-            assertThat(new GameState.GameLogic(gs).isFinished(), is(false));
+            assertThat(new GameLogic(gs).isFinished(), is(false));
         }
 
         @Test
@@ -177,7 +177,7 @@ public class GameStateTest {
     public class IsFinished {
         private void assertIsFinished(GameState... states) {
             for (GameState gs : states)
-                assertThat(new GameState.GameLogic(gs).isFinished(), is(true));
+                assertThat(new GameLogic(gs).isFinished(), is(true));
         }
 
         @Test
@@ -200,7 +200,7 @@ public class GameStateTest {
             Player[] players = {xPlayer, oPlayer};
 
             for (Player p : players)
-                assertThat(new GameState.GameLogic(gs).hasWon(p), is(false));
+                assertThat(new GameLogic(gs).hasWon(p), is(false));
         }
 
         @Test
@@ -225,7 +225,7 @@ public class GameStateTest {
     public class ThereIsAWinner {
         private void assertTheWinner(Player p, GameState... states){
             for (GameState gs : states)
-                assertThat(new GameState.GameLogic(gs).hasWon(p), is(true));
+                assertThat(new GameLogic(gs).hasWon(p), is(true));
         }
 
         @Test
