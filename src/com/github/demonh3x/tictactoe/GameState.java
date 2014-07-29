@@ -97,14 +97,6 @@ public class GameState {
         }
     }
 
-    public Boolean isFinished() {
-        return new GameLogic(this).isFinished();
-    }
-
-    public boolean hasWon(Player possibleWinner) {
-        return new GameLogic(this).hasWon(possibleWinner);
-    }
-
     public Piece lookAt(Location l){
         return pieces.get(getIndex(l));
     }
