@@ -9,6 +9,18 @@ public class GameState {
     public static final int ROWS = 3;
     public static final int COLUMNS = 3;
     private static final int REQUIRED_AMOUNT_OF_PIECES = ROWS * COLUMNS;
+    private static final List<List<Location>> POSSIBLE_LINES = Arrays.asList(
+            Arrays.asList(new Location(0, 0), new Location(1, 0), new Location(2, 0)),
+            Arrays.asList(new Location(0, 1), new Location(1, 1), new Location(2, 1)),
+            Arrays.asList(new Location(0, 2), new Location(1, 2), new Location(2, 2)),
+
+            Arrays.asList(new Location(0, 0), new Location(0, 1), new Location(0, 2)),
+            Arrays.asList(new Location(1, 0), new Location(1, 1), new Location(1, 2)),
+            Arrays.asList(new Location(2, 0), new Location(2, 1), new Location(2, 2)),
+
+            Arrays.asList(new Location(0, 0), new Location(1, 1), new Location(2, 2)),
+            Arrays.asList(new Location(2, 0), new Location(1, 1), new Location(0, 2))
+    );
 
     private final List<Piece> pieces;
 
@@ -36,20 +48,7 @@ public class GameState {
     }
 
     private List<Piece> getWinningLine() {
-        List<List<Integer>> possibleLines = Arrays.asList(
-                Arrays.asList(0, 1, 2),
-                Arrays.asList(3, 4, 5),
-                Arrays.asList(6, 7, 8),
-
-                Arrays.asList(0, 3, 6),
-                Arrays.asList(1, 4, 7),
-                Arrays.asList(2, 5, 8),
-
-                Arrays.asList(0, 4, 8),
-                Arrays.asList(2, 4, 6)
-        );
-
-        for (List<Integer> line : possibleLines)
+        for (List<Location> line : POSSIBLE_LINES)
             if (isAWinningLine(getPiecesInTheLine(line)))
                 return getPiecesInTheLine(line);
 
@@ -69,11 +68,11 @@ public class GameState {
         return true;
     }
 
-    private List<Piece> getPiecesInTheLine(List<Integer> line) {
+    private List<Piece> getPiecesInTheLine(List<Location> line) {
         ArrayList<Piece> linePieces = new ArrayList<>(line.size());
 
-        for (Integer index : line)
-            linePieces.add(pieces.get(index));
+        for (Location location : line)
+            linePieces.add(lookAt(location));
 
         return linePieces;
     }
