@@ -1,12 +1,12 @@
 package com.github.demonh3x.tictactoe;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
 
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -116,6 +116,32 @@ public class GameStateTest {
                     _, _, O
             );
             assertThat(gameState.lookAt(new Location(2, 2)), is(O));
+        }
+    }
+
+    public class PutPieceAtLocation {
+        GameState originalGameState, newGameState;
+        Location l;
+
+        @Before
+        public void setUp() {
+            originalGameState = createGameState(
+                    _, _, _,
+                    _, _, _,
+                    _, _, _
+            );
+            l = new Location(0, 0);
+            newGameState = originalGameState.put(X, l);
+        }
+
+        @Test
+        public void theOriginalGameState_shouldntHaveBeenModified() {
+            assertThat(originalGameState.lookAt(l), is(_));
+        }
+
+        @Test
+        public void theNewGameState_shouldHaveThePuttedPiece() {
+            assertThat(newGameState.lookAt(l), is(X));
         }
     }
 
