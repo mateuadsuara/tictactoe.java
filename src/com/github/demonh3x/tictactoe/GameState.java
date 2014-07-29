@@ -9,6 +9,11 @@ public class GameState {
     public static final int ROWS = 3;
     public static final int COLUMNS = 3;
     private static final int REQUIRED_AMOUNT_OF_PIECES = ROWS * COLUMNS;
+    private static final List<Location> LOCATIONS = Arrays.asList(
+            new Location(0, 0), new Location(0, 1), new Location(0, 2),
+            new Location(1, 0), new Location(1, 1), new Location(1, 2),
+            new Location(2, 0), new Location(2, 1), new Location(2, 2)
+    );
     private static final List<List<Location>> POSSIBLE_LINES = Arrays.asList(
             Arrays.asList(new Location(0, 0), new Location(1, 0), new Location(2, 0)),
             Arrays.asList(new Location(0, 1), new Location(1, 1), new Location(2, 1)),
@@ -36,8 +41,8 @@ public class GameState {
     }
 
     private boolean isFull() {
-        for (Piece p : pieces)
-            if (p == null)
+        for (Location l : LOCATIONS)
+            if (lookAt(l) == null)
                 return false;
 
         return true;
