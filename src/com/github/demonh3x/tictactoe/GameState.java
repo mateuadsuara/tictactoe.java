@@ -36,57 +36,73 @@ public class GameState {
         this.pieces = Collections.unmodifiableList(pieces);
     }
 
+    static class GameLogic {
+        private final GameState gs;
+
+        public GameLogic(GameState gs) {
+            this.gs = gs;
+        }
+
+        public Boolean isFinished() {
+            return isFull() || hasALine();
+        }
+
+        private boolean isFull() {
+            for (Location l : LOCATIONS)
+                if (gs.lookAt(l) == null)
+                    return false;
+
+            return true;
+        }
+
+        private boolean hasALine() {
+            return getWinningLine() != null;
+        }
+
+        private List<Piece> getWinningLine() {
+            for (List<Location> line : POSSIBLE_LINES)
+                if (isAWinningLine(getPiecesInTheLine(line)))
+                    return getPiecesInTheLine(line);
+
+            return null;
+        }
+
+        private boolean isAWinningLine(List<Piece> piecesInTheLine) {
+            Piece firstPiece = piecesInTheLine.get(0);
+
+            if (firstPiece == null)
+                return false;
+
+            for (Piece p : piecesInTheLine)
+                if (p != firstPiece)
+                    return false;
+
+            return true;
+        }
+
+        private List<Piece> getPiecesInTheLine(List<Location> line) {
+            ArrayList<Piece> linePieces = new ArrayList<>(line.size());
+
+            for (Location location : line)
+                linePieces.add(gs.lookAt(location));
+
+            return linePieces;
+        }
+
+        public boolean hasWon(Player possibleWinner) {
+            List<Piece> winningLine = getWinningLine();
+
+            return winningLine != null &&
+                    winningLine.get(0).isOwnedBy(possibleWinner);
+        }
+    }
+
     public Boolean isFinished() {
-        return isFull() || hasALine();
-    }
-
-    private boolean isFull() {
-        for (Location l : LOCATIONS)
-            if (lookAt(l) == null)
-                return false;
-
-        return true;
-    }
-
-    private boolean hasALine() {
-        return getWinningLine() != null;
-    }
-
-    private List<Piece> getWinningLine() {
-        for (List<Location> line : POSSIBLE_LINES)
-            if (isAWinningLine(getPiecesInTheLine(line)))
-                return getPiecesInTheLine(line);
-
-        return null;
-    }
-
-    private boolean isAWinningLine(List<Piece> piecesInTheLine) {
-        Piece firstPiece = piecesInTheLine.get(0);
-
-        if (firstPiece == null)
-            return false;
-
-        for (Piece p : piecesInTheLine)
-            if (p != firstPiece)
-                return false;
-
-        return true;
-    }
-
-    private List<Piece> getPiecesInTheLine(List<Location> line) {
-        ArrayList<Piece> linePieces = new ArrayList<>(line.size());
-
-        for (Location location : line)
-            linePieces.add(lookAt(location));
-
-        return linePieces;
+        return new GameLogic(this).isFinished();
     }
 
     public boolean hasWon(Player possibleWinner) {
-        List<Piece> winningLine = getWinningLine();
-
-        return winningLine != null &&
-               winningLine.get(0).isOwnedBy(possibleWinner);
+        return new GameLogic(this).hasWon(possibleWinner);
     }
 
     public Piece lookAt(Location l){
