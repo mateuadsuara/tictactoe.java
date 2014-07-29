@@ -20,9 +20,7 @@ public class GameState {
     }
 
     public Piece lookAt(Location l){
-        final int index = getIndex(l);
-
-        return pieces.get(index);
+        return pieces.get(getIndex(l));
     }
 
     private int getIndex(Location l) {
