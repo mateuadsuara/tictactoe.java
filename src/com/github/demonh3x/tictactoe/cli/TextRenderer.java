@@ -5,6 +5,8 @@ import com.github.demonh3x.tictactoe.Location;
 import com.github.demonh3x.tictactoe.Piece;
 import com.github.demonh3x.tictactoe.Player;
 
+import java.util.Map;
+
 public class TextRenderer {
     private static final Location[] LOCATIONS_IN_RENDERING_ORDER = {
             new Location(0, 0),
@@ -18,13 +20,11 @@ public class TextRenderer {
             new Location(2, 2)
     };
 
-    private final Player xOwner;
-    private final Player oOwner;
+    private final Map<Player, Character> playerIconMappings;
     private final GameState state;
 
-    public TextRenderer(Player xOwner, Player oOwner, GameState state){
-        this.xOwner = xOwner;
-        this.oOwner = oOwner;
+    public TextRenderer(Map<Player, Character> playerIconMappings, GameState state){
+        this.playerIconMappings = playerIconMappings;
         this.state = state;
     }
 
@@ -58,11 +58,13 @@ public class TextRenderer {
         if (piece == null)
             return " ";
 
-        if (piece.isOwnedBy(xOwner))
-            return "X";
+        for (Map.Entry<Player, Character> playerIconMapping : playerIconMappings.entrySet()){
+            Player player = playerIconMapping.getKey();
+            Character icon = playerIconMapping.getValue();
 
-        if (piece.isOwnedBy(oOwner))
-            return "O";
+            if (piece.isOwnedBy(player))
+                return icon.toString();
+        }
 
         throw new IllegalArgumentException();
     }
