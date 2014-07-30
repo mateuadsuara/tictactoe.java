@@ -6,9 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameState {
-    public static final int ROWS = 3;
-    public static final int COLUMNS = 3;
-
     public static GameState empty(){
         return new GameState(Arrays.<Piece>asList(null, null, null, null, null, null, null, null, null));
     }
@@ -24,15 +21,7 @@ public class GameState {
     }
 
     private int getIndex(Location l) {
-        if (l.x >= COLUMNS || l.x < 0 ||
-            l.y >= ROWS || l.y < 0)
-            invalidLocation(l);
-
-        return (l.y * ROWS) + l.x;
-    }
-
-    private void invalidLocation(Location l) {
-        throw new IllegalArgumentException("The location " + l.toString() + " is out of range!");
+        return (l.y * Location.ROWS) + l.x;
     }
 
     public GameState put(Piece p, Location l) {
