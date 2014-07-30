@@ -111,6 +111,7 @@ public class GameStateTest {
             assertIllegalLocation(new Location(-1, 0));
             assertIllegalLocation(new Location(3, 2));
             assertIllegalLocation(new Location(3, 0));
+            assertIllegalLocation(new Location(2, 3));
         }
 
         private void assertIllegalLocation(Location l) {
