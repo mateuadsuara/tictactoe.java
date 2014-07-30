@@ -5,11 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GameLogic {
-    private static final List<Location> LOCATIONS = Arrays.asList(
-            new Location(0, 0), new Location(0, 1), new Location(0, 2),
-            new Location(1, 0), new Location(1, 1), new Location(1, 2),
-            new Location(2, 0), new Location(2, 1), new Location(2, 2)
-    );
     private static final List<List<Location>> POSSIBLE_LINES = Arrays.asList(
             Arrays.asList(new Location(0, 0), new Location(1, 0), new Location(2, 0)),
             Arrays.asList(new Location(0, 1), new Location(1, 1), new Location(2, 1)),
@@ -34,7 +29,7 @@ public class GameLogic {
     }
 
     private boolean isFull() {
-        for (Location l : LOCATIONS)
+        for (Location l : Location.getAll())
             if (gs.lookAt(l) == null)
                 return false;
 

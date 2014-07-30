@@ -1,8 +1,18 @@
 package com.github.demonh3x.tictactoe;
 
+import java.util.Arrays;
+
 public class Location {
     public static final int ROWS = 3;
     public static final int COLUMNS = 3;
+
+    public static Iterable<Location> getAll(){
+        return Arrays.asList(
+                new Location(0, 0), new Location(0, 1), new Location(0, 2),
+                new Location(1, 0), new Location(1, 1), new Location(1, 2),
+                new Location(2, 0), new Location(2, 1), new Location(2, 2)
+        );
+    }
 
     public final int x;
     public final int y;
