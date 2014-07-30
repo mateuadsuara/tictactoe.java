@@ -21,7 +21,7 @@ public class GameState {
 
     public Piece lookAt(Location l){
         final int index = getIndex(l);
-        if (index < 0)
+        if (index < 0 || index >= pieces.size())
             throw new IllegalArgumentException("The location " + l.toString() + " is out of range!");
 
         return pieces.get(index);
