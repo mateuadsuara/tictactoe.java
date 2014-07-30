@@ -110,6 +110,7 @@ public class GameStateTest {
         public void outside_ThrowsIllegalArgumentException() {
             assertIllegalLocation(new Location(-1, 0));
             assertIllegalLocation(new Location(3, 2));
+            assertIllegalLocation(new Location(3, 0));
         }
 
         private void assertIllegalLocation(Location l) {

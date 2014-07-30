@@ -24,12 +24,19 @@ public class GameState {
     }
 
     private int getIndex(Location l) {
+        if (l.x >= ROWS)
+            invalidLocation(l);
+
         final int index = (l.y * ROWS) + l.x;
 
         if (index < 0 || index >= pieces.size())
-            throw new IllegalArgumentException("The location " + l.toString() + " is out of range!");
+            invalidLocation(l);
 
         return index;
+    }
+
+    private void invalidLocation(Location l) {
+        throw new IllegalArgumentException("The location " + l.toString() + " is out of range!");
     }
 
     public GameState put(Piece p, Location l) {
