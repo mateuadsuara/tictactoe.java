@@ -24,15 +24,10 @@ public class GameState {
     }
 
     private int getIndex(Location l) {
-        if (l.x >= ROWS)
+        if (l.x >= ROWS || l.x < 0)
             invalidLocation(l);
 
-        final int index = (l.y * ROWS) + l.x;
-
-        if (index < 0 || index >= pieces.size())
-            invalidLocation(l);
-
-        return index;
+        return (l.y * ROWS) + l.x;
     }
 
     private void invalidLocation(Location l) {
