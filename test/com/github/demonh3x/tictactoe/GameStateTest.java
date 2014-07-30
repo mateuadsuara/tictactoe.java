@@ -104,6 +104,33 @@ public class GameStateTest {
             );
             assertThat(gameState.lookAt(new Location(2, 2)), is(O));
         }
+
+
+        @Test
+        public void outside_ThrowsIllegalArgumentException() {
+            assertIllegalLocation(new Location(3, 0));
+        }
+
+        private void assertIllegalLocation(Location l) {
+            final GameState gameState = createGameState(
+                    _, _, _,
+                    _, _, _,
+                    _, _, _
+            );
+
+            boolean exceptionThrown = false;
+            try {
+                gameState.lookAt(l);
+            } catch (IllegalArgumentException e){
+                exceptionThrown = true;
+            }
+
+            final String reason = String.format(
+                    "Expected GameState.lookAt(Location(x:%s, y:%s)) to throw IllegalArgumentException",
+                    l.x, l.y
+            );
+            assertThat(reason, exceptionThrown, is(true));
+        }
     }
 
     public class PutPieceAtLocation {
