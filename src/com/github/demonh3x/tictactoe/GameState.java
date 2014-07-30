@@ -20,15 +20,16 @@ public class GameState {
     }
 
     public Piece lookAt(Location l){
-        final int index = getIndex(l);
-        if (index < 0 || index >= pieces.size())
-            throw new IllegalArgumentException("The location " + l.toString() + " is out of range!");
-
-        return pieces.get(index);
+        return pieces.get(getIndex(l));
     }
 
     private int getIndex(Location l) {
-        return (l.y * ROWS) + l.x;
+        final int index = (l.y * ROWS) + l.x;
+
+        if (index < 0 || index >= pieces.size())
+            throw new IllegalArgumentException("The location " + l.toString() + " is out of range!");
+
+        return index;
     }
 
     public GameState put(Piece p, Location l) {
