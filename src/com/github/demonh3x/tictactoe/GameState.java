@@ -25,7 +25,7 @@ public class GameState {
 
     private int getIndex(Location l) {
         if (l.x >= COLUMNS || l.x < 0 ||
-            l.y >= ROWS)
+            l.y >= ROWS || l.y < 0)
             invalidLocation(l);
 
         return (l.y * ROWS) + l.x;
