@@ -2,7 +2,6 @@ package com.github.demonh3x.tictactoe.cli;
 
 import com.github.demonh3x.tictactoe.GameState;
 import com.github.demonh3x.tictactoe.Location;
-import com.github.demonh3x.tictactoe.Piece;
 import com.github.demonh3x.tictactoe.Player;
 
 import java.util.Map;
@@ -54,18 +53,10 @@ public class TextRenderer {
         return renderedPieces;
     }
 
-    private String renderPiece(Piece piece) {
-        if (piece == null)
+    private String renderPiece(Player player) {
+        if (player == null)
             return " ";
 
-        for (Map.Entry<Player, Character> playerIconMapping : playerIconMappings.entrySet()){
-            Player player = playerIconMapping.getKey();
-            Character icon = playerIconMapping.getValue();
-
-            if (piece.isOwnedBy(player))
-                return icon.toString();
-        }
-
-        throw new IllegalArgumentException();
+        return playerIconMappings.get(player).toString();
     }
 }

@@ -13,11 +13,11 @@ public class GameStateTest {
     private static final Player xPlayer = new Player();
     private static final Player oPlayer = new Player();
 
-    private static final Piece _ = null;
-    private static final Piece X = new Piece(xPlayer);
-    private static final Piece O = new Piece(oPlayer);
+    private static final Player _ = null;
+    private static final Player X = xPlayer;
+    private static final Player O = oPlayer;
 
-    private GameState createGameState(Piece... pieces) {
+    private GameState createGameState(Player... pieces) {
         final GameState gameState = GameState.empty();
         return gameState
                 .put(pieces[0], new Location(0, 0))

@@ -40,7 +40,7 @@ public class GameLogic {
         return getWinningLine() != null;
     }
 
-    private List<Piece> getWinningLine() {
+    private List<Player> getWinningLine() {
         for (List<Location> line : POSSIBLE_LINES)
             if (isAWinningLine(getPiecesInTheLine(line)))
                 return getPiecesInTheLine(line);
@@ -48,21 +48,21 @@ public class GameLogic {
         return null;
     }
 
-    private boolean isAWinningLine(List<Piece> piecesInTheLine) {
-        Piece firstPiece = piecesInTheLine.get(0);
+    private boolean isAWinningLine(List<Player> piecesInTheLine) {
+        Player firstPiece = piecesInTheLine.get(0);
 
         if (firstPiece == null)
             return false;
 
-        for (Piece p : piecesInTheLine)
+        for (Player p : piecesInTheLine)
             if (p != firstPiece)
                 return false;
 
         return true;
     }
 
-    private List<Piece> getPiecesInTheLine(List<Location> line) {
-        ArrayList<Piece> linePieces = new ArrayList<>(line.size());
+    private List<Player> getPiecesInTheLine(List<Location> line) {
+        ArrayList<Player> linePieces = new ArrayList<>(line.size());
 
         for (Location location : line)
             linePieces.add(gs.lookAt(location));
@@ -71,9 +71,9 @@ public class GameLogic {
     }
 
     public boolean hasWon(Player possibleWinner) {
-        List<Piece> winningLine = getWinningLine();
+        List<Player> winningLine = getWinningLine();
 
         return winningLine != null &&
-                winningLine.get(0).isOwnedBy(possibleWinner);
+                winningLine.get(0).equals(possibleWinner);
     }
 }

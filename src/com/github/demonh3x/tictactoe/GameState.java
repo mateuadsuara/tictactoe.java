@@ -7,16 +7,16 @@ import java.util.List;
 
 public class GameState {
     public static GameState empty(){
-        return new GameState(Arrays.<Piece>asList(null, null, null, null, null, null, null, null, null));
+        return new GameState(Arrays.<Player>asList(null, null, null, null, null, null, null, null, null));
     }
 
-    private final List<Piece> pieces;
+    private final List<Player> pieces;
 
-    private GameState(List<Piece> pieces) {
+    private GameState(List<Player> pieces) {
         this.pieces = Collections.unmodifiableList(pieces);
     }
 
-    public Piece lookAt(Location l){
+    public Player lookAt(Location l){
         return pieces.get(getIndex(l));
     }
 
@@ -24,8 +24,8 @@ public class GameState {
         return (l.y * Location.ROWS) + l.x;
     }
 
-    public GameState put(Piece p, Location l) {
-        final ArrayList<Piece> newPieces = new ArrayList<>(this.pieces);
+    public GameState put(Player p, Location l) {
+        final ArrayList<Player> newPieces = new ArrayList<>(this.pieces);
         newPieces.set(getIndex(l), p);
         return new GameState(newPieces);
     }
