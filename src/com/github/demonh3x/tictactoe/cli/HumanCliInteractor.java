@@ -42,8 +42,28 @@ public class HumanCliInteractor implements GameInteractor {
     private Location readLocation() throws IOException {
         print("Location format: \"x,y\" (without the quotes)");
 
-        final String line = input.readLine();
-        return parseLocation(line);
+        String line = null;
+        Location l = null;
+
+        do {
+            try {
+                line = readLine();
+                l = parseLocation(line);
+            } catch (IllegalArgumentException e){
+                print(String.format("Can't understant \"%s\". Does it meet the Location format? Please, try again.", line));
+            }
+        } while (l == null);
+
+        return l;
+    }
+
+    private String readLine() throws IOException {
+        String line = input.readLine();
+
+        if (line == null)
+            throw new IOException("End of the stream reached!");
+
+        return line;
     }
 
     private Location parseLocation(String line) throws IllegalArgumentException {
