@@ -19,4 +19,14 @@ public class FirstPossiblePlayInteractorTest {
         final Location played = interactor.play(GameState.empty());
         assertThat(played, is(new Location(0, 0)));
     }
+
+    @Test
+    public void GivenStateWithFirstPieceInPlace_shouldReturnTheSecondLocation() {
+        final GameState gs = GameState.empty()
+                .put(new Player(), new Location(0, 0));
+
+        final Location played = interactor.play(gs);
+
+        assertThat(played, is(new Location(1, 0)));
+    }
 }
