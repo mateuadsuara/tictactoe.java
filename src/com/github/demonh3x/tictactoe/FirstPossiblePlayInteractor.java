@@ -4,13 +4,15 @@ public class FirstPossiblePlayInteractor implements GameInteractor {
     @Override
     public Location play(GameState state) {
         int index = 0;
-        int x;
+        int x, y;
 
         do {
-            x = index;
-            index++;
-        } while (!state.isEmptyAt(new Location(x, 0)));
+            x = index % Location.COLUMNS;
+            y = index / Location.COLUMNS;
 
-        return new Location(x, 0);
+            index++;
+        } while (!state.isEmptyAt(new Location(x, y)));
+
+        return new Location(x, y);
     }
 }
