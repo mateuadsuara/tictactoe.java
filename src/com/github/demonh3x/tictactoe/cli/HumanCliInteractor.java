@@ -22,7 +22,7 @@ public class HumanCliInteractor implements GameInteractor {
     public Location play(GameState state) {
         print("Your turn!");
         print(renderer.render(state));
-        print("Where do you play? (Input format: 'x,y')");
+        print("Where do you play?");
 
         return askForALocation();
     }
@@ -33,14 +33,20 @@ public class HumanCliInteractor implements GameInteractor {
 
     private Location askForALocation() {
         try {
-            final String line = input.readLine();
-            final String[] parts = line.split(",");
-            final int x = Integer.parseInt(parts[0]);
-            final int y = Integer.parseInt(parts[1]);
-
-            return new Location(x, y);
+            return readLocation();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private Location readLocation() throws IOException {
+        print("Location format: \"x,y\" (without the quotes)");
+
+        final String line = input.readLine();
+        final String[] parts = line.split(",");
+        final int x = Integer.parseInt(parts[0]);
+        final int y = Integer.parseInt(parts[1]);
+
+        return new Location(x, y);
     }
 }
