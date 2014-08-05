@@ -29,4 +29,8 @@ public class GameState {
         newPieces.set(getIndex(l), p);
         return new GameState(newPieces);
     }
+
+    public boolean isEmptyAt(Location l) {
+        return lookAt(l) == null;
+    }
 }
