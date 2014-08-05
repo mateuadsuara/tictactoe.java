@@ -1,5 +1,9 @@
-package com.github.demonh3x.tictactoe;
+package com.github.demonh3x.tictactoe.ai;
 
+import com.github.demonh3x.tictactoe.GameInteractor;
+import com.github.demonh3x.tictactoe.GameState;
+import com.github.demonh3x.tictactoe.Location;
+import com.github.demonh3x.tictactoe.Player;
 import org.junit.Before;
 import org.junit.Test;
 
