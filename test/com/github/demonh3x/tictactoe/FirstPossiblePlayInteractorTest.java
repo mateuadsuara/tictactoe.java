@@ -55,4 +55,20 @@ public class FirstPossiblePlayInteractorTest {
 
         assertThat(played, is(new Location(0, 1)));
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void GivenStateWithAllPiecesInPlace_shouldThrowException() {
+        final GameState gs = GameState.empty()
+                .put(new Player(), new Location(0, 0))
+                .put(new Player(), new Location(1, 0))
+                .put(new Player(), new Location(2, 0))
+                .put(new Player(), new Location(0, 1))
+                .put(new Player(), new Location(1, 1))
+                .put(new Player(), new Location(2, 1))
+                .put(new Player(), new Location(0, 2))
+                .put(new Player(), new Location(1, 2))
+                .put(new Player(), new Location(2, 2));
+
+        interactor.play(gs);
+    }
 }
