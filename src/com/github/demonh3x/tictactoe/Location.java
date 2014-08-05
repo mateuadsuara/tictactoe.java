@@ -14,12 +14,16 @@ public class Location {
         );
     }
 
+    public static String toString(int x, int y){
+        return String.format("[x:%s, y:%s]", x, y);
+    }
+
     public final int x;
     public final int y;
 
     public Location(int x, int y) {
         if (x >= COLUMNS || x < 0 || y >= ROWS || y < 0) {
-            throw new IllegalArgumentException(String.format("The location [x:%s, y:%s] is out of range!", x, y));
+            throw new IllegalArgumentException(String.format("The location %s is out of range!", toString(x, y)));
         }
 
         this.x = x;
@@ -33,5 +37,10 @@ public class Location {
 
         Location other = (Location) obj;
         return x == other.x && y == other.y;
+    }
+
+    @Override
+    public String toString() {
+        return toString(x, y);
     }
 }

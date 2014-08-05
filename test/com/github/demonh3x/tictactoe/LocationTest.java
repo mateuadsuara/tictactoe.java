@@ -42,4 +42,10 @@ public class LocationTest {
         assertThat(new Location(0, 0), is(new Location(0, 0)));
         assertThat(new Location(1, 1), is(new Location(1, 1)));
     }
+
+    @Test
+    public void stringRepresentation() {
+        assertThat(new Location(0, 0).toString(), is("[x:0, y:0]"));
+        assertThat(new Location(1, 1).toString(), is("[x:1, y:1]"));
+    }
 }
