@@ -16,7 +16,10 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test
     public void GivenAnEmptyState_shouldReturnTheFirstLocation() {
-        final Location played = interactor.play(GameState.empty());
+        final GameState gs = GameState.empty();
+
+        final Location played = interactor.play(gs);
+
         assertThat(played, is(new Location(0, 0)));
     }
 
