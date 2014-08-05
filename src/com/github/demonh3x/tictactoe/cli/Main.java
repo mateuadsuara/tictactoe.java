@@ -20,7 +20,8 @@ public class Main {
                 .put(xPlayer, new Location(0, 0))
                 .put(oPlayer, new Location(1, 0));
 
-        final String rendered = new TextRenderer(mappings).render(gameState);
-        System.out.println(rendered);
+        final HumanCliInteractor cliInteractor = new HumanCliInteractor(new TextRenderer(mappings));
+
+        cliInteractor.play(gameState);
     }
 }
