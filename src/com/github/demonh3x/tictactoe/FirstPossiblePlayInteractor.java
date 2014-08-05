@@ -5,7 +5,7 @@ public class FirstPossiblePlayInteractor implements GameInteractor {
     public Location play(GameState state) {
         int x = 0;
 
-        if (!state.isEmptyAt(new Location(x, 0)))
+        while (!state.isEmptyAt(new Location(x, 0)))
             x++;
 
         return new Location(x, 0);
