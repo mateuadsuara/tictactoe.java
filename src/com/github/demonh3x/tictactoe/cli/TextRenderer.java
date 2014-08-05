@@ -20,14 +20,12 @@ public class TextRenderer {
     };
 
     private final Map<Player, Character> playerIconMappings;
-    private final GameState state;
 
-    public TextRenderer(Map<Player, Character> playerIconMappings, GameState state){
+    public TextRenderer(Map<Player, Character> playerIconMappings){
         this.playerIconMappings = playerIconMappings;
-        this.state = state;
     }
 
-    public String render() {
+    public String render(GameState state) {
         return String.format(
                 "   x 0   1   2\n" +
                 " y +---+---+---+\n" +
@@ -37,11 +35,11 @@ public class TextRenderer {
                 "   +---+---+---+\n" +
                 " 2 | %s | %s | %s |\n" +
                 "   +---+---+---+",
-                getRenderedPieces()
+                getRenderedPieces(state)
         );
     }
 
-    private String[] getRenderedPieces() {
+    private String[] getRenderedPieces(GameState state) {
         String[] renderedPieces = new String[LOCATIONS_IN_RENDERING_ORDER.length];
 
         int i = 0;
