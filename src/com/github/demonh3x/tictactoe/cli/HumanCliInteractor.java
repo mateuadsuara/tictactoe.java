@@ -44,8 +44,8 @@ public class HumanCliInteractor implements GameInteractor {
 
         final String line = input.readLine();
         final String[] parts = line.split(",");
-        final int x = Integer.parseInt(parts[0]);
-        final int y = Integer.parseInt(parts[1]);
+        final int x = Integer.parseInt(parts[0].trim());
+        final int y = Integer.parseInt(parts[1].trim());
 
         return new Location(x, y);
     }
