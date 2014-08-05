@@ -83,6 +83,7 @@ public class GameStateTest {
                     O, O, X
             );
             assertThat(gameState.lookAt(new Location(0, 0)), is(_));
+            assertThat(gameState.isEmptyAt(new Location(0, 0)), is(true));
         }
 
         @Test
@@ -93,6 +94,7 @@ public class GameStateTest {
                     _, _, _
             );
             assertThat(gameState.lookAt(new Location(1, 1)), is(X));
+            assertThat(gameState.isEmptyAt(new Location(1, 1)), is(false));
         }
 
         @Test
@@ -103,6 +105,7 @@ public class GameStateTest {
                     _, _, O
             );
             assertThat(gameState.lookAt(new Location(2, 2)), is(O));
+            assertThat(gameState.isEmptyAt(new Location(2, 2)), is(false));
         }
     }
 
