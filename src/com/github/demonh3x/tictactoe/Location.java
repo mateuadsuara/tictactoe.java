@@ -25,4 +25,13 @@ public class Location {
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Location))
+            return false;
+
+        Location other = (Location) obj;
+        return x == other.x && y == other.y;
+    }
 }
