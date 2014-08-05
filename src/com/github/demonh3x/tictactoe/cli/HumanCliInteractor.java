@@ -43,9 +43,19 @@ public class HumanCliInteractor implements GameInteractor {
         print("Location format: \"x,y\" (without the quotes)");
 
         final String line = input.readLine();
-        final String[] parts = line.split(",");
-        final int x = Integer.parseInt(parts[0].trim());
-        final int y = Integer.parseInt(parts[1].trim());
+        return parseLocation(line);
+    }
+
+    private Location parseLocation(String line) throws IllegalArgumentException {
+        final int x, y;
+
+        try {
+            final String[] parts = line.split(",");
+            x = Integer.parseInt(parts[0].trim());
+            y = Integer.parseInt(parts[1].trim());
+        } catch (Throwable t){
+            throw new IllegalArgumentException(t);
+        }
 
         return new Location(x, y);
     }
