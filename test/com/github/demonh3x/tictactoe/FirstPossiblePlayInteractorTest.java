@@ -43,4 +43,16 @@ public class FirstPossiblePlayInteractorTest {
 
         assertThat(played, is(new Location(2, 0)));
     }
+
+    @Test
+    public void GivenStateWithFirstThreePiecesInPlace_shouldReturnTheFourthLocation() {
+        final GameState gs = GameState.empty()
+                .put(new Player(), new Location(0, 0))
+                .put(new Player(), new Location(1, 0))
+                .put(new Player(), new Location(2, 0));
+
+        final Location played = interactor.play(gs);
+
+        assertThat(played, is(new Location(0, 1)));
+    }
 }
