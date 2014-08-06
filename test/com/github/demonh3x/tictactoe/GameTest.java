@@ -65,4 +65,16 @@ public class GameTest {
         assertThat(interactor1.statesReceived.size(), is(0));
         assertThat(interactor2.statesReceived.size(), is(0));
     }
+
+    @Test
+    public void WhenStartingTheGame_ShouldNotifyTheObserversWithAnEmptyState() {
+        GameState emptyState = GameState.empty();
+
+        game.start();
+
+        assertThat(observer1.statesReceived.size(), is(1));
+        assertThat(observer2.statesReceived.size(), is(1));
+        assertThat(observer1.statesReceived.get(0), is(emptyState));
+        assertThat(observer2.statesReceived.get(0), is(emptyState));
+    }
 }

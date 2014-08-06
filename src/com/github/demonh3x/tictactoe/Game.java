@@ -7,4 +7,8 @@ public class Game {
     public Game(Map<Player, GameInteractor> interactors, List<GameObserver> observers) {
 
     }
+
+    public void start() {
+
+    }
 }
