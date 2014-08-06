@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 @RunWith(HierarchicalContextRunner.class)
@@ -80,8 +80,8 @@ public class GameTest {
         public void ShouldNotifyTheObserversWithAnEmptyState() {
             GameState emptyState = GameState.empty();
 
-            assertThat(observer1.statesReceived.size(), is(1));
-            assertThat(observer2.statesReceived.size(), is(1));
+            assertThat(observer1.statesReceived.size(), greaterThan(0));
+            assertThat(observer2.statesReceived.size(), greaterThan(0));
             assertThat(observer1.statesReceived.get(0), is(emptyState));
             assertThat(observer2.statesReceived.get(0), is(emptyState));
         }
