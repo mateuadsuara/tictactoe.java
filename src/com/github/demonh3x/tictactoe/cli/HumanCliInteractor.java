@@ -3,7 +3,6 @@ package com.github.demonh3x.tictactoe.cli;
 import com.github.demonh3x.tictactoe.GameInteractor;
 import com.github.demonh3x.tictactoe.GameState;
 import com.github.demonh3x.tictactoe.Location;
-import com.github.demonh3x.tictactoe.Renderer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
