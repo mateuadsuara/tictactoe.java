@@ -1,6 +1,9 @@
 package com.github.demonh3x.tictactoe;
 
+import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +13,7 @@ import java.util.Map;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+@RunWith(HierarchicalContextRunner.class)
 public class GameTest {
     private static class TestDoubleInteractor implements GameInteractor {
         public List<Location> playsToSend = new ArrayList<>();
@@ -66,15 +70,20 @@ public class GameTest {
         assertThat(interactor2.statesReceived.size(), is(0));
     }
 
-    @Test
-    public void WhenStartingTheGame_ShouldNotifyTheObserversWithAnEmptyState() {
-        GameState emptyState = GameState.empty();
+    public class WhenStartingTheGame {
+        @Before
+        public void setUp() {
+            game.start();
+        }
 
-        game.start();
+        @Test
+        public void ShouldNotifyTheObserversWithAnEmptyState() {
+            GameState emptyState = GameState.empty();
 
-        assertThat(observer1.statesReceived.size(), is(1));
-        assertThat(observer2.statesReceived.size(), is(1));
-        assertThat(observer1.statesReceived.get(0), is(emptyState));
-        assertThat(observer2.statesReceived.get(0), is(emptyState));
+            assertThat(observer1.statesReceived.size(), is(1));
+            assertThat(observer2.statesReceived.size(), is(1));
+            assertThat(observer1.statesReceived.get(0), is(emptyState));
+            assertThat(observer2.statesReceived.get(0), is(emptyState));
+        }
     }
 }
