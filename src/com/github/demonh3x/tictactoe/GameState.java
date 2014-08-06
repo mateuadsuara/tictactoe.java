@@ -33,4 +33,14 @@ public class GameState {
     public boolean isEmptyAt(Location l) {
         return lookAt(l) == null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof GameState))
+            return false;
+
+        GameState other = (GameState) obj;
+
+        return this.pieces.equals(other.pieces);
+    }
 }

@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 public class Game {
-    public Game(Map<Player, GameInteractor> interactors, List<GameObserver> observers) {
+    private final List<GameObserver> observers;
 
+    public Game(Map<Player, GameInteractor> interactors, List<GameObserver> observers) {
+        this.observers = observers;
     }
 
     public void start() {
-
+        for (GameObserver observer : observers)
+            observer.update(GameState.empty());
     }
 }
