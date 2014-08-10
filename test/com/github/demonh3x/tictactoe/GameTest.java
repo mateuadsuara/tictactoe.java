@@ -139,13 +139,13 @@ public class GameTest {
 
 
             @Test
-            public void ShouldNotifyTheObserversWithAnEmptyState() {
-                GameState emptyState = GameState.empty();
+            public void ShouldNotifyTheObserversWithTheInitialState() {
+                GameState initialState = GameState.empty();
 
                 assertThat(observer1.statesReceived.size(), greaterThan(0));
                 assertThat(observer2.statesReceived.size(), greaterThan(0));
-                assertThat(observer1.statesReceived.get(0), is(emptyState));
-                assertThat(observer2.statesReceived.get(0), is(emptyState));
+                assertThat(observer1.statesReceived.get(0), is(initialState));
+                assertThat(observer2.statesReceived.get(0), is(initialState));
             }
         }
     }
