@@ -134,16 +134,14 @@ public class GameTest {
             }
 
             @Test
-            public void ShouldNotifyTheObserversFirstWithTheInitialState() {
-                GameState initialState = GameState.empty();
-
-                assertObserversReceivedState(Arrays.asList(observer1, observer2), 0, initialState);
+            public void AtTheStart_ShouldNotifyTheInitialStateToTheObservers() {
+                assertObserversReceivedState(0, GameState.empty());
             }
         }
     }
 
-    private void assertObserversReceivedState(List<TestDoubleObserver> observers, int index, GameState expectedState) {
-        for (TestDoubleObserver observer : observers){
+    private void assertObserversReceivedState(int index, GameState expectedState) {
+        for (TestDoubleObserver observer : Arrays.asList(observer1, observer2)){
             assertObserverReceivedState(observer, index, expectedState);
         }
     }
