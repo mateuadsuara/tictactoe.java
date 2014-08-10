@@ -140,12 +140,14 @@ public class GameTest {
             public void ShouldNotifyTheObserversWithTheInitialState() {
                 GameState initialState = GameState.empty();
 
-                assertThat(observer1.statesReceived.size(), greaterThan(0));
-                assertThat(observer1.statesReceived.get(0), is(initialState));
-
-                assertThat(observer2.statesReceived.size(), greaterThan(0));
-                assertThat(observer2.statesReceived.get(0), is(initialState));
+                assertObserverReceivedState(observer1, 0, initialState);
+                assertObserverReceivedState(observer2, 0, initialState);
             }
         }
+    }
+
+    private void assertObserverReceivedState(TestDoubleObserver observer, int index, GameState expectedState) {
+        assertThat(observer.statesReceived.size(), greaterThan(index));
+        assertThat(observer.statesReceived.get(index), is(expectedState));
     }
 }
