@@ -130,13 +130,11 @@ public class GameTest {
             game.run();
         }
 
-
         public class WhenRunningTheGame {
             @Before
             public void setUp() {
                 game.run();
             }
-
 
             @Test
             public void ShouldNotifyTheObserversWithTheInitialState() {
