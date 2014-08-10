@@ -5,10 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.github.demonh3x.tictactoe.TestDoubleInteractor.*;
 import static com.github.demonh3x.tictactoe.TestDoubleInteractor.PlaysRecorder.LocationWhereToPlay.*;
@@ -137,12 +134,17 @@ public class GameTest {
             }
 
             @Test
-            public void ShouldNotifyTheObserversWithTheInitialState() {
+            public void ShouldNotifyTheObserversFirstWithTheInitialState() {
                 GameState initialState = GameState.empty();
 
-                assertObserverReceivedState(observer1, 0, initialState);
-                assertObserverReceivedState(observer2, 0, initialState);
+                assertObserversReceivedState(Arrays.asList(observer1, observer2), 0, initialState);
             }
+        }
+    }
+
+    private void assertObserversReceivedState(List<TestDoubleObserver> observers, int index, GameState expectedState) {
+        for (TestDoubleObserver observer : observers){
+            assertObserverReceivedState(observer, index, expectedState);
         }
     }
 
