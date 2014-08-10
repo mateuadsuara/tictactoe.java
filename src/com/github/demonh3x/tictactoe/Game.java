@@ -10,7 +10,7 @@ public class Game {
         this.observers = observers;
     }
 
-    public void start() {
+    public void run() {
         for (GameObserver observer : observers)
             observer.update(GameState.empty());
     }

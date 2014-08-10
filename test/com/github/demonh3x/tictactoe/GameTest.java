@@ -52,7 +52,7 @@ public class GameTest {
     }
 
     @Test
-    public void BeforeStartingTheGame_NoOneShouldHaveBeenNotified() {
+    public void BeforeRunningTheGame_NoOneShouldHaveBeenNotified() {
         assertThat(observer1.statesReceived.size(), is(0));
         assertThat(observer2.statesReceived.size(), is(0));
         assertThat(interactor1.statesReceived.size(), is(0));
@@ -127,14 +127,14 @@ public class GameTest {
                     _, X, _
             );
 
-            game.start();
+            game.run();
         }
 
 
-        public class WhenStartingTheGame {
+        public class WhenRunningTheGame {
             @Before
             public void setUp() {
-                game.start();
+                game.run();
             }
 
 
