@@ -10,24 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.github.demonh3x.tictactoe.TestDoubleInteractor.*;
+import static com.github.demonh3x.tictactoe.TestDoubleInteractor.PlaysRecorder.LocationWhereToPlay.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 @RunWith(HierarchicalContextRunner.class)
 public class GameTest {
-    private static class TestDoubleInteractor implements GameInteractor {
-        public List<Location> playsToSend = new ArrayList<>();
-        private int playIndex = 0;
-
-        public List<GameState> statesReceived = new ArrayList<>();
-
-        @Override
-        public Location play(GameState state) {
-            statesReceived.add(state);
-            return this.playsToSend.get(playIndex++);
-        }
-    }
-
     private static class TestDoubleObserver implements GameObserver {
         public List<GameState> statesReceived = new ArrayList<>();
 
@@ -70,20 +59,94 @@ public class GameTest {
         assertThat(interactor2.statesReceived.size(), is(0));
     }
 
-    public class WhenStartingTheGame {
+    public class GivenADrawGame {
         @Before
         public void setUp() {
+            final PlaysRecorder player1Recorder = new PlaysRecorder(interactor1);
+            final PlaysRecorder player2Recorder = new PlaysRecorder(interactor2);
+
+            final PlaysRecorder.LocationWhereToPlay X = HERE;
+            final PlaysRecorder.LocationWhereToPlay O = HERE;
+            final PlaysRecorder.LocationWhereToPlay _ = NOT_HERE;
+
+            // X, O, X
+            // O, X, X
+            // O, X, O
+
+            player1Recorder.recordPlayToDo(
+                    X, _, _,
+                    _, _, _,
+                    _, _, _
+            );
+
+            player2Recorder.recordPlayToDo(
+                    _, O, _,
+                    _, _, _,
+                    _, _, _
+            );
+
+            player1Recorder.recordPlayToDo(
+                    _, _, X,
+                    _, _, _,
+                    _, _, _
+            );
+
+            player2Recorder.recordPlayToDo(
+                    _, _, _,
+                    O, _, _,
+                    _, _, _
+            );
+
+            player1Recorder.recordPlayToDo(
+                    _, _, _,
+                    _, X, _,
+                    _, _, _
+            );
+
+            player2Recorder.recordPlayToDo(
+                    _, _, _,
+                    _, _, _,
+                    O, _, _
+            );
+
+            player1Recorder.recordPlayToDo(
+                    _, _, _,
+                    _, _, X,
+                    _, _, _
+            );
+
+            player2Recorder.recordPlayToDo(
+                    _, _, _,
+                    _, _, _,
+                    _, _, O
+            );
+
+            player1Recorder.recordPlayToDo(
+                    _, _, _,
+                    _, _, _,
+                    _, X, _
+            );
+
             game.start();
         }
 
-        @Test
-        public void ShouldNotifyTheObserversWithAnEmptyState() {
-            GameState emptyState = GameState.empty();
 
-            assertThat(observer1.statesReceived.size(), greaterThan(0));
-            assertThat(observer2.statesReceived.size(), greaterThan(0));
-            assertThat(observer1.statesReceived.get(0), is(emptyState));
-            assertThat(observer2.statesReceived.get(0), is(emptyState));
+        public class WhenStartingTheGame {
+            @Before
+            public void setUp() {
+                game.start();
+            }
+
+
+            @Test
+            public void ShouldNotifyTheObserversWithAnEmptyState() {
+                GameState emptyState = GameState.empty();
+
+                assertThat(observer1.statesReceived.size(), greaterThan(0));
+                assertThat(observer2.statesReceived.size(), greaterThan(0));
+                assertThat(observer1.statesReceived.get(0), is(emptyState));
+                assertThat(observer2.statesReceived.get(0), is(emptyState));
+            }
         }
     }
 }
