@@ -147,7 +147,10 @@ public class GameTest {
     }
 
     private void assertObserverReceivedState(TestDoubleObserver observer, int index, GameState expectedState) {
-        assertThat(observer.statesReceived.size(), greaterThan(index));
+        assertThat(
+                "The observer should have received more than " + index + " calls to update(GameState)!",
+                observer.statesReceived.size(), greaterThan(index));
+
         assertThat(observer.statesReceived.get(index), is(expectedState));
     }
 }
