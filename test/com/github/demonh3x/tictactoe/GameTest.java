@@ -137,7 +137,20 @@ public class GameTest {
             public void AtTheStart_ShouldNotifyTheInitialStateToTheObservers() {
                 assertObserversReceivedState(0, GameState.empty());
             }
+
+            @Test
+            public void AtTheStart_ShouldAskPlayer1InteractorToPlayFromTheInitialState() {
+                assertInteractorReceivedState(interactor1, 0, GameState.empty());
+            }
         }
+    }
+
+    private void assertInteractorReceivedState(TestDoubleInteractor interactor, int index, GameState expectedState) {
+        assertThat(
+                "The interactor should have received more than " + index + " calls to play(GameState)!",
+                interactor.statesReceived.size(), greaterThan(index));
+
+        assertThat(interactor.statesReceived.get(index), is(expectedState));
     }
 
     private void assertObserversReceivedState(int index, GameState expectedState) {
