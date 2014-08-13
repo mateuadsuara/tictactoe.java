@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.util.*;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -29,8 +31,8 @@ public class GameIteratorTest {
     Player xPlayer = new Player();
     Player oPlayer = new Player();
 
-    GameInteractor xInteractor;
-    GameInteractor oInteractor;
+    GameInteractorSpy xInteractor;
+    GameInteractorSpy oInteractor;
 
     Map<Player, GameInteractor> interactors;
 
@@ -69,5 +71,12 @@ public class GameIteratorTest {
     public void GivenAPlayerToIterate_ShouldHaveNextState() {
         final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate(xPlayer));
         assertTrue(game.hasNext());
+    }
+
+    @Test
+    public void GivenAPlayerToIterate_WhenGettingTheNextState_ShouldAskTheInteractorOfThatPlayer() {
+        final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate(xPlayer));
+        game.next();
+        assertThat(xInteractor.receivedStatesToPlay.size(), is(1));
     }
 }
