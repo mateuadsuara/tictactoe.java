@@ -2,6 +2,7 @@ package com.github.demonh3x.tictactoe;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class GameIterator implements Iterator<GameState> {
     public GameIterator(GameState initial, Map<Player, GameInteractor> interactors, Iterator<Player> turns) {
@@ -13,7 +14,7 @@ public class GameIterator implements Iterator<GameState> {
 
     @Override
     public GameState next() {
-        return null;
+        throw new NoSuchElementException();
     }
 
     @Override

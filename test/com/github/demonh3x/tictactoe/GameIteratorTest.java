@@ -57,4 +57,10 @@ public class GameIteratorTest {
         final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate());
         game.remove();
     }
+
+    @Test(expected = NoSuchElementException.class)
+    public void GivenAnEmptyPlayerIterator_WhenGettingTheNextState_ShouldThrowNoSuchElement() {
+        final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate());
+        game.next();
+    }
 }
