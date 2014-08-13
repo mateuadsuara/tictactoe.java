@@ -75,7 +75,7 @@ public class GameIteratorTest {
     }
 
     @Test
-    public void GivenAPlayerToIterate_WhenGettingTheNextState_ShouldAskTheInteractorOfThatPlayer() {
+    public void GivenAPlayerToIterate_WhenGettingTheNextState_ShouldAskThatPlayersInteractor() {
         final GameState initialState = GameState.empty();
         final GameIterator game = new GameIterator(initialState, interactors, iterate(xPlayer));
         game.next();
