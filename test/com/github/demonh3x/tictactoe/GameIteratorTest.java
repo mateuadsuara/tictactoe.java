@@ -8,6 +8,7 @@ import java.util.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -78,6 +79,7 @@ public class GameIteratorTest {
     public void GivenAPlayerToIterate_WhenGettingTheNextState_ShouldAskThatPlayersInteractor() {
         final GameState initialState = GameState.empty();
         final GameIterator game = new GameIterator(initialState, interactors, iterate(xPlayer));
+        xInteractor.locationToPlay = new Location(0, 0);
         game.next();
         assertThat(xInteractor.receivedStatesToPlay.size(), is(1));
         assertThat(xInteractor.receivedStatesToPlay.get(0), is(sameInstance(initialState)));
@@ -93,7 +95,21 @@ public class GameIteratorTest {
     public void GivenOnePlayerToIterate_AfterGettingTheFirstState_ShouldNotHaveNextState() {
         final GameState initialState = GameState.empty();
         final GameIterator game = new GameIterator(initialState, interactors, iterate(xPlayer));
+        xInteractor.locationToPlay = new Location(0, 0);
         game.next();
         assertFalse(game.hasNext());
+    }
+
+    @Test
+    public void GivenTwoPlayersToIterate_WhenGettingTheSecondState_ShouldAskTheSecondPlayersInteractorWithThePreviousState() {
+        final GameState initialState = GameState.empty();
+        final GameIterator game = new GameIterator(initialState, interactors, iterate(xPlayer, oPlayer));
+        xInteractor.locationToPlay = new Location(0, 0);
+        final GameState previousState = game.next();
+        oInteractor.locationToPlay = new Location(0, 1);
+        game.next();
+        assertThat(oInteractor.receivedStatesToPlay.size(), is(1));
+        assertThat(oInteractor.receivedStatesToPlay.get(0), is(previousState));
+        assertThat(oInteractor.receivedStatesToPlay.get(0), is(not(initialState)));
     }
 }

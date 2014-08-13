@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class GameIterator implements Iterator<GameState> {
-    private final GameState initial;
+    private GameState state;
     private final Map<Player, GameInteractor> interactors;
     private final Iterator<Player> players;
 
     public GameIterator(GameState initial, Map<Player, GameInteractor> interactors, Iterator<Player> turns) {
-        this.initial = initial;
+        this.state = initial;
         this.interactors = interactors;
         this.players = turns;
     }
@@ -24,9 +24,11 @@ public class GameIterator implements Iterator<GameState> {
         if (!hasNext())
             throw new NoSuchElementException();
 
-        interactors.get(players.next()).play(initial);
+        final Player currentPlayer = players.next();
+        final Location chosenLocation = interactors.get(currentPlayer).play(state);
+        state = state.put(currentPlayer, chosenLocation);
 
-        return null;
+        return state;
     }
 
     @Override
