@@ -123,11 +123,12 @@ public class GameTest {
                     _, _, _,
                     _, X, _
             );
-
-            game.run();
         }
 
         public class WhenRunningTheGame {
+            final Player X = player1;
+            final Player _ = null;
+
             @Before
             public void setUp() {
                 game.run();
@@ -141,6 +142,15 @@ public class GameTest {
             @Test
             public void AtTheStart_ShouldAskPlayer1InteractorToPlayFromTheInitialState() {
                 assertInteractorReceivedState(interactor1, 0, GameState.empty());
+            }
+
+            @Test
+            public void AfterTheFirstPlay_ShouldNotifyTheNextStateToTheObservers() {
+                assertObserversReceivedState(1, GameStateLiteral.create(
+                        X, _, _,
+                        _, _, _,
+                        _, _, _
+                ));
             }
         }
     }
@@ -164,6 +174,7 @@ public class GameTest {
                 "The observer should have received more than " + index + " calls to update(GameState)!",
                 observer.statesReceived.size(), greaterThan(index));
 
-        assertThat(observer.statesReceived.get(index), is(expectedState));
+        final GameState actual = observer.statesReceived.get(index);
+        assertThat(actual, is(expectedState));
     }
 }
