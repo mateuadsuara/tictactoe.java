@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class GameIteratorTest {
     public class GameInteractorSpy implements GameInteractor {
@@ -62,5 +63,11 @@ public class GameIteratorTest {
     public void GivenAnEmptyPlayerIterator_WhenGettingTheNextState_ShouldThrowNoSuchElement() {
         final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate());
         game.next();
+    }
+
+    @Test
+    public void GivenAPlayerToIterate_ShouldHaveNextState() {
+        final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate(xPlayer));
+        assertTrue(game.hasNext());
     }
 }

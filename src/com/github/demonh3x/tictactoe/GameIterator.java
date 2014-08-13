@@ -5,11 +5,14 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class GameIterator implements Iterator<GameState> {
+    private final Iterator<Player> turns;
+
     public GameIterator(GameState initial, Map<Player, GameInteractor> interactors, Iterator<Player> turns) {
+        this.turns = turns;
     }
 
     public boolean hasNext() {
-        return false;
+        return turns.hasNext();
     }
 
     @Override
