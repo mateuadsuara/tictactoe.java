@@ -82,4 +82,10 @@ public class GameIteratorTest {
         assertThat(xInteractor.receivedStatesToPlay.size(), is(1));
         assertThat(xInteractor.receivedStatesToPlay.get(0), is(sameInstance(initialState)));
     }
+
+    @Test
+    public void GivenAPlayerToIterate_BeforeGettingTheNextState_ShouldntHaveAskedThatPlayersInteractor() {
+        final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate(xPlayer));
+        assertThat(xInteractor.receivedStatesToPlay.size(), is(0));
+    }
 }
