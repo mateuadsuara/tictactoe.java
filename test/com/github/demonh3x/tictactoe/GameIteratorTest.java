@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -75,8 +76,10 @@ public class GameIteratorTest {
 
     @Test
     public void GivenAPlayerToIterate_WhenGettingTheNextState_ShouldAskTheInteractorOfThatPlayer() {
-        final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate(xPlayer));
+        final GameState initialState = GameState.empty();
+        final GameIterator game = new GameIterator(initialState, interactors, iterate(xPlayer));
         game.next();
         assertThat(xInteractor.receivedStatesToPlay.size(), is(1));
+        assertThat(xInteractor.receivedStatesToPlay.get(0), is(sameInstance(initialState)));
     }
 }
