@@ -4,30 +4,26 @@ import com.github.demonh3x.tictactoe.GameInteractor;
 import com.github.demonh3x.tictactoe.GameState;
 import com.github.demonh3x.tictactoe.Location;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class HumanCliInteractor implements GameInteractor {
-    private final Renderer<String> renderer;
     private final BufferedReader input;
+    private final PrintStream output;
 
-    public HumanCliInteractor(Renderer<String> renderer){
-        this.renderer = renderer;
-        input = new BufferedReader(new InputStreamReader(System.in));
+    public HumanCliInteractor(PrintStream output, InputStream input){
+        this.output = output;
+        this.input = new BufferedReader(new InputStreamReader(input));
     }
 
     @Override
     public Location play(GameState state) {
-        print("Your turn!");
-        print(renderer.render(state));
-        print("Where do you play?");
+        print("Your turn! Where do you play?");
 
         return askForALocation();
     }
 
     private void print(String message){
-        System.out.println(message);
+        output.println(message);
     }
 
     private Location askForALocation() {
