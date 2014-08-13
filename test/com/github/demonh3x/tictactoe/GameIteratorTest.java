@@ -51,4 +51,10 @@ public class GameIteratorTest {
         final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate());
         assertFalse(game.hasNext());
     }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void WhenRemoving_ShouldThrowUnsupportedOperation() {
+        final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate());
+        game.remove();
+    }
 }
