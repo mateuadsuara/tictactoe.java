@@ -88,4 +88,12 @@ public class GameIteratorTest {
         final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate(xPlayer));
         assertThat(xInteractor.receivedStatesToPlay.size(), is(0));
     }
+
+    @Test
+    public void GivenOnePlayerToIterate_AfterGettingTheFirstState_ShouldNotHaveNextState() {
+        final GameState initialState = GameState.empty();
+        final GameIterator game = new GameIterator(initialState, interactors, iterate(xPlayer));
+        game.next();
+        assertFalse(game.hasNext());
+    }
 }
