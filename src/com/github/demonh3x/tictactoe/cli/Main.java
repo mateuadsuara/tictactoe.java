@@ -20,7 +20,7 @@ public class Main {
                 .put(xPlayer, new Location(0, 0))
                 .put(oPlayer, new Location(1, 0));
 
-        final CliObserver cliObserver = new CliObserver(new TextRenderer(mappings));
+        final CliObserver cliObserver = new CliObserver(System.out, new TextRenderer(mappings));
         final HumanCliInteractor cliInteractor = new HumanCliInteractor(System.out, System.in);
 
         cliObserver.update(gameState);
