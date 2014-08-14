@@ -16,7 +16,7 @@ public class Main {
         mappings.put(oPlayer, 'O');
 
         final List<Observer> observers = Arrays.<Observer>asList(
-                new CliObserver(System.out, new TextRenderer(mappings))
+                new CliObserver(System.out, mappings)
         );
 
         final Iterator<Interactor> interactors = new CyclingIterator<>(Arrays.asList(

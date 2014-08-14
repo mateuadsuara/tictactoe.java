@@ -6,7 +6,7 @@ import com.github.demonh3x.tictactoe.game.Player;
 
 import java.util.Map;
 
-public class TextRenderer implements Renderer<String> {
+public class TextRenderer {
     private static final Location[] LOCATIONS_IN_RENDERING_ORDER = {
             new Location(0, 0),
             new Location(1, 0),
