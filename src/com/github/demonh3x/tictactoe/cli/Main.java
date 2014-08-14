@@ -1,6 +1,7 @@
 package com.github.demonh3x.tictactoe.cli;
 
 import com.github.demonh3x.tictactoe.*;
+import com.github.demonh3x.tictactoe.Observer;
 import com.github.demonh3x.tictactoe.ai.FirstPossiblePlayInteractor;
 
 import java.util.*;
@@ -14,7 +15,7 @@ public class Main {
         mappings.put(xPlayer, 'X');
         mappings.put(oPlayer, 'O');
 
-        final List<GameObserver> observers = new ArrayList<>();
+        final List<Observer> observers = new ArrayList<>();
         final CliObserver cliObserver = new CliObserver(System.out, new TextRenderer(mappings));
         observers.add(cliObserver);
 
@@ -41,8 +42,8 @@ public class Main {
         }
     }
 
-    private static void update(List<GameObserver> observers, State state) {
-        for (GameObserver o : observers){
+    private static void update(List<Observer> observers, State state) {
+        for (Observer o : observers){
             o.update(state);
         }
     }

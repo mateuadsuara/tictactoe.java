@@ -1,5 +1,5 @@
 package com.github.demonh3x.tictactoe;
 
-public interface GameObserver {
+public interface Observer {
     public void update(State state);
 }

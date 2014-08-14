@@ -1,11 +1,11 @@
 package com.github.demonh3x.tictactoe.cli;
 
-import com.github.demonh3x.tictactoe.GameObserver;
+import com.github.demonh3x.tictactoe.Observer;
 import com.github.demonh3x.tictactoe.State;
 
 import java.io.PrintStream;
 
-public class CliObserver implements GameObserver {
+public class CliObserver implements Observer {
     private final PrintStream output;
     private final Renderer<String> renderer;
 
