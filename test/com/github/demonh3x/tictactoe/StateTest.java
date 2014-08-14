@@ -137,7 +137,7 @@ public class StateTest {
 
     public class IsNotFinished {
         private void assertIsNotFinished(State state) {
-            assertThat(new GameLogic(state).isFinished(), is(false));
+            assertThat(new Logic(state).isFinished(), is(false));
         }
 
         @Test
@@ -167,7 +167,7 @@ public class StateTest {
     public class IsFinished {
         private void assertIsFinished(State... states) {
             for (State state : states)
-                assertThat(new GameLogic(state).isFinished(), is(true));
+                assertThat(new Logic(state).isFinished(), is(true));
         }
 
         @Test
@@ -190,7 +190,7 @@ public class StateTest {
             Player[] players = {xPlayer, oPlayer};
 
             for (Player p : players)
-                assertThat(new GameLogic(state).hasWon(p), is(false));
+                assertThat(new Logic(state).hasWon(p), is(false));
         }
 
         @Test
@@ -215,7 +215,7 @@ public class StateTest {
     public class ThereIsAWinner {
         private void assertTheWinner(Player p, State... states){
             for (State state : states)
-                assertThat(new GameLogic(state).hasWon(p), is(true));
+                assertThat(new Logic(state).hasWon(p), is(true));
         }
 
         @Test

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GameLogic {
+public class Logic {
     private static final List<List<Location>> POSSIBLE_LINES = Arrays.asList(
             Arrays.asList(new Location(0, 0), new Location(1, 0), new Location(2, 0)),
             Arrays.asList(new Location(0, 1), new Location(1, 1), new Location(2, 1)),
@@ -20,7 +20,7 @@ public class GameLogic {
 
     private final State state;
 
-    public GameLogic(State state) {
+    public Logic(State state) {
         this.state = state;
     }
 
