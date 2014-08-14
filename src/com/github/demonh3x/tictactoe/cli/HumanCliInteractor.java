@@ -36,7 +36,7 @@ public class HumanCliInteractor implements Interactor {
             isValid = isValid(location, state);
 
             if (!isValid)
-                print("That location is occupied! Please, try again.");
+                print("That location is occupied! Please, try another one.");
         } while (!isValid);
 
         return location;
