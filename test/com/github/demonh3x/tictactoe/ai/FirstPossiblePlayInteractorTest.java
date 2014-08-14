@@ -20,49 +20,49 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test
     public void GivenAnEmptyState_shouldReturnTheFirstLocation() {
-        final State gs = State.empty();
+        final State state = State.empty();
 
-        final Location played = interactor.play(gs);
+        final Location played = interactor.play(state);
 
         assertThat(played, is(new Location(0, 0)));
     }
 
     @Test
     public void GivenStateWithFirstPieceInPlace_shouldReturnTheSecondLocation() {
-        final State gs = State.empty()
+        final State state = State.empty()
                 .put(new Player(), new Location(0, 0));
 
-        final Location played = interactor.play(gs);
+        final Location played = interactor.play(state);
 
         assertThat(played, is(new Location(1, 0)));
     }
 
     @Test
     public void GivenStateWithFirstTwoPiecesInPlace_shouldReturnTheThirdLocation() {
-        final State gs = State.empty()
+        final State state = State.empty()
                 .put(new Player(), new Location(0, 0))
                 .put(new Player(), new Location(1, 0));
 
-        final Location played = interactor.play(gs);
+        final Location played = interactor.play(state);
 
         assertThat(played, is(new Location(2, 0)));
     }
 
     @Test
     public void GivenStateWithFirstThreePiecesInPlace_shouldReturnTheFourthLocation() {
-        final State gs = State.empty()
+        final State state = State.empty()
                 .put(new Player(), new Location(0, 0))
                 .put(new Player(), new Location(1, 0))
                 .put(new Player(), new Location(2, 0));
 
-        final Location played = interactor.play(gs);
+        final Location played = interactor.play(state);
 
         assertThat(played, is(new Location(0, 1)));
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void GivenStateWithAllPiecesInPlace_shouldThrowException() {
-        final State gs = State.empty()
+        final State state = State.empty()
                 .put(new Player(), new Location(0, 0))
                 .put(new Player(), new Location(1, 0))
                 .put(new Player(), new Location(2, 0))
@@ -73,6 +73,6 @@ public class FirstPossiblePlayInteractorTest {
                 .put(new Player(), new Location(1, 2))
                 .put(new Player(), new Location(2, 2));
 
-        interactor.play(gs);
+        interactor.play(state);
     }
 }

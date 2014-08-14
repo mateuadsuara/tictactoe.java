@@ -18,10 +18,10 @@ public class GameLogic {
             Arrays.asList(new Location(2, 0), new Location(1, 1), new Location(0, 2))
     );
 
-    private final State gs;
+    private final State state;
 
-    public GameLogic(State gs) {
-        this.gs = gs;
+    public GameLogic(State state) {
+        this.state = state;
     }
 
     public boolean isFinished() {
@@ -30,7 +30,7 @@ public class GameLogic {
 
     private boolean isFull() {
         for (Location l : Location.getAll())
-            if (gs.lookAt(l) == null)
+            if (state.lookAt(l) == null)
                 return false;
 
         return true;
@@ -65,7 +65,7 @@ public class GameLogic {
         ArrayList<Player> linePieces = new ArrayList<>(line.size());
 
         for (Location location : line)
-            linePieces.add(gs.lookAt(location));
+            linePieces.add(state.lookAt(location));
 
         return linePieces;
     }
