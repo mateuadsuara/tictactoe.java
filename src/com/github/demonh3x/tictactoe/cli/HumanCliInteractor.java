@@ -19,11 +19,31 @@ public class HumanCliInteractor implements Interactor {
     public Play play(State state) {
         print("Your turn! Where do you play?");
 
-        return new Play(representedPlayer, askForALocation());
+        return new Play(representedPlayer, askForAValidLocation(state));
     }
 
     private void print(String message){
         output.println(message);
+    }
+
+    private Location askForAValidLocation(State state) {
+        print("Location format: \"x,y\" (without the quotes)");
+
+        Location location;
+        boolean isValid;
+        do {
+            location = askForALocation();
+            isValid = isValid(location, state);
+
+            if (!isValid)
+                print("That location is occupied! Please, try again.");
+        } while (!isValid);
+
+        return location;
+    }
+
+    private boolean isValid(Location location, State state) {
+        return state.lookAt(location) == null;
     }
 
     private Location askForALocation() {
@@ -35,8 +55,6 @@ public class HumanCliInteractor implements Interactor {
     }
 
     private Location readLocation() throws IOException {
-        print("Location format: \"x,y\" (without the quotes)");
-
         String line = null;
         Location l = null;
 
