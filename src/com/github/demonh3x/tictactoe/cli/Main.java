@@ -15,20 +15,17 @@ public class Main {
         mappings.put(xPlayer, 'X');
         mappings.put(oPlayer, 'O');
 
-        final List<Observer> observers = new ArrayList<>();
-        final CliObserver cliObserver = new CliObserver(System.out, new TextRenderer(mappings));
-        observers.add(cliObserver);
+        final List<Observer> observers = Arrays.<Observer>asList(
+                new CliObserver(System.out, new TextRenderer(mappings))
+        );
 
-        final Interactor cliInteractor = new HumanCliInteractor(xPlayer, System.out, System.in);
-        final Interactor aiInteractor = new FirstPossiblePlayInteractor(oPlayer);
-
-        List<Interactor> playerOrder = new LinkedList<>();
-        playerOrder.add(cliInteractor);
-        playerOrder.add(aiInteractor);
-        final Iterator<Interactor> players = new CyclingIterator<>(playerOrder);
+        final Iterator<Interactor> interactors = new CyclingIterator<>(Arrays.asList(
+                new HumanCliInteractor(xPlayer, System.out, System.in),
+                new FirstPossiblePlayInteractor(oPlayer)
+        ));
 
         final State initialState = State.empty();
-        final StateIterator iterator = new StateIterator(initialState, players);
+        final StateIterator iterator = new StateIterator(initialState, interactors);
 
         notify(observers, initialState);
         while(iterator.hasNext()){
