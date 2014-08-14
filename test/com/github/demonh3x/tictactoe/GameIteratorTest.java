@@ -113,17 +113,4 @@ public class GameIteratorTest {
         assertThat(oInteractor.receivedStatesToPlay.get(0), is(previousState));
         assertThat(oInteractor.receivedStatesToPlay.get(0), is(not(initialState)));
     }
-
-    @Test
-    public void GivenFinishedInitialState_ShouldNotHaveNextState() {
-        final GameIterator game = new GameIterator(createFinishedState(), interactors, iterate(xPlayer, oPlayer));
-        assertFalse(game.hasNext());
-    }
-
-    private GameState createFinishedState() {
-        return GameState.empty()
-                .put(xPlayer, new Location(0, 0))
-                .put(xPlayer, new Location(0, 1))
-                .put(xPlayer, new Location(0, 2));
-    }
 }

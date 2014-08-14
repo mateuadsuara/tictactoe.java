@@ -16,11 +16,7 @@ public class GameIterator implements Iterator<GameState> {
     }
 
     public boolean hasNext() {
-        return players.hasNext() && !isStateFinished();
-    }
-
-    private boolean isStateFinished() {
-        return new GameLogic(state).isFinished();
+        return players.hasNext();
     }
 
     @Override
