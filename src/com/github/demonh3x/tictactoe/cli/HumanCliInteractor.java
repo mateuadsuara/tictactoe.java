@@ -1,25 +1,25 @@
 package com.github.demonh3x.tictactoe.cli;
 
-import com.github.demonh3x.tictactoe.game.Interactor;
-import com.github.demonh3x.tictactoe.game.State;
-import com.github.demonh3x.tictactoe.game.Location;
+import com.github.demonh3x.tictactoe.game.*;
 
 import java.io.*;
 
 public class HumanCliInteractor implements Interactor {
     private final BufferedReader input;
+    private final Player representedPlayer;
     private final PrintStream output;
 
-    public HumanCliInteractor(PrintStream output, InputStream input){
+    public HumanCliInteractor(Player representedPlayer, PrintStream output, InputStream input){
+        this.representedPlayer = representedPlayer;
         this.output = output;
         this.input = new BufferedReader(new InputStreamReader(input));
     }
 
     @Override
-    public Location play(State state) {
+    public Play play(State state) {
         print("Your turn! Where do you play?");
 
-        return askForALocation();
+        return new Play(representedPlayer, askForALocation());
     }
 
     private void print(String message){

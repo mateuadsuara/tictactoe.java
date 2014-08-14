@@ -1,22 +1,19 @@
 package com.github.demonh3x.tictactoe.game;
 
 import java.util.Iterator;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class StateIterator implements Iterator<State> {
     private State state;
-    private final Map<Player, Interactor> interactors;
-    private final Iterator<Player> players;
+    private final Iterator<Interactor> interactors;
 
-    public StateIterator(State initial, Map<Player, Interactor> interactors, Iterator<Player> turns) {
+    public StateIterator(State initial, Iterator<Interactor> turns) {
         this.state = initial;
-        this.interactors = interactors;
-        this.players = turns;
+        this.interactors = turns;
     }
 
     public boolean hasNext() {
-        return players.hasNext();
+        return interactors.hasNext();
     }
 
     @Override
@@ -24,9 +21,9 @@ public class StateIterator implements Iterator<State> {
         if (!hasNext())
             throw new NoSuchElementException();
 
-        final Player currentPlayer = players.next();
-        final Location chosenLocation = interactors.get(currentPlayer).play(state);
-        state = state.put(currentPlayer, chosenLocation);
+        final Interactor interactor = interactors.next();
+        final Play chosenPlay = interactor.play(state);
+        state = state.put(chosenPlay.player, chosenPlay.location);
 
         return state;
     }

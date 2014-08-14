@@ -15,14 +15,14 @@ public class FirstPossiblePlayInteractorTest {
 
     @Before
     public void setUp() {
-        interactor = new FirstPossiblePlayInteractor();
+        interactor = new FirstPossiblePlayInteractor(new Player());
     }
 
     @Test
     public void GivenAnEmptyState_shouldReturnTheFirstLocation() {
         final State state = State.empty();
 
-        final Location played = interactor.play(state);
+        final Location played = interactor.play(state).location;
 
         assertThat(played, is(new Location(0, 0)));
     }
@@ -32,7 +32,7 @@ public class FirstPossiblePlayInteractorTest {
         final State state = State.empty()
                 .put(new Player(), new Location(0, 0));
 
-        final Location played = interactor.play(state);
+        final Location played = interactor.play(state).location;
 
         assertThat(played, is(new Location(1, 0)));
     }
@@ -43,7 +43,7 @@ public class FirstPossiblePlayInteractorTest {
                 .put(new Player(), new Location(0, 0))
                 .put(new Player(), new Location(1, 0));
 
-        final Location played = interactor.play(state);
+        final Location played = interactor.play(state).location;
 
         assertThat(played, is(new Location(2, 0)));
     }
@@ -55,7 +55,7 @@ public class FirstPossiblePlayInteractorTest {
                 .put(new Player(), new Location(1, 0))
                 .put(new Player(), new Location(2, 0));
 
-        final Location played = interactor.play(state);
+        final Location played = interactor.play(state).location;
 
         assertThat(played, is(new Location(0, 1)));
     }

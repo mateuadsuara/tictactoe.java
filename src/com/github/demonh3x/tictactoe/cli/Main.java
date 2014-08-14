@@ -19,20 +19,16 @@ public class Main {
         final CliObserver cliObserver = new CliObserver(System.out, new TextRenderer(mappings));
         observers.add(cliObserver);
 
-        final Interactor cliInteractor = new HumanCliInteractor(System.out, System.in);
-        final Interactor aiInteractor = new FirstPossiblePlayInteractor();
+        final Interactor cliInteractor = new HumanCliInteractor(xPlayer, System.out, System.in);
+        final Interactor aiInteractor = new FirstPossiblePlayInteractor(oPlayer);
 
-        final Map<Player, Interactor> interactors = new HashMap<>();
-        interactors.put(xPlayer, cliInteractor);
-        interactors.put(oPlayer, aiInteractor);
-
-        List<Player> playerOrder = new LinkedList<>();
-        playerOrder.add(xPlayer);
-        playerOrder.add(oPlayer);
-        final Iterator<Player> players = new CyclingIterator<>(playerOrder);
+        List<Interactor> playerOrder = new LinkedList<>();
+        playerOrder.add(cliInteractor);
+        playerOrder.add(aiInteractor);
+        final Iterator<Interactor> players = new CyclingIterator<>(playerOrder);
 
         final State initialState = State.empty();
-        final StateIterator iterator = new StateIterator(initialState, interactors, players);
+        final StateIterator iterator = new StateIterator(initialState, players);
 
         update(observers, initialState);
         while(iterator.hasNext()){
