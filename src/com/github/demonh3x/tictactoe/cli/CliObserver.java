@@ -15,7 +15,7 @@ public class CliObserver implements Observer {
     }
 
     @Override
-    public void update(State state) {
+    public void notify(State state) {
         output.println(renderer.render(state));
     }
 }

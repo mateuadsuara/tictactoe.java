@@ -30,17 +30,17 @@ public class Main {
         final State initialState = State.empty();
         final StateIterator iterator = new StateIterator(initialState, players);
 
-        update(observers, initialState);
+        notify(observers, initialState);
         while(iterator.hasNext()){
             final State state = iterator.next();
-            update(observers, state);
+            notify(observers, state);
             if (new Logic(state).isFinished()) break;
         }
     }
 
-    private static void update(List<Observer> observers, State state) {
+    private static void notify(List<Observer> observers, State state) {
         for (Observer o : observers){
-            o.update(state);
+            o.notify(state);
         }
     }
 }
