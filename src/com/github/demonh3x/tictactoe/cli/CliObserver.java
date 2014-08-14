@@ -1,7 +1,7 @@
 package com.github.demonh3x.tictactoe.cli;
 
-import com.github.demonh3x.tictactoe.Observer;
-import com.github.demonh3x.tictactoe.State;
+import com.github.demonh3x.tictactoe.game.Observer;
+import com.github.demonh3x.tictactoe.game.State;
 
 import java.io.PrintStream;
 

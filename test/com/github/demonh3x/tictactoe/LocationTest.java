@@ -1,5 +1,6 @@
 package com.github.demonh3x.tictactoe;
 
+import com.github.demonh3x.tictactoe.game.Location;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

@@ -1,8 +1,8 @@
 package com.github.demonh3x.tictactoe.cli;
 
-import com.github.demonh3x.tictactoe.Interactor;
-import com.github.demonh3x.tictactoe.State;
-import com.github.demonh3x.tictactoe.Location;
+import com.github.demonh3x.tictactoe.game.Interactor;
+import com.github.demonh3x.tictactoe.game.State;
+import com.github.demonh3x.tictactoe.game.Location;
 
 import java.io.*;
 

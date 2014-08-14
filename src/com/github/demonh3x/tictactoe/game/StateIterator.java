@@ -1,4 +1,4 @@
-package com.github.demonh3x.tictactoe;
+package com.github.demonh3x.tictactoe.game;
 
 import java.util.Iterator;
 import java.util.Map;

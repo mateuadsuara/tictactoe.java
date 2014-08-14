@@ -1,8 +1,8 @@
 package com.github.demonh3x.tictactoe.cli;
 
-import com.github.demonh3x.tictactoe.*;
-import com.github.demonh3x.tictactoe.Observer;
+import com.github.demonh3x.tictactoe.game.*;
 import com.github.demonh3x.tictactoe.ai.FirstPossiblePlayInteractor;
+import com.github.demonh3x.tictactoe.game.Observer;
 
 import java.util.*;
 

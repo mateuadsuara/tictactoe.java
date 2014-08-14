@@ -1,5 +1,6 @@
 package com.github.demonh3x.tictactoe;
 
+import com.github.demonh3x.tictactoe.game.*;
 import org.junit.Before;
 import org.junit.Test;
 
