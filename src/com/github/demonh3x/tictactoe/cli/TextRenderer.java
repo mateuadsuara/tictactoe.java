@@ -1,6 +1,6 @@
 package com.github.demonh3x.tictactoe.cli;
 
-import com.github.demonh3x.tictactoe.GameState;
+import com.github.demonh3x.tictactoe.State;
 import com.github.demonh3x.tictactoe.Location;
 import com.github.demonh3x.tictactoe.Player;
 
@@ -25,7 +25,7 @@ public class TextRenderer implements Renderer<String> {
         this.playerIconMappings = playerIconMappings;
     }
 
-    public String render(GameState state) {
+    public String render(State state) {
         return String.format(
                 "   x 0   1   2\n" +
                 " y +---+---+---+\n" +
@@ -39,7 +39,7 @@ public class TextRenderer implements Renderer<String> {
         );
     }
 
-    private String[] getRenderedPieces(GameState state) {
+    private String[] getRenderedPieces(State state) {
         String[] renderedPieces = new String[LOCATIONS_IN_RENDERING_ORDER.length];
 
         int i = 0;

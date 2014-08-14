@@ -1,7 +1,7 @@
 package com.github.demonh3x.tictactoe.cli;
 
 import com.github.demonh3x.tictactoe.GameObserver;
-import com.github.demonh3x.tictactoe.GameState;
+import com.github.demonh3x.tictactoe.State;
 
 import java.io.PrintStream;
 
@@ -15,7 +15,7 @@ public class CliObserver implements GameObserver {
     }
 
     @Override
-    public void update(GameState state) {
+    public void update(State state) {
         output.println(renderer.render(state));
     }
 }

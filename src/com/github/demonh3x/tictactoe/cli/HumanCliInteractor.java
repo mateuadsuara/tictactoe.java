@@ -1,7 +1,7 @@
 package com.github.demonh3x.tictactoe.cli;
 
 import com.github.demonh3x.tictactoe.GameInteractor;
-import com.github.demonh3x.tictactoe.GameState;
+import com.github.demonh3x.tictactoe.State;
 import com.github.demonh3x.tictactoe.Location;
 
 import java.io.*;
@@ -16,7 +16,7 @@ public class HumanCliInteractor implements GameInteractor {
     }
 
     @Override
-    public Location play(GameState state) {
+    public Location play(State state) {
         print("Your turn! Where do you play?");
 
         return askForALocation();

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(HierarchicalContextRunner.class)
-public class GameStateTest {
+public class StateTest {
     private static final Player xPlayer = new Player();
     private static final Player oPlayer = new Player();
 
@@ -17,9 +17,9 @@ public class GameStateTest {
     private static final Player X = xPlayer;
     private static final Player O = oPlayer;
 
-    private GameState createGameState(Player... pieces) {
-        final GameState gameState = GameState.empty();
-        return gameState
+    private State createGameState(Player... pieces) {
+        final State state = State.empty();
+        return state
                 .put(pieces[0], new Location(0, 0))
                 .put(pieces[1], new Location(1, 0))
                 .put(pieces[2], new Location(2, 0))
@@ -31,7 +31,7 @@ public class GameStateTest {
                 .put(pieces[8], new Location(2, 2));
     }
 
-    final GameState[] gameStatesWithLineOfX = {
+    final State[] statesWithLineOfX = {
             createGameState(
                     X, X, X,
                     O, _, _,
@@ -77,66 +77,66 @@ public class GameStateTest {
     public class LookAt {
         @Test
         public void anEmptyLocation_ReturnsNull() {
-            final GameState gameState = createGameState(
+            final State state = createGameState(
                     _, X, X,
                     X, O, O,
                     O, O, X
             );
-            assertThat(gameState.lookAt(new Location(0, 0)), is(_));
-            assertThat(gameState.isEmptyAt(new Location(0, 0)), is(true));
+            assertThat(state.lookAt(new Location(0, 0)), is(_));
+            assertThat(state.isEmptyAt(new Location(0, 0)), is(true));
         }
 
         @Test
         public void aLocationContainingAXPiece_ReturnsAXPiece() {
-            final GameState gameState = createGameState(
+            final State state = createGameState(
                     _, _, _,
                     _, X, _,
                     _, _, _
             );
-            assertThat(gameState.lookAt(new Location(1, 1)), is(X));
-            assertThat(gameState.isEmptyAt(new Location(1, 1)), is(false));
+            assertThat(state.lookAt(new Location(1, 1)), is(X));
+            assertThat(state.isEmptyAt(new Location(1, 1)), is(false));
         }
 
         @Test
         public void aLocationContainingAOPiece_ReturnsAOPiece() {
-            final GameState gameState = createGameState(
+            final State state = createGameState(
                     _, _, _,
                     _, _, _,
                     _, _, O
             );
-            assertThat(gameState.lookAt(new Location(2, 2)), is(O));
-            assertThat(gameState.isEmptyAt(new Location(2, 2)), is(false));
+            assertThat(state.lookAt(new Location(2, 2)), is(O));
+            assertThat(state.isEmptyAt(new Location(2, 2)), is(false));
         }
     }
 
     public class PutPieceAtLocation {
-        GameState originalGameState, newGameState;
+        State originalState, newState;
         Location l;
 
         @Before
         public void setUp() {
-            originalGameState = createGameState(
+            originalState = createGameState(
                     _, _, _,
                     _, _, _,
                     _, _, _
             );
             l = new Location(0, 0);
-            newGameState = originalGameState.put(X, l);
+            newState = originalState.put(X, l);
         }
 
         @Test
         public void theOriginalGameState_shouldntHaveBeenModified() {
-            assertThat(originalGameState.lookAt(l), is(_));
+            assertThat(originalState.lookAt(l), is(_));
         }
 
         @Test
         public void theNewGameState_shouldHaveThePuttedPiece() {
-            assertThat(newGameState.lookAt(l), is(X));
+            assertThat(newState.lookAt(l), is(X));
         }
     }
 
     public class IsNotFinished {
-        private void assertIsNotFinished(GameState gs) {
+        private void assertIsNotFinished(State gs) {
             assertThat(new GameLogic(gs).isFinished(), is(false));
         }
 
@@ -165,8 +165,8 @@ public class GameStateTest {
     }
 
     public class IsFinished {
-        private void assertIsFinished(GameState... states) {
-            for (GameState gs : states)
+        private void assertIsFinished(State... states) {
+            for (State gs : states)
                 assertThat(new GameLogic(gs).isFinished(), is(true));
         }
 
@@ -181,12 +181,12 @@ public class GameStateTest {
 
         @Test
         public void givenALine() {
-            assertIsFinished(gameStatesWithLineOfX);
+            assertIsFinished(statesWithLineOfX);
         }
     }
 
     public class ThereIsNoWinner {
-        private void assertNoWinner(GameState gs) {
+        private void assertNoWinner(State gs) {
             Player[] players = {xPlayer, oPlayer};
 
             for (Player p : players)
@@ -213,14 +213,14 @@ public class GameStateTest {
     }
 
     public class ThereIsAWinner {
-        private void assertTheWinner(Player p, GameState... states){
-            for (GameState gs : states)
+        private void assertTheWinner(Player p, State... states){
+            for (State gs : states)
                 assertThat(new GameLogic(gs).hasWon(p), is(true));
         }
 
         @Test
         public void givenALineOfX() {
-            assertTheWinner(xPlayer, gameStatesWithLineOfX);
+            assertTheWinner(xPlayer, statesWithLineOfX);
         }
 
         @Test

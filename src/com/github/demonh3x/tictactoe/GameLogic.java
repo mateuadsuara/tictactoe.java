@@ -18,9 +18,9 @@ public class GameLogic {
             Arrays.asList(new Location(2, 0), new Location(1, 1), new Location(0, 2))
     );
 
-    private final GameState gs;
+    private final State gs;
 
-    public GameLogic(GameState gs) {
+    public GameLogic(State gs) {
         this.gs = gs;
     }
 

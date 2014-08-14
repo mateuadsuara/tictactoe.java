@@ -5,14 +5,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class GameState {
-    public static GameState empty(){
-        return new GameState(Arrays.<Player>asList(null, null, null, null, null, null, null, null, null));
+public class State {
+    public static State empty(){
+        return new State(Arrays.<Player>asList(null, null, null, null, null, null, null, null, null));
     }
 
     private final List<Player> pieces;
 
-    private GameState(List<Player> pieces) {
+    private State(List<Player> pieces) {
         this.pieces = Collections.unmodifiableList(pieces);
     }
 
@@ -24,10 +24,10 @@ public class GameState {
         return (l.y * Location.ROWS) + l.x;
     }
 
-    public GameState put(Player p, Location l) {
+    public State put(Player p, Location l) {
         final ArrayList<Player> newPieces = new ArrayList<>(this.pieces);
         newPieces.set(getIndex(l), p);
-        return new GameState(newPieces);
+        return new State(newPieces);
     }
 
     public boolean isEmptyAt(Location l) {

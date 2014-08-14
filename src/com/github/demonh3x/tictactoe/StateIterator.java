@@ -4,12 +4,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class StateIterator implements Iterator<GameState> {
-    private GameState state;
+public class StateIterator implements Iterator<State> {
+    private State state;
     private final Map<Player, GameInteractor> interactors;
     private final Iterator<Player> players;
 
-    public StateIterator(GameState initial, Map<Player, GameInteractor> interactors, Iterator<Player> turns) {
+    public StateIterator(State initial, Map<Player, GameInteractor> interactors, Iterator<Player> turns) {
         this.state = initial;
         this.interactors = interactors;
         this.players = turns;
@@ -20,7 +20,7 @@ public class StateIterator implements Iterator<GameState> {
     }
 
     @Override
-    public GameState next() {
+    public State next() {
         if (!hasNext())
             throw new NoSuchElementException();
 

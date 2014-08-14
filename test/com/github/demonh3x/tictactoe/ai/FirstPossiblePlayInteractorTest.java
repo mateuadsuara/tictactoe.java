@@ -1,7 +1,7 @@
 package com.github.demonh3x.tictactoe.ai;
 
 import com.github.demonh3x.tictactoe.GameInteractor;
-import com.github.demonh3x.tictactoe.GameState;
+import com.github.demonh3x.tictactoe.State;
 import com.github.demonh3x.tictactoe.Location;
 import com.github.demonh3x.tictactoe.Player;
 import org.junit.Before;
@@ -20,7 +20,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test
     public void GivenAnEmptyState_shouldReturnTheFirstLocation() {
-        final GameState gs = GameState.empty();
+        final State gs = State.empty();
 
         final Location played = interactor.play(gs);
 
@@ -29,7 +29,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test
     public void GivenStateWithFirstPieceInPlace_shouldReturnTheSecondLocation() {
-        final GameState gs = GameState.empty()
+        final State gs = State.empty()
                 .put(new Player(), new Location(0, 0));
 
         final Location played = interactor.play(gs);
@@ -39,7 +39,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test
     public void GivenStateWithFirstTwoPiecesInPlace_shouldReturnTheThirdLocation() {
-        final GameState gs = GameState.empty()
+        final State gs = State.empty()
                 .put(new Player(), new Location(0, 0))
                 .put(new Player(), new Location(1, 0));
 
@@ -50,7 +50,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test
     public void GivenStateWithFirstThreePiecesInPlace_shouldReturnTheFourthLocation() {
-        final GameState gs = GameState.empty()
+        final State gs = State.empty()
                 .put(new Player(), new Location(0, 0))
                 .put(new Player(), new Location(1, 0))
                 .put(new Player(), new Location(2, 0));
@@ -62,7 +62,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void GivenStateWithAllPiecesInPlace_shouldThrowException() {
-        final GameState gs = GameState.empty()
+        final State gs = State.empty()
                 .put(new Player(), new Location(0, 0))
                 .put(new Player(), new Location(1, 0))
                 .put(new Player(), new Location(2, 0))

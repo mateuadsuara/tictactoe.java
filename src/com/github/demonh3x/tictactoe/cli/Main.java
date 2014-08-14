@@ -30,20 +30,20 @@ public class Main {
         playerOrder.add(oPlayer);
         final Iterator<Player> players = new CyclingIterator<>(playerOrder);
 
-        final GameState initialState = GameState.empty();
+        final State initialState = State.empty();
         final StateIterator iterator = new StateIterator(initialState, interactors, players);
 
         update(observers, initialState);
         while(iterator.hasNext()){
-            final GameState state = iterator.next();
+            final State state = iterator.next();
             update(observers, state);
             if (new GameLogic(state).isFinished()) break;
         }
     }
 
-    private static void update(List<GameObserver> observers, GameState gameState) {
+    private static void update(List<GameObserver> observers, State state) {
         for (GameObserver o : observers){
-            o.update(gameState);
+            o.update(state);
         }
     }
 }
