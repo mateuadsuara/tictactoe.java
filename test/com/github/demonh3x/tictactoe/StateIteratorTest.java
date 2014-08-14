@@ -14,7 +14,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class StateIteratorTest {
-    public class GameInteractorSpy implements GameInteractor {
+    public class InteractorSpy implements Interactor {
         public Location locationToPlay;
         public List<State> receivedStatesToPlay = new ArrayList<>();
 
@@ -34,18 +34,18 @@ public class StateIteratorTest {
     Player xPlayer = new Player();
     Player oPlayer = new Player();
 
-    GameInteractorSpy xInteractor;
-    GameInteractorSpy oInteractor;
+    InteractorSpy xInteractor;
+    InteractorSpy oInteractor;
 
-    Map<Player, GameInteractor> interactors;
+    Map<Player, Interactor> interactors;
 
     @Before
     public void setUp() {
         xPlayer = new Player();
         oPlayer = new Player();
 
-        xInteractor = new GameInteractorSpy();
-        oInteractor = new GameInteractorSpy();
+        xInteractor = new InteractorSpy();
+        oInteractor = new InteractorSpy();
 
         interactors = new HashMap<>();
         interactors.put(xPlayer, xInteractor);

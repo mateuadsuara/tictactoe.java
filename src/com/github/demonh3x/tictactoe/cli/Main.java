@@ -18,10 +18,10 @@ public class Main {
         final CliObserver cliObserver = new CliObserver(System.out, new TextRenderer(mappings));
         observers.add(cliObserver);
 
-        final GameInteractor cliInteractor = new HumanCliInteractor(System.out, System.in);
-        final GameInteractor aiInteractor = new FirstPossiblePlayInteractor();
+        final Interactor cliInteractor = new HumanCliInteractor(System.out, System.in);
+        final Interactor aiInteractor = new FirstPossiblePlayInteractor();
 
-        final Map<Player, GameInteractor> interactors = new HashMap<>();
+        final Map<Player, Interactor> interactors = new HashMap<>();
         interactors.put(xPlayer, cliInteractor);
         interactors.put(oPlayer, aiInteractor);
 

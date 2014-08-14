@@ -1,6 +1,6 @@
 package com.github.demonh3x.tictactoe.ai;
 
-import com.github.demonh3x.tictactoe.GameInteractor;
+import com.github.demonh3x.tictactoe.Interactor;
 import com.github.demonh3x.tictactoe.State;
 import com.github.demonh3x.tictactoe.Location;
 import com.github.demonh3x.tictactoe.Player;
@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FirstPossiblePlayInteractorTest {
-    GameInteractor interactor;
+    Interactor interactor;
 
     @Before
     public void setUp() {

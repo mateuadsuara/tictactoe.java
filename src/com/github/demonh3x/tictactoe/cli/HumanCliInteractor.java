@@ -1,12 +1,12 @@
 package com.github.demonh3x.tictactoe.cli;
 
-import com.github.demonh3x.tictactoe.GameInteractor;
+import com.github.demonh3x.tictactoe.Interactor;
 import com.github.demonh3x.tictactoe.State;
 import com.github.demonh3x.tictactoe.Location;
 
 import java.io.*;
 
-public class HumanCliInteractor implements GameInteractor {
+public class HumanCliInteractor implements Interactor {
     private final BufferedReader input;
     private final PrintStream output;
 
