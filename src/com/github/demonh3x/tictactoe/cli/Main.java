@@ -31,7 +31,7 @@ public class Main {
         final Iterator<Player> players = new CyclingIterator<>(playerOrder);
 
         final GameState initialState = GameState.empty();
-        final GameIterator iterator = new GameIterator(initialState, interactors, players);
+        final StateIterator iterator = new StateIterator(initialState, interactors, players);
 
         update(observers, initialState);
         while(iterator.hasNext()){

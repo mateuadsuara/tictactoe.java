@@ -4,12 +4,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class GameIterator implements Iterator<GameState> {
+public class StateIterator implements Iterator<GameState> {
     private GameState state;
     private final Map<Player, GameInteractor> interactors;
     private final Iterator<Player> players;
 
-    public GameIterator(GameState initial, Map<Player, GameInteractor> interactors, Iterator<Player> turns) {
+    public StateIterator(GameState initial, Map<Player, GameInteractor> interactors, Iterator<Player> turns) {
         this.state = initial;
         this.interactors = interactors;
         this.players = turns;

@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class GameIteratorTest {
+public class StateIteratorTest {
     public class GameInteractorSpy implements GameInteractor {
         public Location locationToPlay;
         public List<GameState> receivedStatesToPlay = new ArrayList<>();
@@ -54,61 +54,61 @@ public class GameIteratorTest {
 
     @Test
     public void GivenAnEmptyPlayerIterator_ShouldNotHaveNextState() {
-        final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate());
-        assertFalse(game.hasNext());
+        final StateIterator iterator = new StateIterator(GameState.empty(), interactors, iterate());
+        assertFalse(iterator.hasNext());
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void WhenRemoving_ShouldThrowUnsupportedOperation() {
-        final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate());
-        game.remove();
+        final StateIterator iterator = new StateIterator(GameState.empty(), interactors, iterate());
+        iterator.remove();
     }
 
     @Test(expected = NoSuchElementException.class)
     public void GivenAnEmptyPlayerIterator_WhenGettingTheNextState_ShouldThrowNoSuchElement() {
-        final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate());
-        game.next();
+        final StateIterator iterator = new StateIterator(GameState.empty(), interactors, iterate());
+        iterator.next();
     }
 
     @Test
     public void GivenAPlayerToIterate_ShouldHaveNextState() {
-        final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate(xPlayer));
-        assertTrue(game.hasNext());
+        final StateIterator iterator = new StateIterator(GameState.empty(), interactors, iterate(xPlayer));
+        assertTrue(iterator.hasNext());
     }
 
     @Test
     public void GivenAPlayerToIterate_WhenGettingTheNextState_ShouldAskThatPlayersInteractor() {
         final GameState initialState = GameState.empty();
-        final GameIterator game = new GameIterator(initialState, interactors, iterate(xPlayer));
+        final StateIterator iterator = new StateIterator(initialState, interactors, iterate(xPlayer));
         xInteractor.locationToPlay = new Location(0, 0);
-        game.next();
+        iterator.next();
         assertThat(xInteractor.receivedStatesToPlay.size(), is(1));
         assertThat(xInteractor.receivedStatesToPlay.get(0), is(sameInstance(initialState)));
     }
 
     @Test
     public void GivenAPlayerToIterate_BeforeGettingTheNextState_ShouldntHaveAskedThatPlayersInteractor() {
-        final GameIterator game = new GameIterator(GameState.empty(), interactors, iterate(xPlayer));
+        final StateIterator iterator = new StateIterator(GameState.empty(), interactors, iterate(xPlayer));
         assertThat(xInteractor.receivedStatesToPlay.size(), is(0));
     }
 
     @Test
     public void GivenOnePlayerToIterate_AfterGettingTheFirstState_ShouldNotHaveNextState() {
         final GameState initialState = GameState.empty();
-        final GameIterator game = new GameIterator(initialState, interactors, iterate(xPlayer));
+        final StateIterator iterator = new StateIterator(initialState, interactors, iterate(xPlayer));
         xInteractor.locationToPlay = new Location(0, 0);
-        game.next();
-        assertFalse(game.hasNext());
+        iterator.next();
+        assertFalse(iterator.hasNext());
     }
 
     @Test
     public void GivenTwoPlayersToIterate_WhenGettingTheSecondState_ShouldAskTheSecondPlayersInteractorWithThePreviousState() {
         final GameState initialState = GameState.empty();
-        final GameIterator game = new GameIterator(initialState, interactors, iterate(xPlayer, oPlayer));
+        final StateIterator iterator = new StateIterator(initialState, interactors, iterate(xPlayer, oPlayer));
         xInteractor.locationToPlay = new Location(0, 0);
-        final GameState previousState = game.next();
+        final GameState previousState = iterator.next();
         oInteractor.locationToPlay = new Location(0, 1);
-        game.next();
+        iterator.next();
         assertThat(oInteractor.receivedStatesToPlay.size(), is(1));
         assertThat(oInteractor.receivedStatesToPlay.get(0), is(previousState));
         assertThat(oInteractor.receivedStatesToPlay.get(0), is(not(initialState)));
