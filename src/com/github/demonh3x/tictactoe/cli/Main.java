@@ -37,6 +37,7 @@ public class Main {
         while(iterator.hasNext()){
             final GameState state = iterator.next();
             update(observers, state);
+            if (new GameLogic(state).isFinished()) break;
         }
     }
 
