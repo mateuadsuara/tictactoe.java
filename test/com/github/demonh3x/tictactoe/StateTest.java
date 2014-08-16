@@ -14,12 +14,9 @@ import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(HierarchicalContextRunner.class)
 public class StateTest {
-    private static final Player xPlayer = new Player();
-    private static final Player oPlayer = new Player();
-
     private static final Player _ = null;
-    private static final Player X = xPlayer;
-    private static final Player O = oPlayer;
+    private static final Player X = new Player();
+    private static final Player O = new Player();
 
     final State[] statesWithLineOfX = {
             StateLiteral.create(
@@ -177,7 +174,7 @@ public class StateTest {
 
     public class ThereIsNoWinner {
         private void assertNoWinner(State state) {
-            Player[] players = {xPlayer, oPlayer};
+            Player[] players = {X, O};
 
             for (Player p : players)
                 assertThat(new Logic(state).hasWon(p), is(false));
@@ -210,12 +207,12 @@ public class StateTest {
 
         @Test
         public void givenALineOfX() {
-            assertTheWinner(xPlayer, statesWithLineOfX);
+            assertTheWinner(X, statesWithLineOfX);
         }
 
         @Test
         public void givenALineOfO() {
-            assertTheWinner(oPlayer, StateLiteral.create(
+            assertTheWinner(O, StateLiteral.create(
                     O, O, O,
                     X, _, _,
                     X, _, _
