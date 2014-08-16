@@ -26,7 +26,7 @@ public class HardestInteractorTest {
     }
 
     @Test
-    public void GivenAStateWithOnlyOnePlay_ShouldDoThatPlay() {
+    public void GivenNoChoice_ShouldDoTheOnlyPlayAvailable() {
         assertPlayedLocation(
                 StateLiteral.create(
                         X, O, X,
