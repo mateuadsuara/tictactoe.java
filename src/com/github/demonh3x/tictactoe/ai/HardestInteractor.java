@@ -14,21 +14,33 @@ public class HardestInteractor implements Interactor {
 
     @Override
     public Play play(State state) {
-        return new Play(representedPlayer, getFirst(getAvailableLocations(state)));
+        return new Play(representedPlayer, new LocationDecision(state).get());
     }
 
-    private Location getFirst(List<Location> locations) {
-        return locations.get(0);
-    }
+    private class LocationDecision {
+        private State state;
 
-    private List<Location> getAvailableLocations(State state) {
-        final ArrayList<Location> available = new ArrayList<>();
-
-        for (Location l : Location.getAll()){
-            if (state.isEmptyAt(l))
-                available.add(l);
+        public LocationDecision(State state) {
+            this.state = state;
         }
 
-        return available;
+        public Location get() {
+            return getFirst(getAvailable());
+        }
+
+        private Location getFirst(List<Location> locations) {
+            return locations.get(0);
+        }
+
+        private List<Location> getAvailable() {
+            final ArrayList<Location> available = new ArrayList<>();
+
+            for (Location l : Location.getAll()){
+                if (state.isEmptyAt(l))
+                    available.add(l);
+            }
+
+            return available;
+        }
     }
 }
