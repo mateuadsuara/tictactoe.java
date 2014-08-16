@@ -14,18 +14,33 @@ public class HardestInteractor implements Interactor {
 
     @Override
     public Play play(State state) {
-        return new Play(representedPlayer, new LocationDecision(state).get());
+        return new Play(representedPlayer, new LocationDecision(representedPlayer, state).get());
     }
 
     private class LocationDecision {
-        private State state;
+        private final Player player;
+        private final State state;
 
-        public LocationDecision(State state) {
+        public LocationDecision(Player player, State state) {
+            this.player = player;
             this.state = state;
         }
 
         public Location get() {
-            return getFirst(getAvailable());
+            return getFirst(getWinning(getAvailable()));
+        }
+
+        private List<Location> getWinning(List<Location> locations) {
+            final ArrayList<Location> winningLocations = new ArrayList<>();
+
+            for (Location location : locations){
+                final State imaginaryState = state.put(player, location);
+                final Logic logic = new Logic(imaginaryState);
+                if (logic.hasWon(player))
+                    winningLocations.add(location);
+            }
+
+            return winningLocations;
         }
 
         private Location getFirst(List<Location> locations) {
@@ -35,9 +50,9 @@ public class HardestInteractor implements Interactor {
         private List<Location> getAvailable() {
             final ArrayList<Location> available = new ArrayList<>();
 
-            for (Location l : Location.getAll()){
-                if (state.isEmptyAt(l))
-                    available.add(l);
+            for (Location location : Location.getAll()){
+                if (state.isEmptyAt(location))
+                    available.add(location);
             }
 
             return available;

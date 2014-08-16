@@ -63,4 +63,16 @@ public class HardestInteractorTest {
                 new Location(0, 2)
         );
     }
+
+    @Test
+    public void GivenTheChoiceToWin_ShouldWin() {
+        assertPlayedLocation(
+                StateLiteral.create(
+                        X, O, X,
+                        O, X, O,
+                        O, _, _
+                ),
+                new Location(2, 2)
+        );
+    }
 }
