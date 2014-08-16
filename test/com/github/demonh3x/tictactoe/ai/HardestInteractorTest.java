@@ -62,6 +62,15 @@ public class HardestInteractorTest {
                 ),
                 new Location(0, 2)
         );
+
+        assertPlayedLocation(
+                StateLiteral.create(
+                        X, O, X,
+                        O, X, X,
+                        O, _, O
+                ),
+                new Location(1, 2)
+        );
     }
 
     @Test

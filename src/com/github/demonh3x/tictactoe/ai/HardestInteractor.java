@@ -27,7 +27,13 @@ public class HardestInteractor implements Interactor {
         }
 
         public Location get() {
-            return getFirst(getWinning(getAvailable()));
+            final List<Location> availableLocations = getAvailable();
+            final List<Location> winningLocations = getWinning(availableLocations);
+
+            if (winningLocations.isEmpty())
+                return getFirst(availableLocations);
+            else
+                return getFirst(winningLocations);
         }
 
         private List<Location> getWinning(List<Location> locations) {
