@@ -21,47 +21,43 @@ public class StateTest {
     private static final Player X = xPlayer;
     private static final Player O = oPlayer;
 
-    private State createGameState(Player... pieces) {
-        return StateLiteral.create(pieces);
-    }
-
     final State[] statesWithLineOfX = {
-            createGameState(
+            StateLiteral.create(
                     X, X, X,
                     O, _, _,
                     O, _, _
             ),
-            createGameState(
+            StateLiteral.create(
                     O, _, _,
                     X, X, X,
                     O, _, _
             ),
-            createGameState(
+            StateLiteral.create(
                     O, _, _,
                     O, _, _,
                     X, X, X
             ),
-            createGameState(
+            StateLiteral.create(
                     X, O, _,
                     X, O, _,
                     X, _, _
             ),
-            createGameState(
+            StateLiteral.create(
                     O, X, _,
                     O, X, _,
                     _, X, _
             ),
-            createGameState(
+            StateLiteral.create(
                     O, _, X,
                     O, _, X,
                     _, _, X
             ),
-            createGameState(
+            StateLiteral.create(
                     O, _, X,
                     O, X, _,
                     X, _, _
             ),
-            createGameState(
+            StateLiteral.create(
                     X, _, _,
                     O, X, _,
                     O, _, X
@@ -71,7 +67,7 @@ public class StateTest {
     public class LookAt {
         @Test
         public void anEmptyLocation_ReturnsNull() {
-            final State state = createGameState(
+            final State state = StateLiteral.create(
                     _, X, X,
                     X, O, O,
                     O, O, X
@@ -82,7 +78,7 @@ public class StateTest {
 
         @Test
         public void aLocationContainingAXPiece_ReturnsAXPiece() {
-            final State state = createGameState(
+            final State state = StateLiteral.create(
                     _, _, _,
                     _, X, _,
                     _, _, _
@@ -93,7 +89,7 @@ public class StateTest {
 
         @Test
         public void aLocationContainingAOPiece_ReturnsAOPiece() {
-            final State state = createGameState(
+            final State state = StateLiteral.create(
                     _, _, _,
                     _, _, _,
                     _, _, O
@@ -109,7 +105,7 @@ public class StateTest {
 
         @Before
         public void setUp() {
-            originalState = createGameState(
+            originalState = StateLiteral.create(
                     _, _, _,
                     _, _, _,
                     _, _, _
@@ -136,7 +132,7 @@ public class StateTest {
 
         @Test
         public void givenAnEmptyGameState() {
-            assertIsNotFinished(createGameState(
+            assertIsNotFinished(StateLiteral.create(
                     _, _, _,
                     _, _, _,
                     _, _, _
@@ -145,12 +141,12 @@ public class StateTest {
 
         @Test
         public void givenAlmostFullGameWithoutAnyLine() {
-            assertIsNotFinished(createGameState(
+            assertIsNotFinished(StateLiteral.create(
                     X, O, X,
                     O, _, O,
                     X, O, X
             ));
-            assertIsNotFinished(createGameState(
+            assertIsNotFinished(StateLiteral.create(
                     X, _, X,
                     X, O, O,
                     O, X, O
@@ -166,7 +162,7 @@ public class StateTest {
 
         @Test
         public void givenAFullGameStateWithoutLines() {
-            assertIsFinished(createGameState(
+            assertIsFinished(StateLiteral.create(
                     X, X, O,
                     O, O, X,
                     X, X, O
@@ -189,7 +185,7 @@ public class StateTest {
 
         @Test
         public void givenAnEmptyGameState() {
-            assertNoWinner(createGameState(
+            assertNoWinner(StateLiteral.create(
                     _, _, _,
                     _, _, _,
                     _, _, _
@@ -198,7 +194,7 @@ public class StateTest {
 
         @Test
         public void givenAFullGameStateWithoutLines() {
-            assertNoWinner(createGameState(
+            assertNoWinner(StateLiteral.create(
                     X, X, O,
                     O, O, X,
                     X, X, O
@@ -219,7 +215,7 @@ public class StateTest {
 
         @Test
         public void givenALineOfO() {
-            assertTheWinner(oPlayer, createGameState(
+            assertTheWinner(oPlayer, StateLiteral.create(
                     O, O, O,
                     X, _, _,
                     X, _, _
