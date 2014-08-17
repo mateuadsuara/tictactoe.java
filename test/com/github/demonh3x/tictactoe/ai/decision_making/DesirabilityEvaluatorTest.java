@@ -20,7 +20,18 @@ public class DesirabilityEvaluatorTest {
                 O, X, X,
                 O, X, O
         );
-        DesirabilityEvaluator desirabilityEvaluator = new DesirabilityEvaluator();
+        DesirabilityEvaluator desirabilityEvaluator = new DesirabilityEvaluator(X);
         assertThat(desirabilityEvaluator.evaluate(state), is(0.0f));
+    }
+
+    @Test
+    public void AWinningStateIsTheMostPositive() {
+        final State winningStateByX = StateLiteral.create(
+                X, O, X,
+                _, X, O,
+                O, _, X
+        );
+        DesirabilityEvaluator desirabilityEvaluator = new DesirabilityEvaluator(X);
+        assertThat(desirabilityEvaluator.evaluate(winningStateByX), is(1.0f));
     }
 }
