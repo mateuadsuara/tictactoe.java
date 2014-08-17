@@ -34,9 +34,8 @@ public class NewellSimonInteractor implements Interactor {
             final List<Location> availableLocations = getAvailable(state, Location.getAll());
 
             final List<Location> winningLocations = getWinning(state, availableLocations);
-            if (!winningLocations.isEmpty()) {
+            if (!winningLocations.isEmpty())
                 return getFirst(winningLocations);
-            }
 
             final List<Location> losingLocations = getLosing(state, availableLocations);
             if (!losingLocations.isEmpty())
