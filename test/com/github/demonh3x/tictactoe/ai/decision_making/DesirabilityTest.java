@@ -20,7 +20,7 @@ public class DesirabilityTest {
                 O, X, X,
                 O, X, O
         );
-        Desirability desirability = new Desirability(X);
+        Desirability desirability = new Desirability(X, O);
         assertThat(desirability.of(draw), is(0.0f));
     }
 
@@ -31,7 +31,18 @@ public class DesirabilityTest {
                 _, X, O,
                 O, _, X
         );
-        Desirability desirability = new Desirability(X);
+        Desirability desirability = new Desirability(X, O);
         assertThat(desirability.of(xHasWon), is(1.0f));
+    }
+
+    @Test
+    public void ALosingStateIsTheMostNegative() {
+        final State oHasWon = StateLiteral.create(
+                X, O, X,
+                X, O, _,
+                _, O, _
+        );
+        Desirability desirability = new Desirability(X, O);
+        assertThat(desirability.of(oHasWon), is(-1.0f));
     }
 }
