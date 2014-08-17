@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class DesirabilityEvaluatorTest {
+public class DesirabilityTest {
     private static final Player X = new Player();
     private static final Player O = new Player();
     private static final Player _ = null;
@@ -20,8 +20,8 @@ public class DesirabilityEvaluatorTest {
                 O, X, X,
                 O, X, O
         );
-        DesirabilityEvaluator desirabilityEvaluator = new DesirabilityEvaluator(X);
-        assertThat(desirabilityEvaluator.evaluate(draw), is(0.0f));
+        Desirability desirability = new Desirability(X);
+        assertThat(desirability.of(draw), is(0.0f));
     }
 
     @Test
@@ -31,7 +31,7 @@ public class DesirabilityEvaluatorTest {
                 _, X, O,
                 O, _, X
         );
-        DesirabilityEvaluator desirabilityEvaluator = new DesirabilityEvaluator(X);
-        assertThat(desirabilityEvaluator.evaluate(xHasWon), is(1.0f));
+        Desirability desirability = new Desirability(X);
+        assertThat(desirability.of(xHasWon), is(1.0f));
     }
 }
