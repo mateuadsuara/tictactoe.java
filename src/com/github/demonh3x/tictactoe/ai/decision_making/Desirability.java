@@ -22,6 +22,9 @@ public class Desirability {
         if (logic.hasWon(otherPlayer))
             return -1f;
 
-        return 0f;
+        if (logic.isFinished())
+            return 0f;
+
+        return null;
     }
 }

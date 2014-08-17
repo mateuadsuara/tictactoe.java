@@ -5,8 +5,8 @@ import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 
 public class DesirabilityTest {
     private static final Player X = new Player();
@@ -44,5 +44,16 @@ public class DesirabilityTest {
         );
         Desirability desirability = new Desirability(X, O);
         assertThat(desirability.of(oHasWon), is(-1.0f));
+    }
+
+    @Test
+    public void AnUnfinishedStateIsNotKnownToBeDesirable() {
+        final State unfinished = StateLiteral.create(
+                X, _, _,
+                _, O, _,
+                _, _, _
+        );
+        Desirability desirability = new Desirability(X, O);
+        assertThat(desirability.of(unfinished), is(nullValue()));
     }
 }
