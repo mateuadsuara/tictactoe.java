@@ -27,7 +27,7 @@ public class HardestInteractor implements Interactor {
         }
 
         public Location get() {
-            final List<Location> availableLocations = getAvailable();
+            final List<Location> availableLocations = getAvailable(Location.getAll());
             final List<Location> winningLocations = getWinning(availableLocations);
 
             if (winningLocations.isEmpty())
@@ -36,7 +36,7 @@ public class HardestInteractor implements Interactor {
                 return getFirst(winningLocations);
         }
 
-        private List<Location> getWinning(List<Location> locations) {
+        private List<Location> getWinning(Iterable<Location> locations) {
             final ArrayList<Location> winningLocations = new ArrayList<>();
 
             for (Location location : locations){
@@ -53,10 +53,10 @@ public class HardestInteractor implements Interactor {
             return list.get(0);
         }
 
-        private List<Location> getAvailable() {
+        private List<Location> getAvailable(Iterable<Location> locations) {
             final ArrayList<Location> available = new ArrayList<>();
 
-            for (Location location : Location.getAll()){
+            for (Location location : locations){
                 if (state.isEmptyAt(location))
                     available.add(location);
             }
