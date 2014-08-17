@@ -5,11 +5,11 @@ import com.github.demonh3x.tictactoe.game.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HardestInteractor implements Interactor {
+public class NewellSimonInteractor implements Interactor {
     private final Player representedPlayer;
     private final Player opponent;
 
-    public HardestInteractor(Player representedPlayer, Player opponent) {
+    public NewellSimonInteractor(Player representedPlayer, Player opponent) {
         this.representedPlayer = representedPlayer;
         this.opponent = opponent;
     }

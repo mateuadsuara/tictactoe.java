@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class HardestInteractorTest {
+public class NewellSimonInteractorTest {
     private static final Player _ = null;
     private static final Player X = new Player();
     private static final Player O = new Player();
@@ -22,7 +22,7 @@ public class HardestInteractorTest {
 
     @Before
     public void setUp() {
-        interactor = new HardestInteractor(X, O);
+        interactor = new NewellSimonInteractor(X, O);
     }
 
     @Test
