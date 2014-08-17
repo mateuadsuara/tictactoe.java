@@ -116,4 +116,16 @@ public class NewellSimonInteractorTest {
                 new Location(0, 1)
         );
     }
+
+    @Test
+    public void GivenThePossibilityToFork_ShouldDoIt() {
+        assertPlayedLocation(
+                StateLiteral.create(
+                        X, O, X,
+                        _, _, O,
+                        _, _, _
+                ),
+                new Location(1, 1)
+        );
+    }
 }

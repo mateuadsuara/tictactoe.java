@@ -31,20 +31,25 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         public Location get() {
-            final List<Location> availableLocations = getAvailable(Location.getAll());
-            final List<Location> winningLocations = getWinning(availableLocations);
-            final List<Location> losingLocations = getLosing(availableLocations);
+            final List<Location> availableLocations = getAvailable(state, Location.getAll());
 
-            if (!winningLocations.isEmpty())
+            final List<Location> winningLocations = getWinning(state, availableLocations);
+            if (!winningLocations.isEmpty()) {
                 return getFirst(winningLocations);
+            }
 
+            final List<Location> losingLocations = getLosing(state, availableLocations);
             if (!losingLocations.isEmpty())
                 return getFirst(losingLocations);
+
+            final List<Location> forkLocations = getForks(state, availableLocations);
+            if (!forkLocations.isEmpty())
+                return getFirst(forkLocations);
 
             return getFirst(availableLocations);
         }
 
-        private List<Location> getWinning(Iterable<Location> locations) {
+        private List<Location> getWinning(State state, Iterable<Location> locations) {
             final ArrayList<Location> winningLocations = new ArrayList<>();
 
             for (Location location : locations){
@@ -57,7 +62,7 @@ public class NewellSimonInteractor implements Interactor {
             return winningLocations;
         }
 
-        private List<Location> getLosing(Iterable<Location> locations) {
+        private List<Location> getLosing(State state, Iterable<Location> locations) {
             final ArrayList<Location> losingLocations = new ArrayList<>();
 
             for (Location location : locations){
@@ -70,11 +75,27 @@ public class NewellSimonInteractor implements Interactor {
             return losingLocations;
         }
 
+        private List<Location> getForks(State state, Iterable<Location> locations){
+            final ArrayList<Location> forkLocations = new ArrayList<>();
+
+            for (Location location : locations){
+                final State imaginaryState = state.put(player, location);
+                if (hasFork(imaginaryState))
+                    forkLocations.add(location);
+            }
+
+            return forkLocations;
+        }
+
+        private boolean hasFork(State state) {
+            return getWinning(state, getAvailable(state, Location.getAll())).size() > 1;
+        }
+
         private <T> T getFirst(List<T> list) {
             return list.get(0);
         }
 
-        private List<Location> getAvailable(Iterable<Location> locations) {
+        private List<Location> getAvailable(State state, Iterable<Location> locations) {
             final ArrayList<Location> available = new ArrayList<>();
 
             for (Location location : locations){
