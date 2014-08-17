@@ -16,6 +16,7 @@ public class NewellSimonInteractorTest {
         Player opponent = represented == X? O: X;
         Interactor interactor = new NewellSimonInteractor(represented, opponent);
         Play play = interactor.play(state);
+        assertThat(play.player, is(represented));
         assertThat(play.location, is(location));
     }
 
