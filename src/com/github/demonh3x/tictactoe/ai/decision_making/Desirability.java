@@ -8,7 +8,7 @@ public class Desirability {
     public class UnknownDesirabilityException extends RuntimeException {}
 
     private final Player playerDesiredToWin;
-    private Player otherPlayer;
+    private final Player otherPlayer;
 
     public Desirability(Player playerDesiredToWin, Player otherPlayer) {
         this.playerDesiredToWin = playerDesiredToWin;
