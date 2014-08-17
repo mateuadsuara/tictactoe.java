@@ -128,4 +128,16 @@ public class NewellSimonInteractorTest {
                 new Location(1, 1)
         );
     }
+
+    @Test
+    public void GivenThePossibilityToBlock_ShouldPreferItOverForking() {
+        assertPlayedLocation(
+                StateLiteral.create(
+                        _, _, X,
+                        _, O, _,
+                        X, O, _
+                ),
+                new Location(1, 0)
+        );
+    }
 }
