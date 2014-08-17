@@ -2,7 +2,6 @@ package com.github.demonh3x.tictactoe.ai;
 
 import com.github.demonh3x.tictactoe.StateLiteral;
 import com.github.demonh3x.tictactoe.game.*;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -13,21 +12,17 @@ public class NewellSimonInteractorTest {
     private static final Player X = new Player();
     private static final Player O = new Player();
 
-    private void assertPlayedLocation(State state, Location location) {
+    private void assertPlayedLocation(Player represented, State state, Location location) {
+        Player opponent = represented == X? O: X;
+        Interactor interactor = new NewellSimonInteractor(represented, opponent);
         Play play = interactor.play(state);
         assertThat(play.location, is(location));
-    }
-
-    Interactor interactor;
-
-    @Before
-    public void setUp() {
-        interactor = new NewellSimonInteractor(X, O);
     }
 
     @Test
     public void GivenNoChoice_ShouldDoTheOnlyPlayAvailable() {
         assertPlayedLocation(
+                X,
                 StateLiteral.create(
                         X, O, X,
                         O, X, O,
@@ -37,6 +32,7 @@ public class NewellSimonInteractorTest {
         );
 
         assertPlayedLocation(
+                X,
                 StateLiteral.create(
                         X, O, _,
                         O, X, X,
@@ -46,6 +42,7 @@ public class NewellSimonInteractorTest {
         );
 
         assertPlayedLocation(
+                X,
                 StateLiteral.create(
                         _, X, O,
                         O, X, O,
@@ -55,6 +52,7 @@ public class NewellSimonInteractorTest {
         );
 
         assertPlayedLocation(
+                X,
                 StateLiteral.create(
                         O, O, X,
                         X, X, O,
@@ -64,6 +62,7 @@ public class NewellSimonInteractorTest {
         );
 
         assertPlayedLocation(
+                X,
                 StateLiteral.create(
                         X, O, X,
                         O, X, X,
@@ -76,6 +75,7 @@ public class NewellSimonInteractorTest {
     @Test
     public void GivenTheChoiceToWin_ShouldWin() {
         assertPlayedLocation(
+                X,
                 StateLiteral.create(
                         X, O, X,
                         O, X, O,
@@ -88,6 +88,7 @@ public class NewellSimonInteractorTest {
     @Test
     public void GivenThePossibilityToLose_ShouldBlock() {
         assertPlayedLocation(
+                X,
                 StateLiteral.create(
                         X, _, _,
                         O, _, O,
@@ -96,6 +97,7 @@ public class NewellSimonInteractorTest {
                 new Location(1, 1)
         );
         assertPlayedLocation(
+                X,
                 StateLiteral.create(
                         X, _, _,
                         X, _, _,
@@ -108,6 +110,7 @@ public class NewellSimonInteractorTest {
     @Test
     public void GivenThePossibilityToWin_ShouldPreferItOverBlocking() {
         assertPlayedLocation(
+                X,
                 StateLiteral.create(
                         X, _, O,
                         _, _, O,
@@ -120,6 +123,7 @@ public class NewellSimonInteractorTest {
     @Test
     public void GivenThePossibilityToFork_ShouldDoIt() {
         assertPlayedLocation(
+                X,
                 StateLiteral.create(
                         X, O, X,
                         _, _, O,
@@ -132,6 +136,7 @@ public class NewellSimonInteractorTest {
     @Test
     public void GivenThePossibilityToBlock_ShouldPreferItOverForking() {
         assertPlayedLocation(
+                X,
                 StateLiteral.create(
                         _, _, X,
                         _, O, _,
