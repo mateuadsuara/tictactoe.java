@@ -4,7 +4,7 @@ import com.github.demonh3x.tictactoe.game.Logic;
 import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 
-public class Desirability {
+public class Desirability implements Ponderator<State> {
     public class UnknownDesirabilityException extends RuntimeException {}
 
     private final Player playerDesiredToWin;
