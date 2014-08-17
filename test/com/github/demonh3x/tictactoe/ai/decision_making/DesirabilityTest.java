@@ -46,7 +46,7 @@ public class DesirabilityTest {
         assertThat(desirability.of(oHasWon), is(-1.0f));
     }
 
-    @Test
+    @Test(expected = Desirability.UnknownDesirabilityException.class)
     public void AnUnfinishedStateIsNotKnownToBeDesirable() {
         final State unfinished = StateLiteral.create(
                 X, _, _,
@@ -54,6 +54,6 @@ public class DesirabilityTest {
                 _, _, _
         );
         Desirability desirability = new Desirability(X, O);
-        assertThat(desirability.of(unfinished), is(nullValue()));
+        desirability.of(unfinished);
     }
 }

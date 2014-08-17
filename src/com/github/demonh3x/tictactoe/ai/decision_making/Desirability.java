@@ -5,6 +5,8 @@ import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 
 public class Desirability {
+    public class UnknownDesirabilityException extends RuntimeException {}
+
     private final Player playerDesiredToWin;
     private Player otherPlayer;
 
@@ -25,6 +27,6 @@ public class Desirability {
         if (logic.isFinished())
             return 0f;
 
-        return null;
+        throw new UnknownDesirabilityException();
     }
 }
