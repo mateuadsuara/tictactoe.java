@@ -22,7 +22,7 @@ public class HardestInteractorTest {
 
     @Before
     public void setUp() {
-        interactor = new HardestInteractor(X);
+        interactor = new HardestInteractor(X, O);
     }
 
     @Test
@@ -82,6 +82,26 @@ public class HardestInteractorTest {
                         O, _, _
                 ),
                 new Location(2, 2)
+        );
+    }
+
+    @Test
+    public void GivenThePossibilityToLose_ShouldBlock() {
+        assertPlayedLocation(
+                StateLiteral.create(
+                        X, _, _,
+                        O, _, O,
+                        X, _, _
+                ),
+                new Location(1, 1)
+        );
+        assertPlayedLocation(
+                StateLiteral.create(
+                        X, _, _,
+                        X, _, _,
+                        O, _, O
+                ),
+                new Location(1, 2)
         );
     }
 }
