@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
 
 public class StatePossibilitiesForesighterTest {
@@ -40,6 +41,30 @@ public class StatePossibilitiesForesighterTest {
                 X, O, X,
                 O, X, X,
                 O, X, O
+        )));
+    }
+
+    @Test
+    public void GivenAStateWithTwoPlaysRemaining_ItHasTheTwoPossibleStates() {
+        StatePossibilitiesForesighter foresighter = new StatePossibilitiesForesighter(O);
+        State onlyOnePlayRemaining = StateLiteral.create(
+                X, O, X,
+                O, X, X,
+                _, _, O
+        );
+
+        final List<State> possibilities = foresighter.foresee(onlyOnePlayRemaining);
+
+        assertThat(possibilities.size(), is(2));
+        assertThat(possibilities, hasItem(StateLiteral.create(
+                X, O, X,
+                O, X, X,
+                O, _, O
+        )));
+        assertThat(possibilities, hasItem(StateLiteral.create(
+                X, O, X,
+                O, X, X,
+                _, O, O
         )));
     }
 }
