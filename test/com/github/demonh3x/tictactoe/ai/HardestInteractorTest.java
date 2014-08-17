@@ -104,4 +104,16 @@ public class HardestInteractorTest {
                 new Location(1, 2)
         );
     }
+
+    @Test
+    public void GivenThePossibilityToWin_ShouldPreferItOverBlocking() {
+        assertPlayedLocation(
+                StateLiteral.create(
+                        X, _, O,
+                        _, _, O,
+                        X, _, _
+                ),
+                new Location(0, 1)
+        );
+    }
 }
