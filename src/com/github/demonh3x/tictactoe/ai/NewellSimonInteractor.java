@@ -33,26 +33,26 @@ public class NewellSimonInteractor implements Interactor {
         public Location get() {
             final List<Location> availableLocations = getAvailable(state, Location.getAll());
 
-            final List<Location> winningLocations = getWinning(state, player, availableLocations);
+            final List<Location> winningLocations = getPossibleWinnings(state, player, availableLocations);
             if (!winningLocations.isEmpty())
                 return getFirst(winningLocations);
 
-            final List<Location> losingLocations = getWinning(state, opponent, availableLocations);
+            final List<Location> losingLocations = getPossibleWinnings(state, opponent, availableLocations);
             if (!losingLocations.isEmpty())
                 return getFirst(losingLocations);
 
-            final List<Location> forkLocations = getForks(state, player, availableLocations);
+            final List<Location> forkLocations = getPossibleForks(state, player, availableLocations);
             if (!forkLocations.isEmpty())
                 return getFirst(forkLocations);
 
-            final List<Location> opponentForkLocations = getForks(state, opponent, availableLocations);
+            final List<Location> opponentForkLocations = getPossibleForks(state, opponent, availableLocations);
             if (!opponentForkLocations.isEmpty())
                 return getFirst(opponentForkLocations);
 
             throw new RuntimeException("Unhandled possibility!");
         }
 
-        private List<Location> getWinning(State state, Player player, Iterable<Location> locations) {
+        private List<Location> getPossibleWinnings(State state, Player player, Iterable<Location> locations) {
             final ArrayList<Location> winningLocations = new ArrayList<>();
 
             for (Location location : locations){
@@ -65,7 +65,7 @@ public class NewellSimonInteractor implements Interactor {
             return winningLocations;
         }
 
-        private List<Location> getForks(State state, Player player, Iterable<Location> locations){
+        private List<Location> getPossibleForks(State state, Player player, Iterable<Location> locations){
             final ArrayList<Location> forkLocations = new ArrayList<>();
 
             for (Location location : locations){
@@ -78,7 +78,7 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         private boolean hasFork(State state, Player player) {
-            return getWinning(state, player, getAvailable(state, Location.getAll())).size() > 1;
+            return getPossibleWinnings(state, player, getAvailable(state, Location.getAll())).size() > 1;
         }
 
         private <T> T getFirst(List<T> list) {
