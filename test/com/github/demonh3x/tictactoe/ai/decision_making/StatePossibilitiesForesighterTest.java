@@ -24,7 +24,10 @@ public class StatePossibilitiesForesighterTest {
                 O, X, X,
                 O, X, O
         );
-        assertThat(foresighter.foresee(finishedState).size(), is(0));
+
+        final List<State> possibilities = foresighter.foresee(finishedState);
+
+        assertThat(possibilities.size(), is(0));
     }
 
     @Test
@@ -35,9 +38,11 @@ public class StatePossibilitiesForesighterTest {
                 O, X, X,
                 O, _, O
         );
+
         final List<State> possibilities = foresighter.foresee(onlyOnePlayRemaining);
+
         assertThat(possibilities.size(), is(1));
-        assertThat(possibilities.get(0), is(StateLiteral.create(
+        assertThat(possibilities, hasItem(StateLiteral.create(
                 X, O, X,
                 O, X, X,
                 O, X, O
