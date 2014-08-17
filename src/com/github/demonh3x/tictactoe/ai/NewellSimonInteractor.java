@@ -33,22 +33,26 @@ public class NewellSimonInteractor implements Interactor {
         public Location get() {
             final List<Location> availableLocations = getAvailable(state, Location.getAll());
 
-            final List<Location> winningLocations = getWinning(state, availableLocations);
+            final List<Location> winningLocations = getWinning(state, player, availableLocations);
             if (!winningLocations.isEmpty())
                 return getFirst(winningLocations);
 
-            final List<Location> losingLocations = getLosing(state, availableLocations);
+            final List<Location> losingLocations = getWinning(state, opponent, availableLocations);
             if (!losingLocations.isEmpty())
                 return getFirst(losingLocations);
 
-            final List<Location> forkLocations = getForks(state, availableLocations);
+            final List<Location> forkLocations = getForks(state, player, availableLocations);
             if (!forkLocations.isEmpty())
                 return getFirst(forkLocations);
+
+            final List<Location> opponentForkLocations = getForks(state, opponent, availableLocations);
+            if (!opponentForkLocations.isEmpty())
+                return getFirst(opponentForkLocations);
 
             throw new RuntimeException("Unhandled possibility!");
         }
 
-        private List<Location> getWinning(State state, Iterable<Location> locations) {
+        private List<Location> getWinning(State state, Player player, Iterable<Location> locations) {
             final ArrayList<Location> winningLocations = new ArrayList<>();
 
             for (Location location : locations){
@@ -61,33 +65,20 @@ public class NewellSimonInteractor implements Interactor {
             return winningLocations;
         }
 
-        private List<Location> getLosing(State state, Iterable<Location> locations) {
-            final ArrayList<Location> losingLocations = new ArrayList<>();
-
-            for (Location location : locations){
-                final State imaginaryState = state.put(opponent, location);
-                final Logic logic = new Logic(imaginaryState);
-                if (logic.hasWon(opponent))
-                    losingLocations.add(location);
-            }
-
-            return losingLocations;
-        }
-
-        private List<Location> getForks(State state, Iterable<Location> locations){
+        private List<Location> getForks(State state, Player player, Iterable<Location> locations){
             final ArrayList<Location> forkLocations = new ArrayList<>();
 
             for (Location location : locations){
                 final State imaginaryState = state.put(player, location);
-                if (hasFork(imaginaryState))
+                if (hasFork(imaginaryState, player))
                     forkLocations.add(location);
             }
 
             return forkLocations;
         }
 
-        private boolean hasFork(State state) {
-            return getWinning(state, getAvailable(state, Location.getAll())).size() > 1;
+        private boolean hasFork(State state, Player player) {
+            return getWinning(state, player, getAvailable(state, Location.getAll())).size() > 1;
         }
 
         private <T> T getFirst(List<T> list) {
