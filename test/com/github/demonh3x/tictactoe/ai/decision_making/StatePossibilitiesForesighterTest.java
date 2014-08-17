@@ -5,6 +5,8 @@ import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -15,12 +17,29 @@ public class StatePossibilitiesForesighterTest {
 
     @Test
     public void GivenAFinishedState_ItHasNoPossibilities() {
-        StatePossibilitiesForesighter foresighter = new StatePossibilitiesForesighter();
+        StatePossibilitiesForesighter foresighter = new StatePossibilitiesForesighter(O);
         State finishedState = StateLiteral.create(
                 X, O, X,
                 O, X, X,
                 O, X, O
         );
         assertThat(foresighter.foresee(finishedState).size(), is(0));
+    }
+
+    @Test
+    public void GivenAStateWithOnlyOnePlayRemaining_ItHasOnlyThePossibilityToFinishIt() {
+        StatePossibilitiesForesighter foresighter = new StatePossibilitiesForesighter(X);
+        State onlyOnePlayRemaining = StateLiteral.create(
+                X, O, X,
+                O, X, X,
+                O, _, O
+        );
+        final List<State> possibilities = foresighter.foresee(onlyOnePlayRemaining);
+        assertThat(possibilities.size(), is(1));
+        assertThat(possibilities.get(0), is(StateLiteral.create(
+                X, O, X,
+                O, X, X,
+                O, X, O
+        )));
     }
 }

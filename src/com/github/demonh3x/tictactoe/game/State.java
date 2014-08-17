@@ -33,4 +33,13 @@ public class State {
     public boolean isEmptyAt(Location l) {
         return lookAt(l) == null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof State))
+            return false;
+
+        State other = (State) obj;
+        return pieces.equals(other.pieces);
+    }
 }
