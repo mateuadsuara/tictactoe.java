@@ -45,7 +45,7 @@ public class NewellSimonInteractor implements Interactor {
             if (!forkLocations.isEmpty())
                 return getFirst(forkLocations);
 
-            return getFirst(availableLocations);
+            throw new RuntimeException("Unhandled possibility!");
         }
 
         private List<Location> getWinning(State state, Iterable<Location> locations) {
