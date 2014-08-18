@@ -59,6 +59,10 @@ public class NewellSimonInteractor implements Interactor {
             if (!opponentCorners.isEmpty())
                 return opposite(getFirst(opponentCorners));
 
+            final List<Location> availableCorners = getAvailable(state, corners);
+            if (!availableCorners.isEmpty())
+                return getFirst(availableCorners);
+
             throw new RuntimeException("Unhandled possibility!");
         }
 

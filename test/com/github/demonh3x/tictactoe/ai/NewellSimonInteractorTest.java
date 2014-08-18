@@ -239,4 +239,22 @@ public class NewellSimonInteractorTest {
                 new Location(1, 1)
         );
     }
+
+    @Test
+    public void GivenTheCenterTakenAndFreeCorners_ShouldTakeOneCorner() {
+        assertPlayedOneOfLocationList(
+                O,
+                StateLiteral.create(
+                        _, _, _,
+                        _, X, _,
+                        _, _, _
+                ),
+                Arrays.asList(
+                        new Location(0, 0),
+                        new Location(0, 2),
+                        new Location(2, 2),
+                        new Location(2, 0)
+                )
+        );
+    }
 }
