@@ -257,4 +257,17 @@ public class NewellSimonInteractorTest {
                 )
         );
     }
+
+    @Test
+    public void GivenAllTheCornersAndCenterTaken_ShouldTakeAnEmptySide() {
+        assertPlayedLocation(
+                X,
+                StateLiteral.create(
+                        X, X, O,
+                        O, O, X,
+                        X, _, O
+                ),
+                new Location(1, 2)
+        );
+    }
 }
