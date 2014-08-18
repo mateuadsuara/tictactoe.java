@@ -1,7 +1,7 @@
 package com.github.demonh3x.tictactoe.cli;
 
+import com.github.demonh3x.tictactoe.ai.NewellSimonInteractor;
 import com.github.demonh3x.tictactoe.game.*;
-import com.github.demonh3x.tictactoe.ai.FirstPossiblePlayInteractor;
 import com.github.demonh3x.tictactoe.game.Observer;
 
 import java.util.*;
@@ -21,7 +21,7 @@ public class Main {
 
         final Iterator<Interactor> interactors = new CyclingIterator<>(Arrays.asList(
                 new HumanCliInteractor(xPlayer, System.out, System.in),
-                new FirstPossiblePlayInteractor(oPlayer)
+                new NewellSimonInteractor(oPlayer, xPlayer)
         ));
 
         final State initialState = State.empty();
