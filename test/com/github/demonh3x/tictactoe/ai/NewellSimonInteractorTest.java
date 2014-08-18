@@ -210,7 +210,20 @@ public class NewellSimonInteractorTest {
                         _, _, _,
                         _, _, _
                 ),
-                new Location(1,1)
+                new Location(1, 1)
+        );
+    }
+
+    @Test
+    public void GivenAPlayerInTheCorner_ShouldPlayTheOppositeCorner() {
+        assertPlayedLocation(
+                X,
+                StateLiteral.create(
+                        O, _, _,
+                        _, X, _,
+                        _, _, _
+                ),
+                new Location(2, 2)
         );
     }
 }

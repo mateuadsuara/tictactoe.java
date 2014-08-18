@@ -54,7 +54,31 @@ public class NewellSimonInteractor implements Interactor {
             if (state.isEmptyAt(center))
                 return center;
 
+            final List<Location> corners = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
+            final List<Location> opponentCorners = getOccupiedBy(state, opponent, corners);
+            if (!opponentCorners.isEmpty())
+                return opposite(getFirst(opponentCorners));
+
             throw new RuntimeException("Unhandled possibility!");
+        }
+
+        private Location opposite(Location location) {
+            final int maxX = Location.COLUMNS - 1;
+            final int oppositeX = Math.abs(location.x - maxX);
+            final int maxY = Location.ROWS - 1;
+            final int oppositeY = Math.abs(location.y - maxY);
+            return new Location(oppositeX, oppositeY);
+        }
+
+        private List<Location> getOccupiedBy(State state, Player player, List<Location> locations) {
+            final ArrayList<Location> occupiedByPlayer = new ArrayList<>();
+
+            for (Location location : locations) {
+                if (state.lookAt(location) == player)
+                    occupiedByPlayer.add(location);
+            }
+
+            return occupiedByPlayer;
         }
 
         private List<Location> getForkBlockingLocations(State state, Player player, Player opponent, List<Location> locations) {
