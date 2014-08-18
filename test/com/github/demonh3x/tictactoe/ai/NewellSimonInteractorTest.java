@@ -200,4 +200,17 @@ public class NewellSimonInteractorTest {
                 new Location(1,1)
         );
     }
+
+    @Test
+    public void GivenAStateWithTheCenterAvailable_ShouldTakeIt() {
+        assertPlayedLocation(
+                X,
+                StateLiteral.create(
+                        _, _, _,
+                        _, _, _,
+                        _, _, _
+                ),
+                new Location(1,1)
+        );
+    }
 }

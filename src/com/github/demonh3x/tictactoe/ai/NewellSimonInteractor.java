@@ -50,6 +50,10 @@ public class NewellSimonInteractor implements Interactor {
             if (!opponentForkLocations.isEmpty())
                 return getFirst(getForkBlockingLocations(state, player, opponent, availableLocations));
 
+            final Location center = new Location(1, 1);
+            if (state.isEmptyAt(center))
+                return center;
+
             throw new RuntimeException("Unhandled possibility!");
         }
 
