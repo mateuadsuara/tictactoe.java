@@ -226,4 +226,17 @@ public class NewellSimonInteractorTest {
                 new Location(2, 2)
         );
     }
+
+    @Test
+    public void GivenTheCenterAvailable_ShouldPreferItOverTheOppositeCorner() {
+        assertPlayedLocation(
+                O,
+                StateLiteral.create(
+                        X, _, _,
+                        _, _, _,
+                        _, _, _
+                ),
+                new Location(1, 1)
+        );
+    }
 }
