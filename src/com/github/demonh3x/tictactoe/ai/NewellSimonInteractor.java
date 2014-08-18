@@ -3,6 +3,7 @@ package com.github.demonh3x.tictactoe.ai;
 import com.github.demonh3x.tictactoe.game.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class NewellSimonInteractor implements Interactor {
@@ -47,9 +48,46 @@ public class NewellSimonInteractor implements Interactor {
 
             final List<Location> opponentForkLocations = getPossibleForks(state, opponent, availableLocations);
             if (!opponentForkLocations.isEmpty())
-                return getFirst(opponentForkLocations);
+                return getFirst(getForkBlockingLocations(state, player, opponent, availableLocations));
 
             throw new RuntimeException("Unhandled possibility!");
+        }
+
+        private List<Location> getForkBlockingLocations(State state, Player player, Player opponent, List<Location> locations) {
+            final ArrayList<Location> forkBlockingLocations = new ArrayList<>();
+
+            final List<Location> attackLocations = getAttackLocations(state, player, locations);
+
+            for (Location attackLocation : attackLocations){
+                final State imaginaryState = state.put(player, attackLocation);
+                final List<Location> imaginaryAvailableLocations = removeFrom(attackLocations, Arrays.asList(attackLocation));
+                final List<Location> imaginaryWinnings = getPossibleWinnings(imaginaryState, player, imaginaryAvailableLocations);
+                for (Location defendingLocation : imaginaryWinnings) {
+                    final State imaginaryDefendingState = state.put(opponent, defendingLocation);
+                    if (!hasFork(imaginaryDefendingState, opponent))
+                        forkBlockingLocations.add(attackLocation);
+                }
+            }
+
+            return forkBlockingLocations;
+        }
+
+        private List<Location> getAttackLocations(State state, Player player, List<Location> locations) {
+            final ArrayList<Location> attackLocations = new ArrayList<>();
+
+            for (Location location : locations){
+                final State imaginaryState = state.put(player, location);
+                if (hasAttack(imaginaryState, player))
+                    attackLocations.add(location);
+            }
+
+            return attackLocations;
+        }
+
+        private boolean hasAttack(State state, Player player) {
+            final List<Location> imaginaryAvailableLocations = getAvailable(state, Location.getAll());
+            final List<Location> possibleWinnings = getPossibleWinnings(state, player, imaginaryAvailableLocations);
+            return !possibleWinnings.isEmpty();
         }
 
         private List<Location> getPossibleWinnings(State state, Player player, Iterable<Location> locations) {
@@ -83,6 +121,13 @@ public class NewellSimonInteractor implements Interactor {
 
         private <T> T getFirst(List<T> list) {
             return list.get(0);
+        }
+
+        private <T> List<T> removeFrom(List<T> all, List<T> remove) {
+            final ArrayList<T> list = new ArrayList<>(all);
+            list.removeAll(remove);
+            assert all.size() != list.size();
+            return list;
         }
 
         private List<Location> getAvailable(State state, Iterable<Location> locations) {

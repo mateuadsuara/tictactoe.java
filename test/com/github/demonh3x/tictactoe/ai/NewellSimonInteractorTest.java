@@ -4,6 +4,10 @@ import com.github.demonh3x.tictactoe.StateLiteral;
 import com.github.demonh3x.tictactoe.game.*;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -13,11 +17,21 @@ public class NewellSimonInteractorTest {
     private static final Player O = new Player();
 
     private void assertPlayedLocation(Player represented, State state, Location location) {
-        Player opponent = represented == X? O: X;
-        Interactor interactor = new NewellSimonInteractor(represented, opponent);
-        Play play = interactor.play(state);
+        Play play = play(represented, state);
         assertThat(play.player, is(represented));
         assertThat(play.location, is(location));
+    }
+
+    private Play play(Player represented, State state) {
+        Player opponent = represented == X? O: X;
+        Interactor interactor = new NewellSimonInteractor(represented, opponent);
+        return interactor.play(state);
+    }
+
+    private void assertPlayedOneOfLocationList(Player represented, State state, List<Location> expectedOneOfThis){
+        Play play = play(represented, state);
+        assertThat(play.player, is(represented));
+        assertThat(expectedOneOfThis, hasItem(play.location));
     }
 
     @Test
@@ -154,6 +168,33 @@ public class NewellSimonInteractorTest {
                 StateLiteral.create(
                         X, O, X,
                         _, _, _,
+                        _, _, _
+                ),
+                new Location(1,1)
+        );
+    }
+
+    @Test
+    public void GivenTwoPossibleForksForTheOpponent_ShouldAttackAvoidingTheCreationOfTheFork() {
+        assertPlayedOneOfLocationList(
+                O,
+                StateLiteral.create(
+                        _, _, X,
+                        _, O, _,
+                        X, _, _
+                ),
+                Arrays.asList(
+                        new Location(1, 0),
+                        new Location(0, 1),
+                        new Location(1, 2),
+                        new Location(2, 1)
+                )
+        );
+        assertPlayedLocation(
+                O,
+                StateLiteral.create(
+                        X, O, _,
+                        _, _, X,
                         _, _, _
                 ),
                 new Location(1,1)
