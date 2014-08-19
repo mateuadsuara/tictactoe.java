@@ -174,7 +174,6 @@ public class NewellSimonInteractor implements Interactor {
         private <T> List<T> removeFrom(List<T> all, List<T> remove) {
             final ArrayList<T> list = new ArrayList<>(all);
             list.removeAll(remove);
-            assert all.size() != list.size();
             return list;
         }
 
