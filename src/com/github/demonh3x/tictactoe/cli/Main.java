@@ -19,13 +19,23 @@ public class Main {
                 new CliObserver(System.out, mappings)
         );
 
-        final Iterator<Interactor> interactors = new CyclingIterator<>(Arrays.asList(
-                new HumanCliInteractor(xPlayer, System.out, System.in),
-                new NewellSimonInteractor(oPlayer, xPlayer)
-        ));
+        final Interactor firstInteractor, secondInteractor;
+
+        if (userWantsToPlayFirst()){
+            firstInteractor = new HumanCliInteractor(xPlayer, System.out, System.in);
+            secondInteractor = new NewellSimonInteractor(oPlayer, xPlayer);
+        } else {
+            firstInteractor = new NewellSimonInteractor(xPlayer, oPlayer);
+            secondInteractor = new HumanCliInteractor(oPlayer, System.out, System.in);
+        }
+
+        final List<Interactor> playingOrder = Arrays.asList(
+                firstInteractor,
+                secondInteractor
+        );
 
         final State initialState = State.empty();
-        final StateIterator iterator = new StateIterator(initialState, interactors);
+        final StateIterator iterator = new StateIterator(initialState, new CyclingIterator<>(playingOrder));
 
         notify(observers, initialState);
         while(iterator.hasNext()){
@@ -39,5 +49,11 @@ public class Main {
         for (Observer o : observers){
             o.notify(state);
         }
+    }
+
+    private static boolean userWantsToPlayFirst() {
+        return new Asker(System.out, System.in)
+                .askForOneOption("Do you want to play first?", Arrays.asList("y", "n"))
+                .equals("y");
     }
 }
