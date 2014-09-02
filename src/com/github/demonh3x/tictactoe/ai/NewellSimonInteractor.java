@@ -20,6 +20,25 @@ public class NewellSimonInteractor implements Interactor {
         return new Play(representedPlayer, new LocationDecision(representedPlayer, opponent, state).get());
     }
 
+    private class StateAnalyser {
+        private final State state;
+
+        public StateAnalyser(State state){
+            this.state = state;
+        }
+
+        private List<Location> getAvailableLocationsFrom(Iterable<Location> toLookAt) {
+            final ArrayList<Location> available = new ArrayList<>();
+
+            for (Location location : toLookAt){
+                if (state.isEmptyAt(location))
+                    available.add(location);
+            }
+
+            return available;
+        }
+    }
+
     private class LocationDecision {
         private final Player player;
         private final Player opponent;
@@ -32,7 +51,7 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         public Location get() {
-            final List<Location> availableLocations = getAvailable(state, Location.getAll());
+            final List<Location> availableLocations = new StateAnalyser(state).getAvailableLocationsFrom(Location.getAll());
 
             final List<Location> winningLocations = getPossibleWinnings(state, player, availableLocations);
             if (!winningLocations.isEmpty())
@@ -56,16 +75,16 @@ public class NewellSimonInteractor implements Interactor {
 
             final List<Location> corners = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
             final List<Location> opponentCorners = getOccupiedBy(state, opponent, corners);
-            final List<Location> availableOppositeCorners = getAvailable(state, opposite(opponentCorners));
+            final List<Location> availableOppositeCorners = new StateAnalyser(state).getAvailableLocationsFrom(opposite(opponentCorners));
             if (!availableOppositeCorners.isEmpty())
                 return getFirst(availableOppositeCorners);
 
-            final List<Location> availableCorners = getAvailable(state, corners);
+            final List<Location> availableCorners = new StateAnalyser(state).getAvailableLocationsFrom(corners);
             if (!availableCorners.isEmpty())
                 return getFirst(availableCorners);
 
             final List<Location> sides = Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
-            final List<Location> availableSides = getAvailable(state, sides);
+            final List<Location> availableSides = new StateAnalyser(state).getAvailableLocationsFrom(sides);
             if (!availableSides.isEmpty())
                 return getFirst(availableSides);
 
@@ -133,7 +152,7 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         private boolean hasAttack(State state, Player player) {
-            final List<Location> imaginaryAvailableLocations = getAvailable(state, Location.getAll());
+            final List<Location> imaginaryAvailableLocations = new StateAnalyser(state).getAvailableLocationsFrom(Location.getAll());
             final List<Location> possibleWinnings = getPossibleWinnings(state, player, imaginaryAvailableLocations);
             return !possibleWinnings.isEmpty();
         }
@@ -164,7 +183,7 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         private boolean hasFork(State state, Player player) {
-            return getPossibleWinnings(state, player, getAvailable(state, Location.getAll())).size() > 1;
+            return getPossibleWinnings(state, player, new StateAnalyser(state).getAvailableLocationsFrom(Location.getAll())).size() > 1;
         }
 
         private <T> T getFirst(List<T> list) {
@@ -175,17 +194,6 @@ public class NewellSimonInteractor implements Interactor {
             final ArrayList<T> list = new ArrayList<>(all);
             list.removeAll(remove);
             return list;
-        }
-
-        private List<Location> getAvailable(State state, Iterable<Location> locations) {
-            final ArrayList<Location> available = new ArrayList<>();
-
-            for (Location location : locations){
-                if (state.isEmptyAt(location))
-                    available.add(location);
-            }
-
-            return available;
         }
     }
 }
