@@ -51,7 +51,9 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         public Location get() {
-            final List<Location> availableLocations = new StateAnalyser(state).getAvailableLocationsFrom(Location.getAll());
+            final StateAnalyser analyser = new StateAnalyser(state);
+
+            final List<Location> availableLocations = analyser.getAvailableLocationsFrom(Location.getAll());
 
             final List<Location> winningLocations = getPossibleWinnings(state, player, availableLocations);
             if (!winningLocations.isEmpty())
@@ -75,16 +77,16 @@ public class NewellSimonInteractor implements Interactor {
 
             final List<Location> corners = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
             final List<Location> opponentCorners = getOccupiedBy(state, opponent, corners);
-            final List<Location> availableOppositeCorners = new StateAnalyser(state).getAvailableLocationsFrom(opposite(opponentCorners));
+            final List<Location> availableOppositeCorners = analyser.getAvailableLocationsFrom(opposite(opponentCorners));
             if (!availableOppositeCorners.isEmpty())
                 return getFirst(availableOppositeCorners);
 
-            final List<Location> availableCorners = new StateAnalyser(state).getAvailableLocationsFrom(corners);
+            final List<Location> availableCorners = analyser.getAvailableLocationsFrom(corners);
             if (!availableCorners.isEmpty())
                 return getFirst(availableCorners);
 
             final List<Location> sides = Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
-            final List<Location> availableSides = new StateAnalyser(state).getAvailableLocationsFrom(sides);
+            final List<Location> availableSides = analyser.getAvailableLocationsFrom(sides);
             if (!availableSides.isEmpty())
                 return getFirst(availableSides);
 
