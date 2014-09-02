@@ -50,6 +50,23 @@ public class NewellSimonInteractor implements Interactor {
 
             return winningLocations;
         }
+
+        private List<Location> getPossibleForks(Player player, Iterable<Location> locations){
+            final ArrayList<Location> forkLocations = new ArrayList<>();
+
+            for (Location location : locations){
+                final State imaginaryState = state.put(player, location);
+                if (hasFork(imaginaryState, player))
+                    forkLocations.add(location);
+            }
+
+            return forkLocations;
+        }
+
+        private boolean hasFork(State state, Player player) {
+            final StateAnalyser analyser = new StateAnalyser(state);
+            return analyser.getPossibleWinnings(player, analyser.getAvailableLocationsFrom(Location.getAll())).size() > 1;
+        }
     }
 
     private class LocationDecision {
@@ -76,11 +93,11 @@ public class NewellSimonInteractor implements Interactor {
             if (!losingLocations.isEmpty())
                 return getFirst(losingLocations);
 
-            final List<Location> forkLocations = getPossibleForks(state, player, availableLocations);
+            final List<Location> forkLocations = analyser.getPossibleForks(player, availableLocations);
             if (!forkLocations.isEmpty())
                 return getFirst(forkLocations);
 
-            final List<Location> opponentForkLocations = getPossibleForks(state, opponent, availableLocations);
+            final List<Location> opponentForkLocations = analyser.getPossibleForks(opponent, availableLocations);
             if (!opponentForkLocations.isEmpty())
                 return getFirst(getForkBlockingLocations(state, player, opponent, availableLocations));
 
@@ -171,18 +188,6 @@ public class NewellSimonInteractor implements Interactor {
             final List<Location> imaginaryAvailableLocations = analyser.getAvailableLocationsFrom(Location.getAll());
             final List<Location> possibleWinnings = analyser.getPossibleWinnings(player, imaginaryAvailableLocations);
             return !possibleWinnings.isEmpty();
-        }
-
-        private List<Location> getPossibleForks(State state, Player player, Iterable<Location> locations){
-            final ArrayList<Location> forkLocations = new ArrayList<>();
-
-            for (Location location : locations){
-                final State imaginaryState = state.put(player, location);
-                if (hasFork(imaginaryState, player))
-                    forkLocations.add(location);
-            }
-
-            return forkLocations;
         }
 
         private boolean hasFork(State state, Player player) {
