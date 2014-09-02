@@ -67,6 +67,50 @@ public class NewellSimonInteractor implements Interactor {
             final StateAnalyser analyser = new StateAnalyser(state);
             return analyser.getPossibleWinnings(player, analyser.getAvailableLocationsFrom(Location.getAll())).size() > 1;
         }
+
+        private List<Location> getForkBlockingLocations(Player player, Player opponent, List<Location> locations) {
+            final ArrayList<Location> forkBlockingLocations = new ArrayList<>();
+
+            final List<Location> attackLocations = getAttackLocations(state, player, locations);
+
+            for (Location attackLocation : attackLocations){
+                final State imaginaryState = state.put(player, attackLocation);
+                final List<Location> imaginaryAvailableLocations = removeFrom(attackLocations, Arrays.asList(attackLocation));
+                final List<Location> imaginaryWinnings = new StateAnalyser(imaginaryState).getPossibleWinnings(player, imaginaryAvailableLocations);
+                for (Location defendingLocation : imaginaryWinnings) {
+                    final State imaginaryDefendingState = state.put(opponent, defendingLocation);
+                    if (!hasFork(imaginaryDefendingState, opponent))
+                        forkBlockingLocations.add(attackLocation);
+                }
+            }
+
+            return forkBlockingLocations;
+        }
+
+        private List<Location> getAttackLocations(State state, Player player, List<Location> locations) {
+            final ArrayList<Location> attackLocations = new ArrayList<>();
+
+            for (Location location : locations){
+                final State imaginaryState = state.put(player, location);
+                if (hasAttack(imaginaryState, player))
+                    attackLocations.add(location);
+            }
+
+            return attackLocations;
+        }
+
+        private boolean hasAttack(State state, Player player) {
+            final StateAnalyser analyser = new StateAnalyser(state);
+            final List<Location> imaginaryAvailableLocations = analyser.getAvailableLocationsFrom(Location.getAll());
+            final List<Location> possibleWinnings = analyser.getPossibleWinnings(player, imaginaryAvailableLocations);
+            return !possibleWinnings.isEmpty();
+        }
+
+        private <T> List<T> removeFrom(List<T> all, List<T> remove) {
+            final ArrayList<T> list = new ArrayList<>(all);
+            list.removeAll(remove);
+            return list;
+        }
     }
 
     private class LocationDecision {
@@ -99,7 +143,7 @@ public class NewellSimonInteractor implements Interactor {
 
             final List<Location> opponentForkLocations = analyser.getPossibleForks(opponent, availableLocations);
             if (!opponentForkLocations.isEmpty())
-                return getFirst(getForkBlockingLocations(state, player, opponent, availableLocations));
+                return getFirst(analyser.getForkBlockingLocations(player, opponent, availableLocations));
 
             final Location center = new Location(1, 1);
             if (state.isEmptyAt(center))
@@ -152,57 +196,8 @@ public class NewellSimonInteractor implements Interactor {
             return occupiedByPlayer;
         }
 
-        private List<Location> getForkBlockingLocations(State state, Player player, Player opponent, List<Location> locations) {
-            final ArrayList<Location> forkBlockingLocations = new ArrayList<>();
-
-            final List<Location> attackLocations = getAttackLocations(state, player, locations);
-
-            for (Location attackLocation : attackLocations){
-                final State imaginaryState = state.put(player, attackLocation);
-                final List<Location> imaginaryAvailableLocations = removeFrom(attackLocations, Arrays.asList(attackLocation));
-                final List<Location> imaginaryWinnings = new StateAnalyser(imaginaryState).getPossibleWinnings(player, imaginaryAvailableLocations);
-                for (Location defendingLocation : imaginaryWinnings) {
-                    final State imaginaryDefendingState = state.put(opponent, defendingLocation);
-                    if (!hasFork(imaginaryDefendingState, opponent))
-                        forkBlockingLocations.add(attackLocation);
-                }
-            }
-
-            return forkBlockingLocations;
-        }
-
-        private List<Location> getAttackLocations(State state, Player player, List<Location> locations) {
-            final ArrayList<Location> attackLocations = new ArrayList<>();
-
-            for (Location location : locations){
-                final State imaginaryState = state.put(player, location);
-                if (hasAttack(imaginaryState, player))
-                    attackLocations.add(location);
-            }
-
-            return attackLocations;
-        }
-
-        private boolean hasAttack(State state, Player player) {
-            final StateAnalyser analyser = new StateAnalyser(state);
-            final List<Location> imaginaryAvailableLocations = analyser.getAvailableLocationsFrom(Location.getAll());
-            final List<Location> possibleWinnings = analyser.getPossibleWinnings(player, imaginaryAvailableLocations);
-            return !possibleWinnings.isEmpty();
-        }
-
-        private boolean hasFork(State state, Player player) {
-            final StateAnalyser analyser = new StateAnalyser(state);
-            return analyser.getPossibleWinnings(player, analyser.getAvailableLocationsFrom(Location.getAll())).size() > 1;
-        }
-
         private <T> T getFirst(List<T> list) {
             return list.get(0);
-        }
-
-        private <T> List<T> removeFrom(List<T> all, List<T> remove) {
-            final ArrayList<T> list = new ArrayList<>(all);
-            list.removeAll(remove);
-            return list;
         }
     }
 }
