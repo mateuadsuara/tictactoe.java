@@ -20,7 +20,7 @@ public class NewellSimonInteractor implements Interactor {
         return new Play(representedPlayer, new LocationDecision(representedPlayer, opponent, state).get());
     }
 
-    private class LocationDecision {
+    private static class LocationDecision {
         private final Player player;
         private final Player opponent;
         private final State state;
@@ -30,6 +30,10 @@ public class NewellSimonInteractor implements Interactor {
             this.opponent = opponent;
             this.state = state;
         }
+
+        private static final Location CENTER = new Location(1, 1);
+        private static final List<Location> CORNERS = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
+        private static final List<Location> SIDES = Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
 
         public Location get() {
             final StateAnalyser analyser = new StateAnalyser(state);
@@ -52,22 +56,19 @@ public class NewellSimonInteractor implements Interactor {
             if (!opponentForkLocations.isEmpty())
                 return getFirst(analyser.getForkBlockingLocations(player, opponent, availableLocations));
 
-            final Location center = new Location(1, 1);
-            if (state.isEmptyAt(center))
-                return center;
+            if (state.isEmptyAt(CENTER))
+                return CENTER;
 
-            final List<Location> corners = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
-            final List<Location> opponentCorners = analyser.getOccupiedBy(opponent, corners);
+            final List<Location> opponentCorners = analyser.getOccupiedBy(opponent, CORNERS);
             final List<Location> availableOppositeCorners = analyser.getAvailableLocationsFrom(opposite(opponentCorners));
             if (!availableOppositeCorners.isEmpty())
                 return getFirst(availableOppositeCorners);
 
-            final List<Location> availableCorners = analyser.getAvailableLocationsFrom(corners);
+            final List<Location> availableCorners = analyser.getAvailableLocationsFrom(CORNERS);
             if (!availableCorners.isEmpty())
                 return getFirst(availableCorners);
 
-            final List<Location> sides = Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
-            final List<Location> availableSides = analyser.getAvailableLocationsFrom(sides);
+            final List<Location> availableSides = analyser.getAvailableLocationsFrom(SIDES);
             if (!availableSides.isEmpty())
                 return getFirst(availableSides);
 
