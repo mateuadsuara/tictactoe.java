@@ -37,6 +37,19 @@ public class NewellSimonInteractor implements Interactor {
 
             return available;
         }
+
+        private List<Location> getPossibleWinnings(Player player, Iterable<Location> locations) {
+            final ArrayList<Location> winningLocations = new ArrayList<>();
+
+            for (Location location : locations){
+                final State imaginaryState = state.put(player, location);
+                final Logic logic = new Logic(imaginaryState);
+                if (logic.hasWon(player))
+                    winningLocations.add(location);
+            }
+
+            return winningLocations;
+        }
     }
 
     private class LocationDecision {
@@ -55,11 +68,11 @@ public class NewellSimonInteractor implements Interactor {
 
             final List<Location> availableLocations = analyser.getAvailableLocationsFrom(Location.getAll());
 
-            final List<Location> winningLocations = getPossibleWinnings(state, player, availableLocations);
+            final List<Location> winningLocations = analyser.getPossibleWinnings(player, availableLocations);
             if (!winningLocations.isEmpty())
                 return getFirst(winningLocations);
 
-            final List<Location> losingLocations = getPossibleWinnings(state, opponent, availableLocations);
+            final List<Location> losingLocations = analyser.getPossibleWinnings(opponent, availableLocations);
             if (!losingLocations.isEmpty())
                 return getFirst(losingLocations);
 
@@ -130,7 +143,7 @@ public class NewellSimonInteractor implements Interactor {
             for (Location attackLocation : attackLocations){
                 final State imaginaryState = state.put(player, attackLocation);
                 final List<Location> imaginaryAvailableLocations = removeFrom(attackLocations, Arrays.asList(attackLocation));
-                final List<Location> imaginaryWinnings = getPossibleWinnings(imaginaryState, player, imaginaryAvailableLocations);
+                final List<Location> imaginaryWinnings = new StateAnalyser(imaginaryState).getPossibleWinnings(player, imaginaryAvailableLocations);
                 for (Location defendingLocation : imaginaryWinnings) {
                     final State imaginaryDefendingState = state.put(opponent, defendingLocation);
                     if (!hasFork(imaginaryDefendingState, opponent))
@@ -154,22 +167,10 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         private boolean hasAttack(State state, Player player) {
-            final List<Location> imaginaryAvailableLocations = new StateAnalyser(state).getAvailableLocationsFrom(Location.getAll());
-            final List<Location> possibleWinnings = getPossibleWinnings(state, player, imaginaryAvailableLocations);
+            final StateAnalyser analyser = new StateAnalyser(state);
+            final List<Location> imaginaryAvailableLocations = analyser.getAvailableLocationsFrom(Location.getAll());
+            final List<Location> possibleWinnings = analyser.getPossibleWinnings(player, imaginaryAvailableLocations);
             return !possibleWinnings.isEmpty();
-        }
-
-        private List<Location> getPossibleWinnings(State state, Player player, Iterable<Location> locations) {
-            final ArrayList<Location> winningLocations = new ArrayList<>();
-
-            for (Location location : locations){
-                final State imaginaryState = state.put(player, location);
-                final Logic logic = new Logic(imaginaryState);
-                if (logic.hasWon(player))
-                    winningLocations.add(location);
-            }
-
-            return winningLocations;
         }
 
         private List<Location> getPossibleForks(State state, Player player, Iterable<Location> locations){
@@ -185,7 +186,8 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         private boolean hasFork(State state, Player player) {
-            return getPossibleWinnings(state, player, new StateAnalyser(state).getAvailableLocationsFrom(Location.getAll())).size() > 1;
+            final StateAnalyser analyser = new StateAnalyser(state);
+            return analyser.getPossibleWinnings(player, analyser.getAvailableLocationsFrom(Location.getAll())).size() > 1;
         }
 
         private <T> T getFirst(List<T> list) {
