@@ -111,6 +111,17 @@ public class NewellSimonInteractor implements Interactor {
             list.removeAll(remove);
             return list;
         }
+
+        private List<Location> getOccupiedBy(Player player, List<Location> locations) {
+            final ArrayList<Location> occupiedByPlayer = new ArrayList<>();
+
+            for (Location location : locations) {
+                if (state.lookAt(location) == player)
+                    occupiedByPlayer.add(location);
+            }
+
+            return occupiedByPlayer;
+        }
     }
 
     private class LocationDecision {
@@ -150,7 +161,7 @@ public class NewellSimonInteractor implements Interactor {
                 return center;
 
             final List<Location> corners = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
-            final List<Location> opponentCorners = getOccupiedBy(state, opponent, corners);
+            final List<Location> opponentCorners = analyser.getOccupiedBy(opponent, corners);
             final List<Location> availableOppositeCorners = analyser.getAvailableLocationsFrom(opposite(opponentCorners));
             if (!availableOppositeCorners.isEmpty())
                 return getFirst(availableOppositeCorners);
@@ -183,17 +194,6 @@ public class NewellSimonInteractor implements Interactor {
             }
 
             return oppositeLocations;
-        }
-
-        private List<Location> getOccupiedBy(State state, Player player, List<Location> locations) {
-            final ArrayList<Location> occupiedByPlayer = new ArrayList<>();
-
-            for (Location location : locations) {
-                if (state.lookAt(location) == player)
-                    occupiedByPlayer.add(location);
-            }
-
-            return occupiedByPlayer;
         }
 
         private <T> T getFirst(List<T> list) {
