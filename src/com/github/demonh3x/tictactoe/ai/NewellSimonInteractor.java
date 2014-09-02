@@ -74,19 +74,11 @@ public class NewellSimonInteractor implements Interactor {
             throw new RuntimeException("Unhandled possibility!");
         }
 
-        private Location opposite(Location location) {
-            final int maxX = Location.COLUMNS - 1;
-            final int oppositeX = Math.abs(location.x - maxX);
-            final int maxY = Location.ROWS - 1;
-            final int oppositeY = Math.abs(location.y - maxY);
-            return new Location(oppositeX, oppositeY);
-        }
-
         private List<Location> opposite(List<Location> locations){
             final ArrayList<Location> oppositeLocations = new ArrayList<>();
 
             for (Location location : locations) {
-                oppositeLocations.add(opposite(location));
+                oppositeLocations.add(location.opposite());
             }
 
             return oppositeLocations;

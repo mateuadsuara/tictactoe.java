@@ -30,6 +30,14 @@ public class Location {
         this.y = y;
     }
 
+    public Location opposite() {
+        final int maxX = Location.COLUMNS - 1;
+        final int oppositeX = Math.abs(this.x - maxX);
+        final int maxY = Location.ROWS - 1;
+        final int oppositeY = Math.abs(this.y - maxY);
+        return new Location(oppositeX, oppositeY);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Location))
