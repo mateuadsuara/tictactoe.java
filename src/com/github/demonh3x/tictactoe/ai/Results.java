@@ -40,4 +40,9 @@ public class Results implements Iterable<Location>{
         final List<Location> possibleWinnings = analyser.getPossibleWinnings(player, locations);
         return new Results(state, possibleWinnings);
     }
+
+    public Results forkableBy(Player player) {
+        final List<Location> possibleForks = analyser.getPossibleForks(player, locations);
+        return new Results(state, possibleForks);
+    }
 }
