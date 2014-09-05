@@ -3,6 +3,7 @@ package com.github.demonh3x.tictactoe.ai;
 import com.github.demonh3x.tictactoe.game.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class NewellSimonInteractor implements Interactor {
@@ -80,13 +81,14 @@ public class NewellSimonInteractor implements Interactor {
             final Results allLocations = new Results(state, ALL);
             final Results availableLocations = allLocations.available();
 
-            final MoveOption win = new WinOption(state, player);
-            if (win.isAvailable())
-                return win.getLocation();
+            final List<MoveOption> moveOptions = Arrays.asList(
+                    new WinOption(state, player),
+                    new BlockOption(state, opponent)
+            );
 
-            final MoveOption block = new BlockOption(state, opponent);
-            if (block.isAvailable())
-                return block.getLocation();
+            for (MoveOption option : moveOptions)
+                if (option.isAvailable())
+                    return option.getLocation();
 
             final Results ownForkLocations = availableLocations.forkableBy(player);
             if (ownForkLocations.exist())
