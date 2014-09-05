@@ -34,7 +34,6 @@ public class NewellSimonInteractor implements Interactor {
             this.state = state;
         }
 
-        private static final List<Location> CENTERS = Location.getCenters();
         private static final List<Location> CORNERS = Location.getCorners();
         private static final List<Location> SIDES = Location.getSides();
 
@@ -43,16 +42,13 @@ public class NewellSimonInteractor implements Interactor {
                     new WinOption(state, player),
                     new BlockOption(state, opponent),
                     new ForkOption(state, player),
-                    new BlockForkOption(state, player, opponent)
+                    new BlockForkOption(state, player, opponent),
+                    new CenterOption(state)
             );
 
             for (MoveOption option : moveOptions)
                 if (option.isAvailable())
                     return option.getLocation();
-
-            final Results availableCenters = new Results(state, CENTERS).available();
-            if (availableCenters.exist())
-                return availableCenters.first();
 
             final Results corners = new Results(state, CORNERS);
             final Results opponentCorners = corners.occupiedBy(opponent);
