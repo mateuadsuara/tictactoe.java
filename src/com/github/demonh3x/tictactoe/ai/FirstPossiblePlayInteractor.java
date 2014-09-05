@@ -1,6 +1,11 @@
 package com.github.demonh3x.tictactoe.ai;
 
+import com.github.demonh3x.tictactoe.ai.NewellSimon.FirstPossibleMoveOption;
+import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOption;
+import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.AvailableOption;
 import com.github.demonh3x.tictactoe.game.*;
+
+import java.util.Arrays;
 
 public class FirstPossiblePlayInteractor implements Interactor {
     private final Player representedPlayer;
@@ -11,10 +16,12 @@ public class FirstPossiblePlayInteractor implements Interactor {
 
     @Override
     public Play play(State state) {
-        for (Location l : Location.getAll())
-            if (state.isEmptyAt(l))
-                return new Play(representedPlayer, l);
+        return new Play(representedPlayer, getDecisionMaker(state).get());
+    }
 
-        throw new IllegalArgumentException();
+    private FirstPossibleMoveOption getDecisionMaker(State state) {
+        return new FirstPossibleMoveOption(Arrays.<MoveOption>asList(
+                new AvailableOption(state)
+        ));
     }
 }

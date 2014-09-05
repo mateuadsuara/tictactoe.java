@@ -60,7 +60,7 @@ public class FirstPossiblePlayInteractorTest {
         assertThat(played, is(new Location(0, 1)));
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = RuntimeException.class)
     public void GivenStateWithAllPiecesInPlace_shouldThrowException() {
         final State state = State.empty()
                 .put(new Player(), new Location(0, 0))
