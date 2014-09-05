@@ -32,8 +32,8 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         private static final Location CENTER = new Location(1, 1);
-        private static final List<Location> CORNERS = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
-        private static final List<Location> SIDES = Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
+        private static final Iterable<Location> CORNERS = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
+        private static final Iterable<Location> SIDES = Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
 
         public Location get() {
             final StateAnalyser analyser = new StateAnalyser(state);

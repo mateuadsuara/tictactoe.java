@@ -57,7 +57,7 @@ public class StateAnalyser {
         return analyser.getPossibleWinnings(player, analyser.getAvailableLocationsFrom(Location.getAll())).size() > 1;
     }
 
-    public List<Location> getForkBlockingLocations(Player player, Player opponent, List<Location> locations) {
+    public List<Location> getForkBlockingLocations(Player player, Player opponent, Iterable<Location> locations) {
         final ArrayList<Location> forkBlockingLocations = new ArrayList<>();
 
         final List<Location> attackLocations = getAttackLocations(state, player, locations);
@@ -76,7 +76,7 @@ public class StateAnalyser {
         return forkBlockingLocations;
     }
 
-    private List<Location> getAttackLocations(State state, Player player, List<Location> locations) {
+    private List<Location> getAttackLocations(State state, Player player, Iterable<Location> locations) {
         final ArrayList<Location> attackLocations = new ArrayList<>();
 
         for (Location location : locations){
@@ -101,7 +101,7 @@ public class StateAnalyser {
         return list;
     }
 
-    public List<Location> getOccupiedBy(Player player, List<Location> locations) {
+    public List<Location> getOccupiedBy(Player player, Iterable<Location> locations) {
         final ArrayList<Location> occupiedByPlayer = new ArrayList<>();
 
         for (Location location : locations) {
