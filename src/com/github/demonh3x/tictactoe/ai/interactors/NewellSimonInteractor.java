@@ -20,7 +20,7 @@ public class NewellSimonInteractor implements Interactor {
 
     @Override
     public Play play(State state) {
-        return new Play(representedPlayer, getDecisionMaker(state).get());
+        return new Play(representedPlayer, getDecisionMaker(state).getLocation());
     }
 
     private FirstPossibleMoveOption getDecisionMaker(State state) {

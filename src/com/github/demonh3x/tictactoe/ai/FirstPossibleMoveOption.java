@@ -11,7 +11,7 @@ public class FirstPossibleMoveOption {
         this.moveOptions = moveOptions;
     }
 
-    public Location get() {
+    public Location getLocation() {
         for (MoveOption option : moveOptions)
             if (option.isAvailable())
                 return option.getLocation();
