@@ -19,6 +19,29 @@ public class NewellSimonInteractor implements Interactor {
         return new Play(representedPlayer, new LocationDecision(representedPlayer, opponent, state).get());
     }
 
+    private static interface MoveOption {
+        public boolean isAvailable();
+        public Location getMove();
+    }
+
+    private static class WinOption implements MoveOption {
+        private final Results winnableLocations;
+
+        private WinOption(State state, Player player) {
+            winnableLocations = new Results(state, Location.getAll()).available().winnableBy(player);
+        }
+
+        @Override
+        public boolean isAvailable() {
+            return winnableLocations.exist();
+        }
+
+        @Override
+        public Location getMove() {
+            return winnableLocations.first();
+        }
+    }
+
     private static class LocationDecision {
         private final Player player;
         private final Player opponent;
@@ -39,9 +62,9 @@ public class NewellSimonInteractor implements Interactor {
             final Results allLocations = new Results(state, ALL);
             final Results availableLocations = allLocations.available();
 
-            final Results winnableLocations = availableLocations.winnableBy(player);
-            if (winnableLocations.exist())
-                return winnableLocations.first();
+            final MoveOption win = new WinOption(state, player);
+            if (win.isAvailable())
+                return win.getMove();
 
             final Results losingLocations = availableLocations.winnableBy(opponent);
             if (losingLocations.exist())
