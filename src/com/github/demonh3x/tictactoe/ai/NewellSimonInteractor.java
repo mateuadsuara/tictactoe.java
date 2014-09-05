@@ -1,11 +1,13 @@
 package com.github.demonh3x.tictactoe.ai;
 
-import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOption;
+import com.github.demonh3x.tictactoe.ai.NewellSimon.DecisionMaker;
 import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.*;
-import com.github.demonh3x.tictactoe.game.*;
+import com.github.demonh3x.tictactoe.game.Interactor;
+import com.github.demonh3x.tictactoe.game.Play;
+import com.github.demonh3x.tictactoe.game.Player;
+import com.github.demonh3x.tictactoe.game.State;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class NewellSimonInteractor implements Interactor {
     private final Player representedPlayer;
@@ -18,37 +20,19 @@ public class NewellSimonInteractor implements Interactor {
 
     @Override
     public Play play(State state) {
-        return new Play(representedPlayer, new LocationDecision(representedPlayer, opponent, state).get());
+        return new Play(representedPlayer, getDecisionMaker(state).get());
     }
 
-    private static class LocationDecision {
-        private final Player player;
-        private final Player opponent;
-        private final State state;
-
-        public LocationDecision(Player player, Player opponent, State state) {
-            this.player = player;
-            this.opponent = opponent;
-            this.state = state;
-        }
-
-        public Location get() {
-            final List<MoveOption> moveOptions = Arrays.asList(
-                    new WinOption(state, player),
-                    new BlockOption(state, opponent),
-                    new ForkOption(state, player),
-                    new BlockForkOption(state, player, opponent),
-                    new CenterOption(state),
-                    new OppositeCornerOption(state, opponent),
-                    new CornerOption(state),
-                    new SideOption(state)
-            );
-
-            for (MoveOption option : moveOptions)
-                if (option.isAvailable())
-                    return option.getLocation();
-
-            throw new RuntimeException("Unhandled possibility!");
-        }
+    private DecisionMaker getDecisionMaker(State state) {
+        return new DecisionMaker(Arrays.asList(
+                new WinOption(state, representedPlayer),
+                new BlockOption(state, opponent),
+                new ForkOption(state, representedPlayer),
+                new BlockForkOption(state, representedPlayer, opponent),
+                new CenterOption(state),
+                new OppositeCornerOption(state, opponent),
+                new CornerOption(state),
+                new SideOption(state)
+        ));
     }
 }
