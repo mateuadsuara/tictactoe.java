@@ -1,6 +1,6 @@
-package com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions;
+package com.github.demonh3x.tictactoe.ai.options;
 
-import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOption;
+import com.github.demonh3x.tictactoe.ai.MoveOption;
 import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.State;
 

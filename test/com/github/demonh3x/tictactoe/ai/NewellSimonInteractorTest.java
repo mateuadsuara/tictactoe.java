@@ -1,6 +1,7 @@
 package com.github.demonh3x.tictactoe.ai;
 
 import com.github.demonh3x.tictactoe.StateLiteral;
+import com.github.demonh3x.tictactoe.ai.interactors.NewellSimonInteractor;
 import com.github.demonh3x.tictactoe.game.*;
 import org.junit.Test;
 

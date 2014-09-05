@@ -1,7 +1,7 @@
-package com.github.demonh3x.tictactoe.ai;
+package com.github.demonh3x.tictactoe.ai.interactors;
 
-import com.github.demonh3x.tictactoe.ai.NewellSimon.FirstPossibleMoveOption;
-import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.*;
+import com.github.demonh3x.tictactoe.ai.FirstPossibleMoveOption;
+import com.github.demonh3x.tictactoe.ai.options.*;
 import com.github.demonh3x.tictactoe.game.Interactor;
 import com.github.demonh3x.tictactoe.game.Play;
 import com.github.demonh3x.tictactoe.game.Player;

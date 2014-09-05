@@ -1,6 +1,6 @@
 package com.github.demonh3x.tictactoe.cli;
 
-import com.github.demonh3x.tictactoe.ai.NewellSimonInteractor;
+import com.github.demonh3x.tictactoe.ai.interactors.NewellSimonInteractor;
 import com.github.demonh3x.tictactoe.game.*;
 import com.github.demonh3x.tictactoe.game.Observer;
 

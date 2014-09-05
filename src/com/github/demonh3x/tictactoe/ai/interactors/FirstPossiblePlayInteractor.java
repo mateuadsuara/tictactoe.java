@@ -1,8 +1,8 @@
-package com.github.demonh3x.tictactoe.ai;
+package com.github.demonh3x.tictactoe.ai.interactors;
 
-import com.github.demonh3x.tictactoe.ai.NewellSimon.FirstPossibleMoveOption;
-import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOption;
-import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.AvailableOption;
+import com.github.demonh3x.tictactoe.ai.FirstPossibleMoveOption;
+import com.github.demonh3x.tictactoe.ai.MoveOption;
+import com.github.demonh3x.tictactoe.ai.options.AvailableOption;
 import com.github.demonh3x.tictactoe.game.*;
 
 import java.util.Arrays;
