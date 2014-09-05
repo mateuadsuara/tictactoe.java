@@ -23,8 +23,8 @@ public class Results implements Iterable<Location>{
         return locations.iterator();
     }
 
-    public boolean isEmpty(){
-        return locations.isEmpty();
+    public boolean exist(){
+        return !locations.isEmpty();
     }
 
     public Location first() {
@@ -36,7 +36,7 @@ public class Results implements Iterable<Location>{
         return new Results(state, availableLocations);
     }
 
-    public Results winableBy(Player player) {
+    public Results winnableBy(Player player) {
         final List<Location> possibleWinnings = analyser.getPossibleWinnings(player, locations);
         return new Results(state, possibleWinnings);
     }

@@ -42,9 +42,9 @@ public class NewellSimonInteractor implements Interactor {
 
             final StateAnalyser analyser = new StateAnalyser(state);
 
-            final Results winningLocations = availableLocations.winableBy(player);
-            if (!winningLocations.isEmpty())
-                return winningLocations.first();
+            final Results winnableLocations = availableLocations.winnableBy(player);
+            if (winnableLocations.exist())
+                return winnableLocations.first();
 
             final List<Location> losingLocations = analyser.getPossibleWinnings(opponent, availableLocations);
             if (!losingLocations.isEmpty())
