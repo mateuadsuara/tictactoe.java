@@ -62,10 +62,10 @@ public class NewellSimonInteractor implements Interactor {
             if (availableCenters.exist())
                 return availableCenters.first();
 
-            final List<Location> opponentCorners = analyser.getOccupiedBy(opponent, CORNERS);
-            final List<Location> availableOppositeCorners = analyser.getAvailableLocationsFrom(opposite(opponentCorners));
-            if (!availableOppositeCorners.isEmpty())
-                return getFirst(availableOppositeCorners);
+            final Results opponentCorners = new Results(state, CORNERS).occupiedBy(opponent);
+            final Results availableOppositeCorners = new Results(state, opposite(opponentCorners)).available();
+            if (availableOppositeCorners.exist())
+                return availableOppositeCorners.first();
 
             final List<Location> availableCorners = analyser.getAvailableLocationsFrom(CORNERS);
             if (!availableCorners.isEmpty())
@@ -78,7 +78,7 @@ public class NewellSimonInteractor implements Interactor {
             throw new RuntimeException("Unhandled possibility!");
         }
 
-        private List<Location> opposite(List<Location> locations){
+        private List<Location> opposite(Iterable<Location> locations){
             final ArrayList<Location> oppositeLocations = new ArrayList<>();
 
             for (Location location : locations) {

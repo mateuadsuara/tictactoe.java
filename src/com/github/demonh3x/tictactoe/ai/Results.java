@@ -50,4 +50,9 @@ public class Results implements Iterable<Location>{
         final List<Location> possibleBlocks = analyser.getForkBlockingLocations(player, opponent, locations);
         return new Results(state, possibleBlocks);
     }
+
+    public Results occupiedBy(Player player) {
+        final List<Location> occupiedBy = analyser.getOccupiedBy(player, locations);
+        return new Results(state, occupiedBy);
+    }
 }
