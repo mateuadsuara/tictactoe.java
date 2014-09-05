@@ -43,20 +43,15 @@ public class NewellSimonInteractor implements Interactor {
                     new BlockOption(state, opponent),
                     new ForkOption(state, player),
                     new BlockForkOption(state, player, opponent),
-                    new CenterOption(state)
+                    new CenterOption(state),
+                    new OppositeCornerOption(state, opponent)
             );
 
             for (MoveOption option : moveOptions)
                 if (option.isAvailable())
                     return option.getLocation();
 
-            final Results corners = new Results(state, CORNERS);
-            final Results opponentCorners = corners.occupiedBy(opponent);
-            final Results availableOppositeCorners = new Results(state, opposite(opponentCorners)).available();
-            if (availableOppositeCorners.exist())
-                return availableOppositeCorners.first();
-
-            final Results availableCorners = corners.available();
+            final Results availableCorners = new Results(state, CORNERS).available();
             if (availableCorners.exist())
                 return availableCorners.first();
 
@@ -65,16 +60,6 @@ public class NewellSimonInteractor implements Interactor {
                 return availableSides.first();
 
             throw new RuntimeException("Unhandled possibility!");
-        }
-
-        private List<Location> opposite(Iterable<Location> locations){
-            final ArrayList<Location> oppositeLocations = new ArrayList<>();
-
-            for (Location location : locations) {
-                oppositeLocations.add(location.opposite());
-            }
-
-            return oppositeLocations;
         }
     }
 }
