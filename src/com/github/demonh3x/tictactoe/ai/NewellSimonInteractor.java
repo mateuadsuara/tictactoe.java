@@ -40,8 +40,6 @@ public class NewellSimonInteractor implements Interactor {
             final Results allLocations = new Results(state, ALL);
             final Results availableLocations = allLocations.available();
 
-            final StateAnalyser analyser = new StateAnalyser(state);
-
             final Results winnableLocations = availableLocations.winnableBy(player);
             if (winnableLocations.exist())
                 return winnableLocations.first();
@@ -87,10 +85,6 @@ public class NewellSimonInteractor implements Interactor {
             }
 
             return oppositeLocations;
-        }
-
-        private <T> T getFirst(List<T> list) {
-            return list.get(0);
         }
     }
 }
