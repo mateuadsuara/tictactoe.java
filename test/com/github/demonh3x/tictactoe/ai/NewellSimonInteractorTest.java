@@ -225,6 +225,15 @@ public class NewellSimonInteractorTest {
                 ),
                 new Location(2, 2)
         );
+        assertPlayedLocation(
+                X,
+                StateLiteral.create(
+                        _, _, O,
+                        _, X, _,
+                        _, _, _
+                ),
+                new Location(0, 2)
+        );
     }
 
     @Test
