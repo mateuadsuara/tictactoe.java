@@ -1,5 +1,9 @@
 package com.github.demonh3x.tictactoe.ai;
 
+import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOption;
+import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.BlockOption;
+import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.WinOption;
+import com.github.demonh3x.tictactoe.ai.NewellSimon.Results;
 import com.github.demonh3x.tictactoe.game.*;
 
 import java.util.ArrayList;
@@ -18,47 +22,6 @@ public class NewellSimonInteractor implements Interactor {
     @Override
     public Play play(State state) {
         return new Play(representedPlayer, new LocationDecision(representedPlayer, opponent, state).get());
-    }
-
-    private static interface MoveOption {
-        public boolean isAvailable();
-        public Location getLocation();
-    }
-
-    private static class WinOption implements MoveOption {
-        private final Results winnableLocations;
-
-        private WinOption(State state, Player player) {
-            winnableLocations = new Results(state, Location.getAll()).available().winnableBy(player);
-        }
-
-        @Override
-        public boolean isAvailable() {
-            return winnableLocations.exist();
-        }
-
-        @Override
-        public Location getLocation() {
-            return winnableLocations.first();
-        }
-    }
-
-    private static class BlockOption implements MoveOption {
-        private final Results losingLocations;
-
-        private BlockOption(State state, Player opponent) {
-             losingLocations = new Results(state, Location.getAll()).available().winnableBy(opponent);
-        }
-
-        @Override
-        public boolean isAvailable() {
-            return losingLocations.exist();
-        }
-
-        @Override
-        public Location getLocation() {
-            return losingLocations.first();
-        }
     }
 
     private static class LocationDecision {

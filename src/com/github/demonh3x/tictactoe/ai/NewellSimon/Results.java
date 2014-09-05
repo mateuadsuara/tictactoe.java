@@ -1,4 +1,4 @@
-package com.github.demonh3x.tictactoe.ai;
+package com.github.demonh3x.tictactoe.ai.NewellSimon;
 
 import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.Player;
