@@ -21,7 +21,7 @@ public class NewellSimonInteractor implements Interactor {
 
     private static interface MoveOption {
         public boolean isAvailable();
-        public Location getMove();
+        public Location getLocation();
     }
 
     private static class WinOption implements MoveOption {
@@ -37,7 +37,7 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         @Override
-        public Location getMove() {
+        public Location getLocation() {
             return winnableLocations.first();
         }
     }
@@ -64,7 +64,7 @@ public class NewellSimonInteractor implements Interactor {
 
             final MoveOption win = new WinOption(state, player);
             if (win.isAvailable())
-                return win.getMove();
+                return win.getLocation();
 
             final Results losingLocations = availableLocations.winnableBy(opponent);
             if (losingLocations.exist())
