@@ -46,9 +46,9 @@ public class NewellSimonInteractor implements Interactor {
             if (winnableLocations.exist())
                 return winnableLocations.first();
 
-            final List<Location> losingLocations = analyser.getPossibleWinnings(opponent, availableLocations);
-            if (!losingLocations.isEmpty())
-                return getFirst(losingLocations);
+            final Results losingLocations = availableLocations.winnableBy(opponent);
+            if (losingLocations.exist())
+                return losingLocations.first();
 
             final List<Location> forkLocations = analyser.getPossibleForks(player, availableLocations);
             if (!forkLocations.isEmpty())
