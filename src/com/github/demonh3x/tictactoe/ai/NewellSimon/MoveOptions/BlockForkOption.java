@@ -7,25 +7,31 @@ import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 
 public class BlockForkOption implements MoveOption {
-    private final Results opponentForkLocations;
+    private final State state;
     private final Player player;
     private final Player opponent;
-    private Results availableLocations;
 
     public BlockForkOption(State state, Player player, Player opponent) {
+        this.state = state;
         this.player = player;
         this.opponent = opponent;
-        availableLocations = new Results(state, Location.getAll()).available();
-        opponentForkLocations = availableLocations.forkableBy(opponent);
+    }
+
+    private Results getOpponentForkLocations() {
+        return getAvailableLocations().forkableBy(opponent);
+    }
+
+    private Results getAvailableLocations() {
+        return new Results(state, Location.getAll()).available();
     }
 
     @Override
     public boolean isAvailable() {
-        return opponentForkLocations.exist();
+        return getOpponentForkLocations().exist();
     }
 
     @Override
     public Location getLocation() {
-        return availableLocations.forkBlockableBy(player, opponent).first();
+        return getAvailableLocations().forkBlockableBy(player, opponent).first();
     }
 }

@@ -7,19 +7,25 @@ import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 
 public class ForkOption implements MoveOption {
-    private final Results ownForkLocations;
+    private final State state;
+    private final Player player;
 
     public ForkOption(State state, Player player) {
-        ownForkLocations = new Results(state, Location.getAll()).available().forkableBy(player);
+        this.state = state;
+        this.player = player;
+    }
+
+    private Results getOwnForkLocations() {
+        return new Results(state, Location.getAll()).available().forkableBy(player);
     }
 
     @Override
     public boolean isAvailable() {
-        return ownForkLocations.exist();
+        return getOwnForkLocations().exist();
     }
 
     @Override
     public Location getLocation() {
-        return ownForkLocations.first();
+        return getOwnForkLocations().first();
     }
 }

@@ -7,19 +7,25 @@ import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 
 public class BlockOption implements MoveOption {
-    private final Results losingLocations;
+    private final State state;
+    private final Player opponent;
 
     public BlockOption(State state, Player opponent) {
-        losingLocations = new Results(state, Location.getAll()).available().winnableBy(opponent);
+        this.state = state;
+        this.opponent = opponent;
+    }
+
+    private Results getLosingLocations() {
+        return new Results(state, Location.getAll()).available().winnableBy(opponent);
     }
 
     @Override
     public boolean isAvailable() {
-        return losingLocations.exist();
+        return getLosingLocations().exist();
     }
 
     @Override
     public Location getLocation() {
-        return losingLocations.first();
+        return getLosingLocations().first();
     }
 }

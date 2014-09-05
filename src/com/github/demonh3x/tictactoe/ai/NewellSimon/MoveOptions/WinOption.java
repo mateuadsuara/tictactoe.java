@@ -7,19 +7,25 @@ import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 
 public class WinOption implements MoveOption {
-    private final Results winnableLocations;
+    private final State state;
+    private final Player player;
 
     public WinOption(State state, Player player) {
-        winnableLocations = new Results(state, Location.getAll()).available().winnableBy(player);
+        this.state = state;
+        this.player = player;
+    }
+
+    private Results getWinnableLocations() {
+        return new Results(state, Location.getAll()).available().winnableBy(player);
     }
 
     @Override
     public boolean isAvailable() {
-        return winnableLocations.exist();
+        return getWinnableLocations().exist();
     }
 
     @Override
     public Location getLocation() {
-        return winnableLocations.first();
+        return getWinnableLocations().first();
     }
 }
