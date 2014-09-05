@@ -1,8 +1,7 @@
 package com.github.demonh3x.tictactoe.ai;
 
 import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOption;
-import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.BlockOption;
-import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.WinOption;
+import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.*;
 import com.github.demonh3x.tictactoe.ai.NewellSimon.Results;
 import com.github.demonh3x.tictactoe.game.*;
 
@@ -46,16 +45,13 @@ public class NewellSimonInteractor implements Interactor {
 
             final List<MoveOption> moveOptions = Arrays.asList(
                     new WinOption(state, player),
-                    new BlockOption(state, opponent)
+                    new BlockOption(state, opponent),
+                    new ForkOption(state, player)
             );
 
             for (MoveOption option : moveOptions)
                 if (option.isAvailable())
                     return option.getLocation();
-
-            final Results ownForkLocations = availableLocations.forkableBy(player);
-            if (ownForkLocations.exist())
-                return ownForkLocations.first();
 
             final Results opponentForkLocations = availableLocations.forkableBy(opponent);
             if (opponentForkLocations.exist())
