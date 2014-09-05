@@ -62,14 +62,15 @@ public class NewellSimonInteractor implements Interactor {
             if (availableCenters.exist())
                 return availableCenters.first();
 
-            final Results opponentCorners = new Results(state, CORNERS).occupiedBy(opponent);
+            final Results corners = new Results(state, CORNERS);
+            final Results opponentCorners = corners.occupiedBy(opponent);
             final Results availableOppositeCorners = new Results(state, opposite(opponentCorners)).available();
             if (availableOppositeCorners.exist())
                 return availableOppositeCorners.first();
 
-            final List<Location> availableCorners = analyser.getAvailableLocationsFrom(CORNERS);
-            if (!availableCorners.isEmpty())
-                return getFirst(availableCorners);
+            final Results availableCorners = corners.available();
+            if (availableCorners.exist())
+                return availableCorners.first();
 
             final List<Location> availableSides = analyser.getAvailableLocationsFrom(SIDES);
             if (!availableSides.isEmpty())
