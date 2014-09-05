@@ -34,28 +34,21 @@ public class NewellSimonInteractor implements Interactor {
             this.state = state;
         }
 
-        private static final List<Location> ALL = Location.getAll();
         private static final List<Location> CENTERS = Location.getCenters();
         private static final List<Location> CORNERS = Location.getCorners();
         private static final List<Location> SIDES = Location.getSides();
 
         public Location get() {
-            final Results allLocations = new Results(state, ALL);
-            final Results availableLocations = allLocations.available();
-
             final List<MoveOption> moveOptions = Arrays.asList(
                     new WinOption(state, player),
                     new BlockOption(state, opponent),
-                    new ForkOption(state, player)
+                    new ForkOption(state, player),
+                    new BlockForkOption(state, player, opponent)
             );
 
             for (MoveOption option : moveOptions)
                 if (option.isAvailable())
                     return option.getLocation();
-
-            final Results opponentForkLocations = availableLocations.forkableBy(opponent);
-            if (opponentForkLocations.exist())
-                return availableLocations.forkBlockableBy(player, opponent).first();
 
             final Results availableCenters = new Results(state, CENTERS).available();
             if (availableCenters.exist())
