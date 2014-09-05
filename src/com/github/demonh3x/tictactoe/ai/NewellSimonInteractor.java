@@ -5,7 +5,6 @@ import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.*;
 import com.github.demonh3x.tictactoe.ai.NewellSimon.Results;
 import com.github.demonh3x.tictactoe.game.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +33,6 @@ public class NewellSimonInteractor implements Interactor {
             this.state = state;
         }
 
-        private static final List<Location> CORNERS = Location.getCorners();
         private static final List<Location> SIDES = Location.getSides();
 
         public Location get() {
@@ -44,16 +42,13 @@ public class NewellSimonInteractor implements Interactor {
                     new ForkOption(state, player),
                     new BlockForkOption(state, player, opponent),
                     new CenterOption(state),
-                    new OppositeCornerOption(state, opponent)
+                    new OppositeCornerOption(state, opponent),
+                    new CornerOption(state)
             );
 
             for (MoveOption option : moveOptions)
                 if (option.isAvailable())
                     return option.getLocation();
-
-            final Results availableCorners = new Results(state, CORNERS).available();
-            if (availableCorners.exist())
-                return availableCorners.first();
 
             final Results availableSides = new Results(state, SIDES).available();
             if (availableSides.exist())
