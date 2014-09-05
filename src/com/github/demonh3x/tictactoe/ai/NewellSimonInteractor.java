@@ -2,7 +2,6 @@ package com.github.demonh3x.tictactoe.ai;
 
 import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOption;
 import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.*;
-import com.github.demonh3x.tictactoe.ai.NewellSimon.Results;
 import com.github.demonh3x.tictactoe.game.*;
 
 import java.util.Arrays;
@@ -33,8 +32,6 @@ public class NewellSimonInteractor implements Interactor {
             this.state = state;
         }
 
-        private static final List<Location> SIDES = Location.getSides();
-
         public Location get() {
             final List<MoveOption> moveOptions = Arrays.asList(
                     new WinOption(state, player),
@@ -43,16 +40,13 @@ public class NewellSimonInteractor implements Interactor {
                     new BlockForkOption(state, player, opponent),
                     new CenterOption(state),
                     new OppositeCornerOption(state, opponent),
-                    new CornerOption(state)
+                    new CornerOption(state),
+                    new SideOption(state)
             );
 
             for (MoveOption option : moveOptions)
                 if (option.isAvailable())
                     return option.getLocation();
-
-            final Results availableSides = new Results(state, SIDES).available();
-            if (availableSides.exist())
-                return availableSides.first();
 
             throw new RuntimeException("Unhandled possibility!");
         }
