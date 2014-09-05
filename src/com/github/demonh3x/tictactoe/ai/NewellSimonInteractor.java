@@ -31,19 +31,20 @@ public class NewellSimonInteractor implements Interactor {
             this.state = state;
         }
 
-        private static final Iterable<Location> ALL = Location.getAll();
-        private static final Iterable<Location> CENTERS = Arrays.asList(new Location(1, 1));
-        private static final Iterable<Location> CORNERS = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
-        private static final Iterable<Location> SIDES = Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
+        private static final List<Location> ALL = Location.getAll();
+        private static final List<Location> CENTERS = Arrays.asList(new Location(1, 1));
+        private static final List<Location> CORNERS = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
+        private static final List<Location> SIDES = Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
 
         public Location get() {
+            final Results allLocations = new Results(state, ALL);
+            final Results availableLocations = allLocations.available();
+
             final StateAnalyser analyser = new StateAnalyser(state);
 
-            final List<Location> availableLocations = analyser.getAvailableLocationsFrom(ALL);
-
-            final List<Location> winningLocations = analyser.getPossibleWinnings(player, availableLocations);
+            final Results winningLocations = availableLocations.winableBy(player);
             if (!winningLocations.isEmpty())
-                return getFirst(winningLocations);
+                return winningLocations.first();
 
             final List<Location> losingLocations = analyser.getPossibleWinnings(opponent, availableLocations);
             if (!losingLocations.isEmpty())

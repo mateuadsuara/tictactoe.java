@@ -1,12 +1,13 @@
 package com.github.demonh3x.tictactoe.game;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Location {
     public static final int ROWS = 3;
     public static final int COLUMNS = 3;
 
-    public static Iterable<Location> getAll(){
+    public static List<Location> getAll(){
         return Arrays.asList(
                 new Location(0, 0), new Location(1, 0), new Location(2, 0),
                 new Location(0, 1), new Location(1, 1), new Location(2, 1),
