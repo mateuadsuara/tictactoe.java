@@ -45,4 +45,9 @@ public class Results implements Iterable<Location>{
         final List<Location> possibleForks = analyser.getPossibleForks(player, locations);
         return new Results(state, possibleForks);
     }
+
+    public Results forkBlockableBy(Player player, Player opponent) {
+        final List<Location> possibleBlocks = analyser.getForkBlockingLocations(player, opponent, locations);
+        return new Results(state, possibleBlocks);
+    }
 }

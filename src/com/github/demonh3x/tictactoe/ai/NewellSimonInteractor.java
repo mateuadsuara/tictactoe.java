@@ -54,9 +54,9 @@ public class NewellSimonInteractor implements Interactor {
             if (ownForkLocations.exist())
                 return ownForkLocations.first();
 
-            final List<Location> opponentForkLocations = analyser.getPossibleForks(opponent, availableLocations);
-            if (!opponentForkLocations.isEmpty())
-                return getFirst(analyser.getForkBlockingLocations(player, opponent, availableLocations));
+            final Results opponentForkLocations = availableLocations.forkableBy(opponent);
+            if (opponentForkLocations.exist())
+                return availableLocations.forkBlockableBy(player, opponent).first();
 
             final List<Location> availableCenters = analyser.getAvailableLocationsFrom(CENTERS);
             if (!availableCenters.isEmpty())
