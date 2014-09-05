@@ -15,6 +15,18 @@ public class Location {
         );
     }
 
+    public static List<Location> getCenters() {
+        return Arrays.asList(new Location(1, 1));
+    }
+
+    public static List<Location> getCorners() {
+        return Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
+    }
+
+    public static List<Location> getSides() {
+        return Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
+    }
+
     public static String toString(int x, int y){
         return String.format("[x:%s, y:%s]", x, y);
     }

@@ -3,7 +3,6 @@ package com.github.demonh3x.tictactoe.ai;
 import com.github.demonh3x.tictactoe.game.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class NewellSimonInteractor implements Interactor {
@@ -32,9 +31,9 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         private static final List<Location> ALL = Location.getAll();
-        private static final List<Location> CENTERS = Arrays.asList(new Location(1, 1));
-        private static final List<Location> CORNERS = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
-        private static final List<Location> SIDES = Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
+        private static final List<Location> CENTERS = Location.getCenters();
+        private static final List<Location> CORNERS = Location.getCorners();
+        private static final List<Location> SIDES = Location.getSides();
 
         public Location get() {
             final Results allLocations = new Results(state, ALL);
