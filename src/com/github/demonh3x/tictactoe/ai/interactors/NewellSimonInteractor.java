@@ -1,6 +1,6 @@
 package com.github.demonh3x.tictactoe.ai.interactors;
 
-import com.github.demonh3x.tictactoe.ai.FirstPossibleMoveOption;
+import com.github.demonh3x.tictactoe.ai.options.FirstPossibleMoveOption;
 import com.github.demonh3x.tictactoe.ai.MoveOption;
 import com.github.demonh3x.tictactoe.ai.options.*;
 import com.github.demonh3x.tictactoe.game.Interactor;
