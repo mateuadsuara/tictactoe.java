@@ -4,10 +4,10 @@ import com.github.demonh3x.tictactoe.game.Location;
 
 import java.util.List;
 
-public class DecisionMaker {
+public class FirstPossibleMoveOption {
     private final List<MoveOption> moveOptions;
 
-    public DecisionMaker(List<MoveOption> moveOptions) {
+    public FirstPossibleMoveOption(List<MoveOption> moveOptions) {
         this.moveOptions = moveOptions;
     }
 

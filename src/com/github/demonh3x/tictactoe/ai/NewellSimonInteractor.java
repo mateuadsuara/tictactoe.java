@@ -1,6 +1,6 @@
 package com.github.demonh3x.tictactoe.ai;
 
-import com.github.demonh3x.tictactoe.ai.NewellSimon.DecisionMaker;
+import com.github.demonh3x.tictactoe.ai.NewellSimon.FirstPossibleMoveOption;
 import com.github.demonh3x.tictactoe.ai.NewellSimon.MoveOptions.*;
 import com.github.demonh3x.tictactoe.game.Interactor;
 import com.github.demonh3x.tictactoe.game.Play;
@@ -23,8 +23,8 @@ public class NewellSimonInteractor implements Interactor {
         return new Play(representedPlayer, getDecisionMaker(state).get());
     }
 
-    private DecisionMaker getDecisionMaker(State state) {
-        return new DecisionMaker(Arrays.asList(
+    private FirstPossibleMoveOption getDecisionMaker(State state) {
+        return new FirstPossibleMoveOption(Arrays.asList(
                 new WinOption(state, representedPlayer),
                 new BlockOption(state, opponent),
                 new ForkOption(state, representedPlayer),
