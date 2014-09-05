@@ -32,7 +32,7 @@ public class NewellSimonInteractor implements Interactor {
         }
 
         private static final Iterable<Location> ALL = Location.getAll();
-        private static final Location CENTER = new Location(1, 1);
+        private static final Iterable<Location> CENTERS = Arrays.asList(new Location(1, 1));
         private static final Iterable<Location> CORNERS = Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
         private static final Iterable<Location> SIDES = Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
 
@@ -57,8 +57,9 @@ public class NewellSimonInteractor implements Interactor {
             if (!opponentForkLocations.isEmpty())
                 return getFirst(analyser.getForkBlockingLocations(player, opponent, availableLocations));
 
-            if (state.isEmptyAt(CENTER))
-                return CENTER;
+            final List<Location> availableCenters = analyser.getAvailableLocationsFrom(CENTERS);
+            if (!availableCenters.isEmpty())
+                return getFirst(availableCenters);
 
             final List<Location> opponentCorners = analyser.getOccupiedBy(opponent, CORNERS);
             final List<Location> availableOppositeCorners = analyser.getAvailableLocationsFrom(opposite(opponentCorners));
