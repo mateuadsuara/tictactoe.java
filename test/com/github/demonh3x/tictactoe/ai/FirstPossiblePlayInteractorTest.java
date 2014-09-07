@@ -1,10 +1,7 @@
 package com.github.demonh3x.tictactoe.ai;
 
 import com.github.demonh3x.tictactoe.ai.interactors.FirstPossiblePlayInteractor;
-import com.github.demonh3x.tictactoe.game.Interactor;
-import com.github.demonh3x.tictactoe.game.State;
-import com.github.demonh3x.tictactoe.game.Location;
-import com.github.demonh3x.tictactoe.game.Player;
+import com.github.demonh3x.tictactoe.game.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +13,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Before
     public void setUp() {
-        interactor = new FirstPossiblePlayInteractor(new Player());
+        interactor = new FirstPossiblePlayInteractor(new TicTacToeBoard(), new Player());
     }
 
     @Test
