@@ -3,6 +3,9 @@ package com.github.demonh3x.tictactoe.ai.options;
 import com.github.demonh3x.tictactoe.ai.MoveOption;
 import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.State;
+import com.github.demonh3x.tictactoe.game.TicTacToeBoard;
+
+import java.util.List;
 
 public class CornerOption implements MoveOption {
     private final State state;
@@ -22,6 +25,10 @@ public class CornerOption implements MoveOption {
     }
 
     private Results getAvailableCorners() {
-        return new Results(state, Location.getCorners()).available();
+        return new Results(state, getCorners()).available();
+    }
+
+    private List<Location> getCorners() {
+        return new TicTacToeBoard().getCorners();
     }
 }

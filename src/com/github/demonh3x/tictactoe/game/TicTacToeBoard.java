@@ -33,4 +33,8 @@ public class TicTacToeBoard implements Board{
     public List<Location> getCenters() {
         return Arrays.asList(new Location(1, 1));
     }
+
+    public List<Location> getCorners() {
+        return Arrays.asList(new Location(0, 0), new Location(2, 2), new Location(0, 2), new Location(2, 0));
+    }
 }

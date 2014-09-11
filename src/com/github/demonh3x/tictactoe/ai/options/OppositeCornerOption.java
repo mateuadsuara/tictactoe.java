@@ -4,6 +4,7 @@ import com.github.demonh3x.tictactoe.ai.MoveOption;
 import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
+import com.github.demonh3x.tictactoe.game.TicTacToeBoard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class OppositeCornerOption implements MoveOption {
     }
 
     private Results getCorners() {
-        return new Results(state, Location.getCorners());
+        return new Results(state, new TicTacToeBoard().getCorners());
     }
 
     @Override
