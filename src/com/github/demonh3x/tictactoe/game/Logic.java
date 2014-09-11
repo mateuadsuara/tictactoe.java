@@ -15,11 +15,15 @@ public class Logic {
     }
 
     private boolean isFull() {
-        for (Location l : Location.getAll())
+        for (Location l : getAllLocations())
             if (state.lookAt(l) == null)
                 return false;
 
         return true;
+    }
+
+    private List<Location> getAllLocations() {
+        return new TicTacToeBoard().getAllLocations();
     }
 
     private boolean hasALine() {

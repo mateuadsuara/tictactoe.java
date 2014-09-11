@@ -4,6 +4,9 @@ import com.github.demonh3x.tictactoe.ai.MoveOption;
 import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
+import com.github.demonh3x.tictactoe.game.TicTacToeBoard;
+
+import java.util.List;
 
 public class BlockForkOption implements MoveOption {
     private final State state;
@@ -21,7 +24,11 @@ public class BlockForkOption implements MoveOption {
     }
 
     private Results getAvailableLocations() {
-        return new Results(state, Location.getAll()).available();
+        return new Results(state, getAllLocations()).available();
+    }
+
+    private List<Location> getAllLocations() {
+        return new TicTacToeBoard().getAllLocations();
     }
 
     @Override

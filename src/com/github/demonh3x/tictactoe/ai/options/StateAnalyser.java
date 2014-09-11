@@ -1,9 +1,6 @@
 package com.github.demonh3x.tictactoe.ai.options;
 
-import com.github.demonh3x.tictactoe.game.Location;
-import com.github.demonh3x.tictactoe.game.Logic;
-import com.github.demonh3x.tictactoe.game.Player;
-import com.github.demonh3x.tictactoe.game.State;
+import com.github.demonh3x.tictactoe.game.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,7 +51,7 @@ public class StateAnalyser {
 
     private boolean hasFork(State state, Player player) {
         final StateAnalyser analyser = new StateAnalyser(state);
-        return analyser.getPossibleWinnings(player, analyser.getAvailableLocationsFrom(Location.getAll())).size() > 1;
+        return analyser.getPossibleWinnings(player, analyser.getAvailableLocationsFrom(getAllLocations())).size() > 1;
     }
 
     public List<Location> getForkBlockingLocations(Player player, Player opponent, Iterable<Location> locations) {
@@ -90,9 +87,13 @@ public class StateAnalyser {
 
     private boolean hasAttack(State state, Player player) {
         final StateAnalyser analyser = new StateAnalyser(state);
-        final List<Location> imaginaryAvailableLocations = analyser.getAvailableLocationsFrom(Location.getAll());
+        final List<Location> imaginaryAvailableLocations = analyser.getAvailableLocationsFrom(getAllLocations());
         final List<Location> possibleWinnings = analyser.getPossibleWinnings(player, imaginaryAvailableLocations);
         return !possibleWinnings.isEmpty();
+    }
+
+    private List<Location> getAllLocations() {
+        return new TicTacToeBoard().getAllLocations();
     }
 
     private <T> List<T> removeFrom(List<T> all, List<T> remove) {

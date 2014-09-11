@@ -4,6 +4,9 @@ import com.github.demonh3x.tictactoe.ai.MoveOption;
 import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
+import com.github.demonh3x.tictactoe.game.TicTacToeBoard;
+
+import java.util.List;
 
 public class BlockOption implements MoveOption {
     private final State state;
@@ -15,7 +18,11 @@ public class BlockOption implements MoveOption {
     }
 
     private Results getLosingLocations() {
-        return new Results(state, Location.getAll()).available().winnableBy(opponent);
+        return new Results(state, getAllLocations()).available().winnableBy(opponent);
+    }
+
+    private List<Location> getAllLocations() {
+        return new TicTacToeBoard().getAllLocations();
     }
 
     @Override
