@@ -13,7 +13,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Before
     public void setUp() {
-        interactor = new FirstPossiblePlayInteractor(new TicTacToeBoard(), new Player());
+        interactor = new FirstPossiblePlayInteractor(new Player());
     }
 
     @Test
