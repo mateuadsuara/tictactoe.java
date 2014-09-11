@@ -1,32 +1,25 @@
 package com.github.demonh3x.tictactoe.game;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class State {
     public static State empty(){
-        return new State(Arrays.<Player>asList(null, null, null, null, null, null, null, null, null));
+        return new State(new HashMap<Location, Player>());
     }
 
-    private final List<Player> pieces;
+    private final Map<Location, Player> pieces;
 
-    private State(List<Player> pieces) {
-        this.pieces = Collections.unmodifiableList(pieces);
+    private State(Map<Location, Player> pieces) {
+        this.pieces = Collections.unmodifiableMap(pieces);
     }
 
     public Player lookAt(Location l){
-        return pieces.get(getIndex(l));
-    }
-
-    private int getIndex(Location l) {
-        return (l.y * Location.ROWS) + l.x;
+        return pieces.get(l);
     }
 
     public State put(Player p, Location l) {
-        final ArrayList<Player> newPieces = new ArrayList<>(this.pieces);
-        newPieces.set(getIndex(l), p);
+        final HashMap<Location, Player> newPieces = new HashMap<>(this.pieces);
+        newPieces.put(l, p);
         return new State(newPieces);
     }
 

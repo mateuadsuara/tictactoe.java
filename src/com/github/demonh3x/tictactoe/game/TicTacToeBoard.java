@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TicTacToeBoard implements Board{
+    public static final int ROWS = 3;
+    public static final int COLUMNS = 3;
+
     @Override
     public List<Location> getAllLocations() {
         return Arrays.asList(
@@ -40,5 +43,14 @@ public class TicTacToeBoard implements Board{
 
     public List<Location> getSides() {
         return Arrays.asList(new Location(1, 0), new Location(1, 2), new Location(0, 1), new Location(2, 1));
+    }
+
+    @Override
+    public Location opposite(Location location) {
+        final int maxX = COLUMNS - 1;
+        final int oppositeX = Math.abs(location.x - maxX);
+        final int maxY = ROWS - 1;
+        final int oppositeY = Math.abs(location.y - maxY);
+        return new Location(oppositeX, oppositeY);
     }
 }
