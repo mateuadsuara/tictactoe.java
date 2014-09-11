@@ -3,6 +3,9 @@ package com.github.demonh3x.tictactoe.ai.options;
 import com.github.demonh3x.tictactoe.ai.MoveOption;
 import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.State;
+import com.github.demonh3x.tictactoe.game.TicTacToeBoard;
+
+import java.util.List;
 
 public class CenterOption implements MoveOption {
     private final State state;
@@ -12,7 +15,11 @@ public class CenterOption implements MoveOption {
     }
 
     private Results getAvailableCenters() {
-        return new Results(state, Location.getCenters()).available();
+        return new Results(state, getCenters()).available();
+    }
+
+    private List<Location> getCenters() {
+        return new TicTacToeBoard().getCenters();
     }
 
     @Override

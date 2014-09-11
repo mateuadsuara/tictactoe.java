@@ -28,4 +28,9 @@ public class TicTacToeBoard implements Board{
                 Arrays.asList(new Location(2, 0), new Location(1, 1), new Location(0, 2))
         );
     }
+
+    @Override
+    public List<Location> getCenters() {
+        return Arrays.asList(new Location(1, 1));
+    }
 }
