@@ -1,23 +1,9 @@
 package com.github.demonh3x.tictactoe.game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Logic {
-    private static final List<List<Location>> POSSIBLE_LINES = Arrays.asList(
-            Arrays.asList(new Location(0, 0), new Location(1, 0), new Location(2, 0)),
-            Arrays.asList(new Location(0, 1), new Location(1, 1), new Location(2, 1)),
-            Arrays.asList(new Location(0, 2), new Location(1, 2), new Location(2, 2)),
-
-            Arrays.asList(new Location(0, 0), new Location(0, 1), new Location(0, 2)),
-            Arrays.asList(new Location(1, 0), new Location(1, 1), new Location(1, 2)),
-            Arrays.asList(new Location(2, 0), new Location(2, 1), new Location(2, 2)),
-
-            Arrays.asList(new Location(0, 0), new Location(1, 1), new Location(2, 2)),
-            Arrays.asList(new Location(2, 0), new Location(1, 1), new Location(0, 2))
-    );
-
     private final State state;
 
     public Logic(State state) {
@@ -41,11 +27,15 @@ public class Logic {
     }
 
     private List<Player> getWinningLine() {
-        for (List<Location> line : POSSIBLE_LINES)
+        for (List<Location> line : getPossibleLines())
             if (isAWinningLine(getPiecesInTheLine(line)))
                 return getPiecesInTheLine(line);
 
         return null;
+    }
+
+    private List<List<Location>> getPossibleLines() {
+        return new TicTacToeBoard().getPossibleLines();
     }
 
     private boolean isAWinningLine(List<Player> piecesInTheLine) {

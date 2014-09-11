@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface Board {
     public List<Location> getAllLocations();
+    public List<List<Location>> getPossibleLines();
 }
