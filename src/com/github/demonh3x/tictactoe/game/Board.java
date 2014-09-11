@@ -7,4 +7,5 @@ public interface Board {
     public List<List<Location>> getPossibleLines();
     public List<Location> getCenters();
     public List<Location> getCorners();
+    public List<Location> getSides();
 }
