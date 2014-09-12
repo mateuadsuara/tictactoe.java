@@ -9,4 +9,5 @@ public interface Board {
     public List<Location> getCorners();
     public List<Location> getSides();
     public Location opposite(Location location);
+    public boolean contains(Location location);
 }

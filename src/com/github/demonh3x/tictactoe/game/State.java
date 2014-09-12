@@ -16,6 +16,12 @@ public class State {
     }
 
     public Player lookAt(Location l){
+        if (!board.contains(l))
+            throw new IllegalArgumentException(String.format(
+                    "The location %s is not a valid location inside the board!",
+                    l.toString()
+            ));
+
         return pieces.get(l);
     }
 

@@ -94,6 +94,32 @@ public class StateTest {
             assertThat(state.lookAt(new Location(2, 2)), is(O));
             assertThat(state.isEmptyAt(new Location(2, 2)), is(false));
         }
+
+        private void assertIllegalLocation(int x, int y) {
+            final State state = StateLiteral.empty();
+
+            boolean exceptionThrown = false;
+            try {
+                state.lookAt(new Location(x, y));
+            } catch (IllegalArgumentException e){
+                exceptionThrown = true;
+            }
+
+            final String reason = String.format(
+                    "Expected state.lookAt(new Location(x:%s, y:%s)) to throw IllegalArgumentException",
+                    x, y
+            );
+            assertThat(reason, exceptionThrown, is(true));
+        }
+
+        @Test
+        public void outside_ThrowsIllegalArgumentException() {
+            assertIllegalLocation(-1, 0);
+            assertIllegalLocation(3, 2);
+            assertIllegalLocation(3, 0);
+            assertIllegalLocation(2, 3);
+            assertIllegalLocation(0, -1);
+        }
     }
 
     public class PutPieceAtLocation {

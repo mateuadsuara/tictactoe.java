@@ -53,4 +53,9 @@ public class TicTacToeBoard implements Board{
         final int oppositeY = Math.abs(location.y - maxY);
         return new Location(oppositeX, oppositeY);
     }
+
+    @Override
+    public boolean contains(Location location) {
+        return location.x < COLUMNS && location.x >= 0 && location.y < ROWS && location.y >= 0;
+    }
 }
