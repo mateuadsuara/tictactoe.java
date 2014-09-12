@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TicTacToeBoard implements Board{
-    public static final int ROWS = 3;
-    public static final int COLUMNS = 3;
+    private static final int ROWS = 3;
+    private static final int COLUMNS = 3;
 
     @Override
     public List<Location> getAllLocations() {
