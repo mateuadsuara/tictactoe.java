@@ -34,7 +34,7 @@ public class Main {
                 secondInteractor
         );
 
-        final State initialState = State.empty();
+        final State initialState = State.empty(new TicTacToeBoard());
         final StateIterator iterator = new StateIterator(initialState, new CyclingIterator<>(playingOrder));
 
         notify(observers, initialState);

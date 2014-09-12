@@ -3,13 +3,15 @@ package com.github.demonh3x.tictactoe.game;
 import java.util.*;
 
 public class State {
-    public static State empty(){
-        return new State(new HashMap<Location, Player>());
+    public static State empty(Board board){
+        return new State(board, new HashMap<Location, Player>());
     }
 
+    public final Board board;
     private final Map<Location, Player> pieces;
 
-    private State(Map<Location, Player> pieces) {
+    private State(Board board, Map<Location, Player> pieces) {
+        this.board = board;
         this.pieces = Collections.unmodifiableMap(pieces);
     }
 
@@ -20,7 +22,7 @@ public class State {
     public State put(Player p, Location l) {
         final HashMap<Location, Player> newPieces = new HashMap<>(this.pieces);
         newPieces.put(l, p);
-        return new State(newPieces);
+        return new State(board, newPieces);
     }
 
     public boolean isEmptyAt(Location l) {

@@ -1,5 +1,6 @@
 package com.github.demonh3x.tictactoe.ai;
 
+import com.github.demonh3x.tictactoe.StateLiteral;
 import com.github.demonh3x.tictactoe.ai.interactors.FirstPossiblePlayInteractor;
 import com.github.demonh3x.tictactoe.game.*;
 import org.junit.Before;
@@ -18,7 +19,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test
     public void GivenAnEmptyState_shouldReturnTheFirstLocation() {
-        final State state = State.empty();
+        final State state = StateLiteral.empty();
 
         final Location played = interactor.play(state).location;
 
@@ -27,7 +28,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test
     public void GivenStateWithFirstPieceInPlace_shouldReturnTheSecondLocation() {
-        final State state = State.empty()
+        final State state = StateLiteral.empty()
                 .put(new Player(), new Location(0, 0));
 
         final Location played = interactor.play(state).location;
@@ -37,7 +38,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test
     public void GivenStateWithFirstTwoPiecesInPlace_shouldReturnTheThirdLocation() {
-        final State state = State.empty()
+        final State state = StateLiteral.empty()
                 .put(new Player(), new Location(0, 0))
                 .put(new Player(), new Location(1, 0));
 
@@ -48,7 +49,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test
     public void GivenStateWithFirstThreePiecesInPlace_shouldReturnTheFourthLocation() {
-        final State state = State.empty()
+        final State state = StateLiteral.empty()
                 .put(new Player(), new Location(0, 0))
                 .put(new Player(), new Location(1, 0))
                 .put(new Player(), new Location(2, 0));
@@ -60,7 +61,7 @@ public class FirstPossiblePlayInteractorTest {
 
     @Test (expected = RuntimeException.class)
     public void GivenStateWithAllPiecesInPlace_shouldThrowException() {
-        final State state = State.empty()
+        final State state = StateLiteral.empty()
                 .put(new Player(), new Location(0, 0))
                 .put(new Player(), new Location(1, 0))
                 .put(new Player(), new Location(2, 0))

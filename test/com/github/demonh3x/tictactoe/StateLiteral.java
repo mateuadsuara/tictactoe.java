@@ -3,10 +3,15 @@ package com.github.demonh3x.tictactoe;
 import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
+import com.github.demonh3x.tictactoe.game.TicTacToeBoard;
 
 public class StateLiteral {
+    public static State empty(){
+        return State.empty(new TicTacToeBoard());
+    }
+
     public static State create(Player... pieces) {
-        final State gameState = State.empty();
+        final State gameState = empty();
         return gameState
                 .put(pieces[0], new Location(0, 0))
                 .put(pieces[1], new Location(1, 0))
