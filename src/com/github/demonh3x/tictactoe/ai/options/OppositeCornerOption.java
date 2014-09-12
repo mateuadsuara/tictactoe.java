@@ -9,7 +9,6 @@ import java.util.List;
 public class OppositeCornerOption implements MoveOption {
     private final State state;
     private final Player opponent;
-    private final Board board = new TicTacToeBoard();
 
     public OppositeCornerOption(State state, Player opponent) {
         this.state = state;
@@ -25,7 +24,7 @@ public class OppositeCornerOption implements MoveOption {
     }
 
     private Results getCorners() {
-        return new Results(state, board.getCorners());
+        return new Results(state, state.board.getCorners());
     }
 
     @Override
@@ -42,7 +41,7 @@ public class OppositeCornerOption implements MoveOption {
         final ArrayList<Location> oppositeLocations = new ArrayList<>();
 
         for (Location location : locations) {
-            oppositeLocations.add(board.opposite(location));
+            oppositeLocations.add(state.board.opposite(location));
         }
 
         return oppositeLocations;

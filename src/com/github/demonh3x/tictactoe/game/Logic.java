@@ -23,7 +23,7 @@ public class Logic {
     }
 
     private List<Location> getAllLocations() {
-        return new TicTacToeBoard().getAllLocations();
+        return state.board.getAllLocations();
     }
 
     private boolean hasALine() {
@@ -39,7 +39,7 @@ public class Logic {
     }
 
     private List<List<Location>> getPossibleLines() {
-        return new TicTacToeBoard().getPossibleLines();
+        return state.board.getPossibleLines();
     }
 
     private boolean isAWinningLine(List<Player> piecesInTheLine) {

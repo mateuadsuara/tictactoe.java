@@ -93,7 +93,7 @@ public class StateAnalyser {
     }
 
     private List<Location> getAllLocations() {
-        return new TicTacToeBoard().getAllLocations();
+        return state.board.getAllLocations();
     }
 
     private <T> List<T> removeFrom(List<T> all, List<T> remove) {
