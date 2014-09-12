@@ -16,19 +16,23 @@ public class State {
     }
 
     public Player lookAt(Location l){
+        checkLocationValidity(l);
+        return pieces.get(l);
+    }
+
+    public State put(Player p, Location l) {
+        checkLocationValidity(l);
+        final HashMap<Location, Player> newPieces = new HashMap<>(this.pieces);
+        newPieces.put(l, p);
+        return new State(board, newPieces);
+    }
+
+    private void checkLocationValidity(Location l) {
         if (!board.contains(l))
             throw new IllegalArgumentException(String.format(
                     "The location %s is not a valid location inside the board!",
                     l.toString()
             ));
-
-        return pieces.get(l);
-    }
-
-    public State put(Player p, Location l) {
-        final HashMap<Location, Player> newPieces = new HashMap<>(this.pieces);
-        newPieces.put(l, p);
-        return new State(board, newPieces);
     }
 
     public boolean isEmptyAt(Location l) {
