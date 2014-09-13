@@ -36,14 +36,14 @@ public class HumanCliInteractor implements Interactor {
             isValid = isValid(location, state);
 
             if (!isValid)
-                print("That location is occupied! Please, try another one.");
+                print("That location is not valid! Please, try another one.");
         } while (!isValid);
 
         return location;
     }
 
     private boolean isValid(Location location, State state) {
-        return state.lookAt(location) == null;
+        return state.board.contains(location) && state.lookAt(location) == null;
     }
 
     private Location askForALocation() {
