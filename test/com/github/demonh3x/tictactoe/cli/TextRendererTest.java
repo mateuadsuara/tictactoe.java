@@ -55,15 +55,11 @@ public class TextRendererTest {
         ));
     }
 
-    @Test
-    public void emptyOneLocationBoard() {
-        final TextRenderer renderer = new TextRenderer(new HashMap<Player, Character>());
-        final Board oneLocationBoard = new Board() {
-            private List<Location> allLocations = Arrays.asList(new Location(0, 0));
-
+    private Board createBoard(final List<Location> availableLocations) {
+        return new Board() {
             @Override
             public List<Location> getAllLocations() {
-                return allLocations;
+                return availableLocations;
             }
 
             @Override
@@ -93,15 +89,96 @@ public class TextRendererTest {
 
             @Override
             public boolean contains(Location location) {
-                return allLocations.contains(location);
+                return availableLocations.contains(location);
             }
         };
+    }
+
+    private void assertEmptyBoardOfLocations(List<Location> locations, String expectedRender) {
+        final TextRenderer renderer = new TextRenderer(new HashMap<Player, Character>());
+        final Board oneLocationBoard = createBoard(locations);
         final State state = State.empty(oneLocationBoard);
-        assertThat(renderer.render(state), is(
+        assertThat(renderer.render(state), is(expectedRender));
+    }
+
+    @Test
+    public void noLocationsBoard() {
+        assertEmptyBoardOfLocations(
+                Arrays.<Location>asList(),
+                ""
+        );
+    }
+
+    @Test
+    public void emptyOneLocationBoard() {
+        assertEmptyBoardOfLocations(
+                Arrays.asList(
+                        new Location(0, 0)
+                ),
                 "   x 0\n" +
                 " y +---+\n" +
                 " 0 |   |\n" +
                 "   +---+"
-        ));
+        );
+    }
+
+    @Test
+    public void emptyTwoVerticalLocationsBoard() {
+        assertEmptyBoardOfLocations(
+                Arrays.asList(
+                        new Location(0, 0), new Location(0, 1)
+                ),
+                "   x 0\n" +
+                " y +---+\n" +
+                " 0 |   |\n" +
+                "   +---+\n" +
+                " 1 |   |\n" +
+                "   +---+"
+        );
+    }
+
+    @Test
+    public void emptyFourVerticalLocationsBoard() {
+        assertEmptyBoardOfLocations(
+                Arrays.asList(
+                        new Location(0, 0), new Location(0, 1), new Location(0, 2), new Location(0, 3)
+                ),
+                "   x 0\n" +
+                " y +---+\n" +
+                " 0 |   |\n" +
+                "   +---+\n" +
+                " 1 |   |\n" +
+                "   +---+\n" +
+                " 2 |   |\n" +
+                "   +---+\n" +
+                " 3 |   |\n" +
+                "   +---+"
+        );
+    }
+
+    @Test
+    public void emptyTwoHorizontalLocationsBoard() {
+        assertEmptyBoardOfLocations(
+                Arrays.asList(
+                        new Location(0, 0), new Location(1, 0)
+                ),
+                "   x 0   1\n" +
+                " y +---+---+\n" +
+                " 0 |   |   |\n" +
+                "   +---+---+"
+        );
+    }
+
+    @Test
+    public void emptyFourHorizontalLocationsBoard() {
+        assertEmptyBoardOfLocations(
+                Arrays.asList(
+                        new Location(0, 0), new Location(1, 0), new Location(2, 0), new Location(3, 0)
+                ),
+                "   x 0   1   2   3\n" +
+                " y +---+---+---+---+\n" +
+                " 0 |   |   |   |   |\n" +
+                "   +---+---+---+---+"
+        );
     }
 }

@@ -1,24 +1,15 @@
 package com.github.demonh3x.tictactoe.cli;
 
-import com.github.demonh3x.tictactoe.game.State;
 import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.Player;
+import com.github.demonh3x.tictactoe.game.State;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TextRenderer {
-    private static final Location[] LOCATIONS_IN_RENDERING_ORDER = {
-            new Location(0, 0),
-            new Location(1, 0),
-            new Location(2, 0),
-            new Location(0, 1),
-            new Location(1, 1),
-            new Location(2, 1),
-            new Location(0, 2),
-            new Location(1, 2),
-            new Location(2, 2)
-    };
-
     private final Map<Player, Character> playerIconMappings;
 
     public TextRenderer(Map<Player, Character> playerIconMappings){
@@ -27,23 +18,94 @@ public class TextRenderer {
 
     public String render(State state) {
         return String.format(
-                "   x 0   1   2\n" +
-                " y +---+---+---+\n" +
-                " 0 | %s | %s | %s |\n" +
-                "   +---+---+---+\n" +
-                " 1 | %s | %s | %s |\n" +
-                "   +---+---+---+\n" +
-                " 2 | %s | %s | %s |\n" +
-                "   +---+---+---+",
+                generateBoard(state.board.getAllLocations()),
                 getRenderedPieces(state)
         );
     }
 
+    private Set<Integer> getColumns(List<Location> allLocations) {
+        Set<Integer> columns = new HashSet<>();
+
+        for (Location location : allLocations)
+            columns.add(location.x);
+
+        return columns;
+    }
+
+    private Set<Integer> getRows(List<Location> allLocations) {
+        Set<Integer> rows = new HashSet<>();
+
+        for (Location location : allLocations)
+            rows.add(location.y);
+
+        return rows;
+    }
+
+    private String generateBoard(List<Location> allLocations) {
+        if (allLocations.size() == 0)
+            return "";
+
+        final Set<Integer> columns = getColumns(allLocations);
+        final Set<Integer> rows = getRows(allLocations);
+
+        String generated =
+                "   x " + generateColumnsHeader(columns) + "\n" +
+                " y " + generateSeparator(columns.size());
+
+        for (int y = 0; y < rows.size(); y++) {
+            generated += "\n";
+            generated += " " + y + " " + generatePlaceHolderRow(columns.size()) + "\n";
+            generated += "   " + generateSeparator(columns.size());
+        }
+
+        return generated;
+    }
+
+    private String generateColumnsHeader(Set<Integer> columns) {
+        if (columns.size() == 0)
+            return "";
+
+        String header = "";
+
+        for (int i = 0; i < columns.size(); i++) {
+            header += i + "   ";
+        }
+
+        return header.trim();
+    }
+
+    private String generateSeparator(int size) {
+        if (size == 0)
+            return "";
+
+        String footer = "+";
+
+        for (int x = 0; x < size; x++){
+            footer += "---+";
+        }
+
+        return footer;
+    }
+
+    private String generatePlaceHolderRow(int size){
+        if (size == 0)
+            return "";
+
+        String placeHolder = "|";
+
+        for (int i = 0; i < size; i++){
+            placeHolder += " %s |";
+        }
+
+        return placeHolder;
+    }
+
     private String[] getRenderedPieces(State state) {
-        String[] renderedPieces = new String[LOCATIONS_IN_RENDERING_ORDER.length];
+        List<Location> locations = state.board.getAllLocations();
+        String[] renderedPieces = new String[locations.size()];
 
         int i = 0;
-        for (Location l : LOCATIONS_IN_RENDERING_ORDER){
+        for (Location l : locations){
             renderedPieces[i] = renderPiece(state.lookAt(l));
             i++;
         }
