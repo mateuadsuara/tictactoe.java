@@ -218,4 +218,31 @@ public class TextRendererTest {
                 "   +---+---+"
         );
     }
+
+    @Test
+    public void somePlaysInABoardWithUnsortedLocations() {
+        final Player X = new Player();
+        final Player O = new Player();
+
+        final HashMap<Player, Character> mappings = new HashMap<>();
+        mappings.put(X, 'X');
+        mappings.put(O, 'O');
+
+        final TextRenderer renderer = new TextRenderer(mappings);
+
+        State state = State.empty(createBoard(Arrays.asList(
+                new Location(1, 1), new Location(0, 1), new Location(0, 0), new Location(1, 0)
+        )));
+        state = state.put(X, new Location(0, 0));
+        state = state.put(O, new Location(1, 1));
+
+        assertThat(renderer.render(state), is(
+                "   x 0   1\n" +
+                " y +---+---+\n" +
+                " 0 | X |   |\n" +
+                "   +---+---+\n" +
+                " 1 |   | O |\n" +
+                "   +---+---+"
+        ));
+    }
 }

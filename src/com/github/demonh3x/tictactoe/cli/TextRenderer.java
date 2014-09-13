@@ -4,10 +4,7 @@ import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class TextRenderer {
     private final Map<Player, Character> playerIconMappings;
@@ -101,7 +98,15 @@ public class TextRenderer {
     }
 
     private String[] getRenderedPieces(State state) {
-        List<Location> locations = state.board.getAllLocations();
+        List<Location> locations = new ArrayList<>(state.board.getAllLocations());
+        Collections.sort(locations, new Comparator<Location>() {
+            @Override
+            public int compare(Location a, Location b) {
+                if (a.y != b.y)
+                    return a.y - b.y;
+                return a.x - b.x;
+            }
+        });
         String[] renderedPieces = new String[locations.size()];
 
         int i = 0;
