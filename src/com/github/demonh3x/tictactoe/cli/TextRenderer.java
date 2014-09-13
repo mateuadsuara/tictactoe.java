@@ -52,9 +52,9 @@ public class TextRenderer {
                 "   x " + generateColumnsHeader(columns) + "\n" +
                 " y " + generateSeparator(columns.size());
 
-        for (int y = 0; y < rows.size(); y++) {
+        for (Integer row : rows) {
             generated += "\n";
-            generated += " " + y + " " + generatePlaceHolderRow(columns.size()) + "\n";
+            generated += " " + row + " " + generatePlaceHolderRow(columns.size()) + "\n";
             generated += "   " + generateSeparator(columns.size());
         }
 
@@ -67,8 +67,8 @@ public class TextRenderer {
 
         String header = "";
 
-        for (int i = 0; i < columns.size(); i++) {
-            header += i + "   ";
+        for (Integer column : columns) {
+            header += column + "   ";
         }
 
         return header.trim();

@@ -181,4 +181,41 @@ public class TextRendererTest {
                 "   +---+---+---+---+"
         );
     }
+
+    @Test
+    public void emptyOneLocationBoardNotStartingBy0() {
+        assertEmptyBoardOfLocations(
+                Arrays.asList(
+                        new Location(1, 0)
+                ),
+                "   x 1\n" +
+                " y +---+\n" +
+                " 0 |   |\n" +
+                "   +---+"
+        );
+        assertEmptyBoardOfLocations(
+                Arrays.asList(
+                        new Location(2, 5)
+                ),
+                "   x 2\n" +
+                " y +---+\n" +
+                " 5 |   |\n" +
+                "   +---+"
+        );
+    }
+
+    @Test
+    public void emptyBoardWithUnsortedLocations() {
+        assertEmptyBoardOfLocations(
+                Arrays.asList(
+                        new Location(1, 1), new Location(0, 1), new Location(0, 0), new Location(1, 0)
+                ),
+                "   x 0   1\n" +
+                " y +---+---+\n" +
+                " 0 |   |   |\n" +
+                "   +---+---+\n" +
+                " 1 |   |   |\n" +
+                "   +---+---+"
+        );
+    }
 }
