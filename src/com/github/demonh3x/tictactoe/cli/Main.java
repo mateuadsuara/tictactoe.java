@@ -15,10 +15,6 @@ public class Main {
         mappings.put(xPlayer, 'X');
         mappings.put(oPlayer, 'O');
 
-        final List<Observer> observers = Arrays.<Observer>asList(
-                new CliObserver(System.out, mappings)
-        );
-
         final List<Interactor> playingOrder;
         if (userWantsToPlayFirst()){
             playingOrder = Arrays.asList(
@@ -31,6 +27,10 @@ public class Main {
                     new HumanCliInteractor(oPlayer, System.out, System.in)
             );
         }
+
+        final List<Observer> observers = Arrays.<Observer>asList(
+                new CliObserver(System.out, mappings)
+        );
 
         final State initialState = State.empty(new TicTacToeBoard());
         final StateIterator iterator = new StateIterator(initialState, new CyclingIterator<>(playingOrder));
