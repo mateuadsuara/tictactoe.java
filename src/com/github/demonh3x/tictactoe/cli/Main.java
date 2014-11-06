@@ -15,6 +15,25 @@ public class Main {
         mappings.put(xPlayer, 'X');
         mappings.put(oPlayer, 'O');
 
+        final List<Observer> observers = Arrays.<Observer>asList(
+                new CliObserver(System.out, mappings)
+        );
+
+        final State initialState = State.empty(new TicTacToeBoard());
+        final StateIterator iterator = new StateIterator(
+                initialState,
+                new CyclingIterator<>(askPlayingOrder(xPlayer, oPlayer))
+        );
+
+        notify(observers, initialState);
+        while(iterator.hasNext()){
+            final State state = iterator.next();
+            notify(observers, state);
+            if (new Logic(state).isFinished()) break;
+        }
+    }
+
+    private static List<Interactor> askPlayingOrder(Player xPlayer, Player oPlayer) {
         final List<Interactor> playingOrder;
         if (userWantsToPlayFirst()){
             playingOrder = Arrays.asList(
@@ -27,20 +46,7 @@ public class Main {
                     new HumanCliInteractor(oPlayer, System.out, System.in)
             );
         }
-
-        final List<Observer> observers = Arrays.<Observer>asList(
-                new CliObserver(System.out, mappings)
-        );
-
-        final State initialState = State.empty(new TicTacToeBoard());
-        final StateIterator iterator = new StateIterator(initialState, new CyclingIterator<>(playingOrder));
-
-        notify(observers, initialState);
-        while(iterator.hasNext()){
-            final State state = iterator.next();
-            notify(observers, state);
-            if (new Logic(state).isFinished()) break;
-        }
+        return playingOrder;
     }
 
     private static void notify(List<Observer> observers, State state) {
