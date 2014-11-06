@@ -19,20 +19,18 @@ public class Main {
                 new CliObserver(System.out, mappings)
         );
 
-        final Interactor firstInteractor, secondInteractor;
-
+        final List<Interactor> playingOrder;
         if (userWantsToPlayFirst()){
-            firstInteractor = new HumanCliInteractor(xPlayer, System.out, System.in);
-            secondInteractor = new NewellSimonInteractor(oPlayer, xPlayer);
+            playingOrder = Arrays.asList(
+                    new HumanCliInteractor(xPlayer, System.out, System.in),
+                    new NewellSimonInteractor(oPlayer, xPlayer)
+            );
         } else {
-            firstInteractor = new NewellSimonInteractor(xPlayer, oPlayer);
-            secondInteractor = new HumanCliInteractor(oPlayer, System.out, System.in);
+            playingOrder = Arrays.asList(
+                    new NewellSimonInteractor(xPlayer, oPlayer),
+                    new HumanCliInteractor(oPlayer, System.out, System.in)
+            );
         }
-
-        final List<Interactor> playingOrder = Arrays.asList(
-                firstInteractor,
-                secondInteractor
-        );
 
         final State initialState = State.empty(new TicTacToeBoard());
         final StateIterator iterator = new StateIterator(initialState, new CyclingIterator<>(playingOrder));
