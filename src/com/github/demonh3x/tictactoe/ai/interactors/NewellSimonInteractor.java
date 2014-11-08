@@ -1,7 +1,6 @@
 package com.github.demonh3x.tictactoe.ai.interactors;
 
 import com.github.demonh3x.tictactoe.ai.options.FirstPossibleMoveOption;
-import com.github.demonh3x.tictactoe.ai.MoveOption;
 import com.github.demonh3x.tictactoe.ai.options.*;
 import com.github.demonh3x.tictactoe.game.Interactor;
 import com.github.demonh3x.tictactoe.game.Play;
@@ -24,7 +23,7 @@ public class NewellSimonInteractor implements Interactor {
         return new Play(representedPlayer, getDecisionMaker(state).getLocation());
     }
 
-    private MoveOption getDecisionMaker(State state) {
+    private FirstPossibleMoveOption getDecisionMaker(State state) {
         return new FirstPossibleMoveOption(Arrays.asList(
                 new WinOption(state, representedPlayer),
                 new BlockOption(state, opponent),
