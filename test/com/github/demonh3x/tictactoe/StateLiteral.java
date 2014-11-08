@@ -6,8 +6,10 @@ import com.github.demonh3x.tictactoe.game.State;
 import com.github.demonh3x.tictactoe.game.TicTacToeBoard;
 
 public class StateLiteral {
+    private static final TicTacToeBoard TIC_TAC_TOE_BOARD = new TicTacToeBoard();
+
     public static State empty(){
-        return State.empty(new TicTacToeBoard());
+        return State.empty(TIC_TAC_TOE_BOARD);
     }
 
     public static State create(Player... pieces) {
