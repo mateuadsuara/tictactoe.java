@@ -23,7 +23,7 @@ public class StateIterator implements Iterator<State> {
 
         final Interactor interactor = interactors.next();
         final Play chosenPlay = interactor.play(state);
-        state = state.put(chosenPlay.player, chosenPlay.location);
+        state = state.put(new Play(chosenPlay.player, chosenPlay.location));
 
         return state;
     }

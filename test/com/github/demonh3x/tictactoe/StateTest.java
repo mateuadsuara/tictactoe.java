@@ -1,9 +1,6 @@
 package com.github.demonh3x.tictactoe;
 
-import com.github.demonh3x.tictactoe.game.Location;
-import com.github.demonh3x.tictactoe.game.Logic;
-import com.github.demonh3x.tictactoe.game.Player;
-import com.github.demonh3x.tictactoe.game.State;
+import com.github.demonh3x.tictactoe.game.*;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -134,7 +131,7 @@ public class StateTest {
                     _, _, _
             );
             l = new Location(0, 0);
-            newState = originalState.put(X, l);
+            newState = originalState.put(new Play(X, l));
         }
 
         @Test
@@ -152,13 +149,13 @@ public class StateTest {
 
             boolean exceptionThrown = false;
             try {
-                state.put(X, new Location(x, y));
+                state.put(new Play(X, new Location(x, y)));
             } catch (IllegalArgumentException e){
                 exceptionThrown = true;
             }
 
             final String reason = String.format(
-                    "Expected state.put(Player, Location(x:%s, y:%s)) to throw IllegalArgumentException",
+                    "Expected state.put(Play(Player, Location(x:%s, y:%s))) to throw IllegalArgumentException",
                     x, y
             );
             assertThat(reason, exceptionThrown, is(true));

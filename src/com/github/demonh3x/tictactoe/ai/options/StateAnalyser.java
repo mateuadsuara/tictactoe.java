@@ -28,7 +28,7 @@ public class StateAnalyser {
         final ArrayList<Location> winningLocations = new ArrayList<>();
 
         for (Location location : locations){
-            final State imaginaryState = state.put(player, location);
+            final State imaginaryState = state.put(new Play(player, location));
             final Logic logic = new Logic(imaginaryState);
             if (logic.hasWon(player))
                 winningLocations.add(location);
@@ -41,7 +41,7 @@ public class StateAnalyser {
         final ArrayList<Location> forkLocations = new ArrayList<>();
 
         for (Location location : locations){
-            final State imaginaryState = state.put(player, location);
+            final State imaginaryState = state.put(new Play(player, location));
             if (hasFork(imaginaryState, player))
                 forkLocations.add(location);
         }
@@ -60,11 +60,11 @@ public class StateAnalyser {
         final List<Location> attackLocations = getAttackLocations(state, player, locations);
 
         for (Location attackLocation : attackLocations){
-            final State imaginaryState = state.put(player, attackLocation);
+            final State imaginaryState = state.put(new Play(player, attackLocation));
             final List<Location> imaginaryAvailableLocations = removeFrom(attackLocations, Arrays.asList(attackLocation));
             final List<Location> imaginaryWinnings = new StateAnalyser(imaginaryState).getPossibleWinnings(player, imaginaryAvailableLocations);
             for (Location defendingLocation : imaginaryWinnings) {
-                final State imaginaryDefendingState = state.put(opponent, defendingLocation);
+                final State imaginaryDefendingState = state.put(new Play(opponent, defendingLocation));
                 if (!hasFork(imaginaryDefendingState, opponent))
                     forkBlockingLocations.add(attackLocation);
             }
@@ -77,7 +77,7 @@ public class StateAnalyser {
         final ArrayList<Location> attackLocations = new ArrayList<>();
 
         for (Location location : locations){
-            final State imaginaryState = state.put(player, location);
+            final State imaginaryState = state.put(new Play(player, location));
             if (hasAttack(imaginaryState, player))
                 attackLocations.add(location);
         }

@@ -20,10 +20,10 @@ public class State {
         return pieces.get(l);
     }
 
-    public State put(Player p, Location l) {
-        checkLocationValidity(l);
+    public State put(Play play) {
+        checkLocationValidity(play.location);
         final HashMap<Location, Player> newPieces = new HashMap<>(this.pieces);
-        newPieces.put(l, p);
+        newPieces.put(play.location, play.player);
         return new State(board, newPieces);
     }
 
