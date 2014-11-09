@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -18,7 +19,8 @@ public class ForesighterTest {
     private static final Player _ = null;
 
     private static void assertFutures(Player current, State initial, List<State> expectedFutures) {
-        assertThat(foreseeFutures(current, initial), is(expectedFutures));
+        List<State> actualFutures = foreseeFutures(current, initial);
+        assertThat(new HashSet<>(actualFutures), is(new HashSet<>(expectedFutures)));
     }
 
     private static List<State> foreseeFutures(Player current, State initial) {
@@ -72,6 +74,35 @@ public class ForesighterTest {
                                 X, X, O,
                                 O, O, X,
                                 X, X, O
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void aStateWithThreePossibleFutures() {
+        assertFutures(
+                X,
+                StateLiteral.create(
+                        X, X, O,
+                        O, O, X,
+                        _, _, _
+                ),
+                Arrays.asList(
+                        StateLiteral.create(
+                                X, X, O,
+                                O, O, X,
+                                _, X, _
+                        ),
+                        StateLiteral.create(
+                                X, X, O,
+                                O, O, X,
+                                X, _, _
+                        ),
+                        StateLiteral.create(
+                                X, X, O,
+                                O, O, X,
+                                _, _, X
                         )
                 )
         );

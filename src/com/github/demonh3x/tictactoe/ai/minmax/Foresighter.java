@@ -4,7 +4,7 @@ import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Foresighter implements Iterable<State>{
@@ -18,12 +18,12 @@ public class Foresighter implements Iterable<State>{
 
     @Override
     public Iterator<State> iterator() {
+        ArrayList<State> futures = new ArrayList<>();
+
         for (Location l : base.board.getAllLocations())
             if (base.isEmptyAt(l))
-                return Arrays.asList(
-                        base.put(current, l)
-                ).iterator();
+                futures.add(base.put(current, l));
 
-        return Arrays.<State>asList().iterator();
+        return futures.iterator();
     }
 }
