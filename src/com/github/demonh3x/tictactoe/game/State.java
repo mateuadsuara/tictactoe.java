@@ -38,24 +38,4 @@ public class State {
     public boolean isEmptyAt(Location l) {
         return lookAt(l) == null;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        State state = (State) o;
-
-        if (board != null ? !board.equals(state.board) : state.board != null) return false;
-        if (pieces != null ? !pieces.equals(state.pieces) : state.pieces != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = board != null ? board.hashCode() : 0;
-        result = 31 * result + (pieces != null ? pieces.hashCode() : 0);
-        return result;
-    }
 }
