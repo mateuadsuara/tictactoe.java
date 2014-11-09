@@ -60,5 +60,20 @@ public class ForesighterTest {
                         )
                 )
         );
+        assertFutures(
+                X,
+                StateLiteral.create(
+                        X, X, O,
+                        O, O, X,
+                        X, _, O
+                ),
+                Arrays.asList(
+                        StateLiteral.create(
+                                X, X, O,
+                                O, O, X,
+                                X, X, O
+                        )
+                )
+        );
     }
 }

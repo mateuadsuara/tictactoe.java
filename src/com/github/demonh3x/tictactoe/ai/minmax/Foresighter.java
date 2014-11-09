@@ -18,11 +18,11 @@ public class Foresighter implements Iterable<State>{
 
     @Override
     public Iterator<State> iterator() {
-        Location l = new Location(2, 2);
-        if (base.isEmptyAt(l))
-            return Arrays.asList(
-                    base.put(current, l)
-            ).iterator();
+        for (Location l : base.board.getAllLocations())
+            if (base.isEmptyAt(l))
+                return Arrays.asList(
+                        base.put(current, l)
+                ).iterator();
 
         return Arrays.<State>asList().iterator();
     }
