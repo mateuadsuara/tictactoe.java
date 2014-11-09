@@ -1,6 +1,7 @@
 package com.github.demonh3x.tictactoe.ai.minmax;
 
 import com.github.demonh3x.tictactoe.StateLiteral;
+import com.github.demonh3x.tictactoe.game.Play;
 import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 import org.junit.Test;
@@ -26,8 +27,8 @@ public class ForesighterTest {
     private static List<State> foreseeFutures(Player current, State initial) {
         ArrayList<State> actualList = new ArrayList<>();
 
-        for (State s : new Foresighter(current, initial))
-            actualList.add(s);
+        for (Play p : new Foresighter(current, initial))
+            actualList.add(initial.put(p.player, p.location));
 
         return actualList;
     }
