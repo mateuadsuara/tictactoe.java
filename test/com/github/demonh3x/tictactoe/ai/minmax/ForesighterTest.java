@@ -44,7 +44,7 @@ public class ForesighterTest {
     }
 
     @Test
-    public void aStateWithOnlyOneOutcomeShouldHaveItAsFuture() {
+    public void aStateWithOnlyOnePossibleFuture() {
         assertFutures(
                 X,
                 StateLiteral.create(
