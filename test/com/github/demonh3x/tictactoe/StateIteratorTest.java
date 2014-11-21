@@ -10,9 +10,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import static com.github.demonh3x.tictactoe.game.Player.*;
 
 public class StateIteratorTest {
     public class InteractorSpy implements Interactor {
@@ -38,19 +39,13 @@ public class StateIteratorTest {
         return list.iterator();
     }
 
-    Player xPlayer = new Player();
-    Player oPlayer = new Player();
-
     InteractorSpy xInteractor;
     InteractorSpy oInteractor;
 
     @Before
     public void setUp() {
-        xPlayer = new Player();
-        oPlayer = new Player();
-
-        xInteractor = new InteractorSpy(xPlayer);
-        oInteractor = new InteractorSpy(oPlayer);
+        xInteractor = new InteractorSpy(X);
+        oInteractor = new InteractorSpy(O);
     }
 
     @Test
@@ -89,7 +84,7 @@ public class StateIteratorTest {
 
     @Test
     public void GivenAPlayerToIterate_BeforeGettingTheNextState_ShouldntHaveAskedThatPlayersInteractor() {
-        final StateIterator iterator = new StateIterator(StateLiteral.empty(), iterate(xInteractor));
+        new StateIterator(StateLiteral.empty(), iterate(xInteractor));
         assertThat(xInteractor.receivedStatesToPlay.size(), is(0));
     }
 

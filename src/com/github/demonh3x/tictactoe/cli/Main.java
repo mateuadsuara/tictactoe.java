@@ -6,14 +6,13 @@ import com.github.demonh3x.tictactoe.game.Observer;
 
 import java.util.*;
 
+import static com.github.demonh3x.tictactoe.game.Player.*;
+
 public class Main {
     public static void main(String ... args){
-        final Player xPlayer = new Player();
-        final Player oPlayer = new Player();
-
         final Map<Player, Character> mappings = new HashMap<>();
-        mappings.put(xPlayer, 'X');
-        mappings.put(oPlayer, 'O');
+        mappings.put(X, 'X');
+        mappings.put(O, 'O');
 
         final List<Observer> observers = Arrays.<Observer>asList(
                 new CliObserver(System.out, mappings)
@@ -22,7 +21,7 @@ public class Main {
         final State initialState = State.empty(new TicTacToeBoard());
         final StateIterator iterator = new StateIterator(
                 initialState,
-                new CyclingIterator<>(askPlayingOrder(xPlayer, oPlayer))
+                new CyclingIterator<>(askPlayingOrder(X, O))
         );
 
         notify(observers, initialState);

@@ -9,11 +9,11 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
+import static com.github.demonh3x.tictactoe.game.Player.*;
+
 @RunWith(HierarchicalContextRunner.class)
 public class StateTest {
     private static final Player _ = null;
-    private static final Player X = new Player();
-    private static final Player O = new Player();
 
     final State[] statesWithLineOfX = {
             StateLiteral.create(

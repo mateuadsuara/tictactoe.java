@@ -12,10 +12,10 @@ import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import static com.github.demonh3x.tictactoe.game.Player.*;
+
 public class NewellSimonInteractorTest {
     private static final Player _ = null;
-    private static final Player X = new Player();
-    private static final Player O = new Player();
 
     private void assertPlayedLocation(Player represented, State state, Location location) {
         Play play = play(represented, state);

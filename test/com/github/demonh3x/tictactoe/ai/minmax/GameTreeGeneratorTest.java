@@ -9,9 +9,9 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import static com.github.demonh3x.tictactoe.game.Player.*;
+
 public class GameTreeGeneratorTest {
-    private static final Player X = new Player();
-    private static final Player O = new Player();
     private static final Player _ = null;
 
     private void assertGameTree(State state, GameTree tree) {

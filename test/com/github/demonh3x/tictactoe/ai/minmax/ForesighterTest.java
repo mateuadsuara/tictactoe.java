@@ -14,10 +14,9 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static com.github.demonh3x.tictactoe.game.Player.*;
 
 public class ForesighterTest {
-    private static final Player X = new Player();
-    private static final Player O = new Player();
     private static final Player _ = null;
 
     private static void assertFutures(Player current, State initial, List<Location> expectedFutures) {

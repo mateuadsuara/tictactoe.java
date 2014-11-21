@@ -9,12 +9,14 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import static com.github.demonh3x.tictactoe.game.Player.*;
+
 public class FirstPossiblePlayInteractorTest {
     Interactor interactor;
 
     @Before
     public void setUp() {
-        interactor = new FirstPossiblePlayInteractor(new Player());
+        interactor = new FirstPossiblePlayInteractor(X);
     }
 
     @Test
@@ -29,7 +31,7 @@ public class FirstPossiblePlayInteractorTest {
     @Test
     public void GivenStateWithFirstPieceInPlace_shouldReturnTheSecondLocation() {
         final State state = StateLiteral.empty()
-                .put(new Play(new Player(), new Location(0, 0)));
+                .put(new Play(X, new Location(0, 0)));
 
         final Location played = interactor.play(state).location;
 
@@ -39,8 +41,8 @@ public class FirstPossiblePlayInteractorTest {
     @Test
     public void GivenStateWithFirstTwoPiecesInPlace_shouldReturnTheThirdLocation() {
         final State state = StateLiteral.empty()
-                .put(new Play(new Player(), new Location(0, 0)))
-                .put(new Play(new Player(), new Location(1, 0)));
+                .put(new Play(X, new Location(0, 0)))
+                .put(new Play(X, new Location(1, 0)));
 
         final Location played = interactor.play(state).location;
 
@@ -50,9 +52,9 @@ public class FirstPossiblePlayInteractorTest {
     @Test
     public void GivenStateWithFirstThreePiecesInPlace_shouldReturnTheFourthLocation() {
         final State state = StateLiteral.empty()
-                .put(new Play(new Player(), new Location(0, 0)))
-                .put(new Play(new Player(), new Location(1, 0)))
-                .put(new Play(new Player(), new Location(2, 0)));
+                .put(new Play(X, new Location(0, 0)))
+                .put(new Play(X, new Location(1, 0)))
+                .put(new Play(X, new Location(2, 0)));
 
         final Location played = interactor.play(state).location;
 
@@ -62,15 +64,15 @@ public class FirstPossiblePlayInteractorTest {
     @Test (expected = RuntimeException.class)
     public void GivenStateWithAllPiecesInPlace_shouldThrowException() {
         final State state = StateLiteral.empty()
-                .put(new Play(new Player(), new Location(0, 0)))
-                .put(new Play(new Player(), new Location(1, 0)))
-                .put(new Play(new Player(), new Location(2, 0)))
-                .put(new Play(new Player(), new Location(0, 1)))
-                .put(new Play(new Player(), new Location(1, 1)))
-                .put(new Play(new Player(), new Location(2, 1)))
-                .put(new Play(new Player(), new Location(0, 2)))
-                .put(new Play(new Player(), new Location(1, 2)))
-                .put(new Play(new Player(), new Location(2, 2)));
+                .put(new Play(X, new Location(0, 0)))
+                .put(new Play(X, new Location(1, 0)))
+                .put(new Play(X, new Location(2, 0)))
+                .put(new Play(X, new Location(0, 1)))
+                .put(new Play(X, new Location(1, 1)))
+                .put(new Play(X, new Location(2, 1)))
+                .put(new Play(X, new Location(0, 2)))
+                .put(new Play(X, new Location(1, 2)))
+                .put(new Play(X, new Location(2, 2)));
 
         interactor.play(state);
     }

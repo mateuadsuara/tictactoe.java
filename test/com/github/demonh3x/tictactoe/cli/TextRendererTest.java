@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.github.demonh3x.tictactoe.game.Player.O;
+import static com.github.demonh3x.tictactoe.game.Player.X;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -30,9 +32,6 @@ public class TextRendererTest {
 
     @Test
     public void somePlaysInTicTacToeBoard() {
-        final Player X = new Player();
-        final Player O = new Player();
-
         final HashMap<Player, Character> mappings = new HashMap<>();
         mappings.put(X, 'X');
         mappings.put(O, 'O');
@@ -221,9 +220,6 @@ public class TextRendererTest {
 
     @Test
     public void somePlaysInABoardWithUnsortedLocations() {
-        final Player X = new Player();
-        final Player O = new Player();
-
         final HashMap<Player, Character> mappings = new HashMap<>();
         mappings.put(X, 'X');
         mappings.put(O, 'O');
