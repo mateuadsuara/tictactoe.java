@@ -16,7 +16,7 @@ public class GameTreeGeneratorTest {
 
     private void assertGameTree(State state, GameTree tree) {
         GameTreeGenerator generator = new GameTreeGenerator(X, O);
-        assertThat(generator.generate(state, X), is(tree));
+        assertThat(generator.generate(state), is(tree));
     }
 
     @Test

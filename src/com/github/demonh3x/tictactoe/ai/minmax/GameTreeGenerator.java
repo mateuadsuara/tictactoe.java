@@ -12,11 +12,11 @@ public class GameTreeGenerator {
         this.players = players;
     }
 
-    public GameTree generate(State initial, Player decisionMaker) {
-        Logic logic = new Logic(initial);
+    public GameTree generate(State initialState) {
+        Logic logic = new Logic(initialState);
         return logic.isFinished() ?
                 determineOutcome(logic) :
-                new Choice(decisionMaker, new Location(2, 1), DrawOutcome.get());
+                new Choice(initialState.decisionMaker, new Location(2, 1), DrawOutcome.get());
     }
 
     private GameTree determineOutcome(Logic logic) {
