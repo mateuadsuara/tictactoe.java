@@ -46,8 +46,8 @@ public class TextRenderer {
         final Set<Integer> rows = getRows(allLocations);
 
         String generated =
-                "   x " + generateColumnsHeader(columns) + "\n" +
-                " y " + generateSeparator(columns.size());
+                "     " + generateColumnsHeader(columns) + "\n" +
+                "   " + generateSeparator(columns.size());
 
         for (Integer row : rows) {
             generated += "\n";

@@ -19,8 +19,8 @@ public class TextRendererTest {
         final TextRenderer renderer = new TextRenderer(new HashMap<Player, Character>());
         final State state = State.empty(new TicTacToeBoard());
         assertThat(renderer.render(state), is(
-                "   x 0   1   2\n" +
-                " y +---+---+---+\n" +
+                "     0   1   2\n" +
+                "   +---+---+---+\n" +
                 " 0 |   |   |   |\n" +
                 "   +---+---+---+\n" +
                 " 1 |   |   |   |\n" +
@@ -43,8 +43,8 @@ public class TextRendererTest {
         state = state.play(new Location(1, 0));
 
         assertThat(renderer.render(state), is(
-                "   x 0   1   2\n" +
-                " y +---+---+---+\n" +
+                "     0   1   2\n" +
+                "   +---+---+---+\n" +
                 " 0 | X | O |   |\n" +
                 "   +---+---+---+\n" +
                 " 1 |   |   |   |\n" +
@@ -114,8 +114,8 @@ public class TextRendererTest {
                 Arrays.asList(
                         new Location(0, 0)
                 ),
-                "   x 0\n" +
-                " y +---+\n" +
+                "     0\n" +
+                "   +---+\n" +
                 " 0 |   |\n" +
                 "   +---+"
         );
@@ -127,8 +127,8 @@ public class TextRendererTest {
                 Arrays.asList(
                         new Location(0, 0), new Location(0, 1)
                 ),
-                "   x 0\n" +
-                " y +---+\n" +
+                "     0\n" +
+                "   +---+\n" +
                 " 0 |   |\n" +
                 "   +---+\n" +
                 " 1 |   |\n" +
@@ -142,8 +142,8 @@ public class TextRendererTest {
                 Arrays.asList(
                         new Location(0, 0), new Location(0, 1), new Location(0, 2), new Location(0, 3)
                 ),
-                "   x 0\n" +
-                " y +---+\n" +
+                "     0\n" +
+                "   +---+\n" +
                 " 0 |   |\n" +
                 "   +---+\n" +
                 " 1 |   |\n" +
@@ -161,8 +161,8 @@ public class TextRendererTest {
                 Arrays.asList(
                         new Location(0, 0), new Location(1, 0)
                 ),
-                "   x 0   1\n" +
-                " y +---+---+\n" +
+                "     0   1\n" +
+                "   +---+---+\n" +
                 " 0 |   |   |\n" +
                 "   +---+---+"
         );
@@ -174,8 +174,8 @@ public class TextRendererTest {
                 Arrays.asList(
                         new Location(0, 0), new Location(1, 0), new Location(2, 0), new Location(3, 0)
                 ),
-                "   x 0   1   2   3\n" +
-                " y +---+---+---+---+\n" +
+                "     0   1   2   3\n" +
+                "   +---+---+---+---+\n" +
                 " 0 |   |   |   |   |\n" +
                 "   +---+---+---+---+"
         );
@@ -187,8 +187,8 @@ public class TextRendererTest {
                 Arrays.asList(
                         new Location(1, 0)
                 ),
-                "   x 1\n" +
-                " y +---+\n" +
+                "     1\n" +
+                "   +---+\n" +
                 " 0 |   |\n" +
                 "   +---+"
         );
@@ -196,8 +196,8 @@ public class TextRendererTest {
                 Arrays.asList(
                         new Location(2, 5)
                 ),
-                "   x 2\n" +
-                " y +---+\n" +
+                "     2\n" +
+                "   +---+\n" +
                 " 5 |   |\n" +
                 "   +---+"
         );
@@ -209,8 +209,8 @@ public class TextRendererTest {
                 Arrays.asList(
                         new Location(1, 1), new Location(0, 1), new Location(0, 0), new Location(1, 0)
                 ),
-                "   x 0   1\n" +
-                " y +---+---+\n" +
+                "     0   1\n" +
+                "   +---+---+\n" +
                 " 0 |   |   |\n" +
                 "   +---+---+\n" +
                 " 1 |   |   |\n" +
@@ -233,8 +233,8 @@ public class TextRendererTest {
         state = state.play(new Location(1, 1));
 
         assertThat(renderer.render(state), is(
-                "   x 0   1\n" +
-                " y +---+---+\n" +
+                "     0   1\n" +
+                "   +---+---+\n" +
                 " 0 | X |   |\n" +
                 "   +---+---+\n" +
                 " 1 |   | O |\n" +
