@@ -22,17 +22,11 @@ public class State {
         return pieces.get(l);
     }
 
-    public State put(Play play) {
-        checkPlayerValidity(play.player);
-        checkLocationValidity(play.location);
+    public State play(Location location) {
+        checkLocationValidity(location);
         final HashMap<Location, Player> newPieces = new HashMap<>(this.pieces);
-        newPieces.put(play.location, play.player);
+        newPieces.put(location, decisionMaker);
         return new State(board, decisionMaker.next(), newPieces);
-    }
-
-    private void checkPlayerValidity(Player playerToFix) {
-        if (playerToFix != decisionMaker)
-            throw new IllegalArgumentException();
     }
 
     private void checkLocationValidity(Location l) {

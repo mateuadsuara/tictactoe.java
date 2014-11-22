@@ -39,8 +39,8 @@ public class TextRendererTest {
         final TextRenderer renderer = new TextRenderer(mappings);
 
         State state = State.empty(new TicTacToeBoard());
-        state = state.put(new Play(X, new Location(0, 0)));
-        state = state.put(new Play(O, new Location(1, 0)));
+        state = state.play(new Location(0, 0));
+        state = state.play(new Location(1, 0));
 
         assertThat(renderer.render(state), is(
                 "   x 0   1   2\n" +
@@ -229,8 +229,8 @@ public class TextRendererTest {
         State state = State.empty(createBoard(Arrays.asList(
                 new Location(1, 1), new Location(0, 1), new Location(0, 0), new Location(1, 0)
         )));
-        state = state.put(new Play(X, new Location(0, 0)));
-        state = state.put(new Play(O, new Location(1, 1)));
+        state = state.play(new Location(0, 0));
+        state = state.play(new Location(1, 1));
 
         assertThat(renderer.render(state), is(
                 "   x 0   1\n" +

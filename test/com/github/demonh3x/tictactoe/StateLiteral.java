@@ -38,9 +38,9 @@ public class StateLiteral {
         Iterator<Location> xIterator = xLocations.iterator();
         Iterator<Location> oIterator = oLocations.iterator();
         while (xIterator.hasNext()) {
-            gameState = gameState.put(new Play(Player.X, xIterator.next()));
+            gameState = gameState.play(xIterator.next());
             if (oIterator.hasNext()) {
-                gameState = gameState.put(new Play(Player.O, oIterator.next()));
+                gameState = gameState.play(oIterator.next());
             }
         }
 

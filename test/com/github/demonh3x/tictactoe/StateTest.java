@@ -131,7 +131,7 @@ public class StateTest {
                     _, _, _
             );
             l = new Location(0, 0);
-            newState = originalState.put(new Play(X, l));
+            newState = originalState.play(l);
         }
 
         @Test
@@ -149,7 +149,7 @@ public class StateTest {
 
             boolean exceptionThrown = false;
             try {
-                state.put(new Play(X, new Location(x, y)));
+                state.play(new Location(x, y));
             } catch (IllegalArgumentException e){
                 exceptionThrown = true;
             }

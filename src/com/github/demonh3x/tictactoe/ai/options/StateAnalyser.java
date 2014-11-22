@@ -29,7 +29,7 @@ public class StateAnalyser {
 
         for (Location location : locations){
             final State stateToFork = state.decisionMaker == player ? state : state.skipTurn();
-            final State imaginaryState = stateToFork.put(new Play(player, location));
+            final State imaginaryState = stateToFork.play(location);
             final Logic logic = new Logic(imaginaryState);
             if (logic.hasWon(player))
                 winningLocations.add(location);
@@ -43,7 +43,7 @@ public class StateAnalyser {
 
         for (Location location : locations){
             State stateToFork = state.decisionMaker == player ? state : state.skipTurn();
-            final State imaginaryState = stateToFork.put(new Play(player, location));
+            final State imaginaryState = stateToFork.play(location);
             if (hasFork(imaginaryState, player))
                 forkLocations.add(location);
         }
@@ -62,12 +62,12 @@ public class StateAnalyser {
         final List<Location> attackLocations = getAttackLocations(state, player, locations);
 
         for (Location attackLocation : attackLocations){
-            final State imaginaryState = state.put(new Play(player, attackLocation));
+            final State imaginaryState = state.play(attackLocation);
             final List<Location> imaginaryAvailableLocations = removeFrom(attackLocations, Arrays.asList(attackLocation));
             final List<Location> imaginaryWinnings = new StateAnalyser(imaginaryState).getPossibleWinnings(player, imaginaryAvailableLocations);
             for (Location defendingLocation : imaginaryWinnings) {
                 final State stateToFork = state.decisionMaker == opponent ? state : state.skipTurn();
-                final State imaginaryDefendingState = stateToFork.put(new Play(opponent, defendingLocation));
+                final State imaginaryDefendingState = stateToFork.play(defendingLocation);
                 if (!hasFork(imaginaryDefendingState, opponent))
                     forkBlockingLocations.add(attackLocation);
             }
@@ -80,7 +80,7 @@ public class StateAnalyser {
         final ArrayList<Location> attackLocations = new ArrayList<>();
 
         for (Location location : locations){
-            final State imaginaryState = state.put(new Play(player, location));
+            final State imaginaryState = state.play(location);
             if (hasAttack(imaginaryState, player))
                 attackLocations.add(location);
         }
