@@ -60,7 +60,23 @@ public class GameTreeGeneratorTest {
                         O, O, X,
                         X, _, O
                 ),
-                new Choice(X, new Location(2, 1), DrawOutcome.get())
+                new Choice(X, new Location(1, 2), DrawOutcome.get())
+        );
+        assertGameTree(
+                StateLiteral.create(
+                        O, X, O,
+                        _, X, O,
+                        X, O, X
+                ),
+                new Choice(X, new Location(0, 1), DrawOutcome.get())
+        );
+        assertGameTree(
+                StateLiteral.create(
+                        O, X, O,
+                        _, X, X,
+                        X, O, O
+                ),
+                new Choice(X, new Location(0, 1), new WinningOutcome(X))
         );
     }
 }

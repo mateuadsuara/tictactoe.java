@@ -4,6 +4,7 @@ import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.Logic;
 import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class GameTreeGenerator {
     private final Player[] players;
@@ -16,7 +17,18 @@ public class GameTreeGenerator {
         Logic logic = new Logic(initialState);
         return logic.isFinished() ?
                 determineOutcome(logic) :
-                new Choice(initialState.decisionMaker, new Location(2, 1), DrawOutcome.get());
+                determineChoices(initialState);
+    }
+
+    private Choice determineChoices(State initialState) {
+        for (Location l : initialState.board.getAllLocations()) {
+            if (initialState.isEmptyAt(l)) {
+                GameTree subTree = generate(initialState.play(l));
+                return new Choice(initialState.decisionMaker, l, subTree);
+            }
+        }
+
+        throw new NotImplementedException();
     }
 
     private GameTree determineOutcome(Logic logic) {
