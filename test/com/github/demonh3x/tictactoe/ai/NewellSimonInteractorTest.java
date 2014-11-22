@@ -94,7 +94,7 @@ public class NewellSimonInteractorTest {
                 X,
                 StateLiteral.create(
                         X, O, X,
-                        O, X, O,
+                        _, X, O,
                         O, _, _
                 ),
                 new Location(2, 2)

@@ -84,7 +84,7 @@ public class StateTest {
         @Test
         public void aLocationContainingAOPiece_ReturnsAOPiece() {
             final State state = StateLiteral.create(
-                    _, _, _,
+                    X, _, _,
                     _, _, _,
                     _, _, O
             );
@@ -264,7 +264,7 @@ public class StateTest {
             assertTheWinner(O, StateLiteral.create(
                     O, O, O,
                     X, _, _,
-                    X, _, _
+                    X, _, X
             ));
         }
     }

@@ -28,7 +28,8 @@ public class StateAnalyser {
         final ArrayList<Location> winningLocations = new ArrayList<>();
 
         for (Location location : locations){
-            final State imaginaryState = state.put(new Play(player, location));
+            final State stateToFork = state.decisionMaker == player ? state : state.skipTurn();
+            final State imaginaryState = stateToFork.put(new Play(player, location));
             final Logic logic = new Logic(imaginaryState);
             if (logic.hasWon(player))
                 winningLocations.add(location);
@@ -41,7 +42,8 @@ public class StateAnalyser {
         final ArrayList<Location> forkLocations = new ArrayList<>();
 
         for (Location location : locations){
-            final State imaginaryState = state.put(new Play(player, location));
+            State stateToFork = state.decisionMaker == player ? state : state.skipTurn();
+            final State imaginaryState = stateToFork.put(new Play(player, location));
             if (hasFork(imaginaryState, player))
                 forkLocations.add(location);
         }
@@ -64,7 +66,8 @@ public class StateAnalyser {
             final List<Location> imaginaryAvailableLocations = removeFrom(attackLocations, Arrays.asList(attackLocation));
             final List<Location> imaginaryWinnings = new StateAnalyser(imaginaryState).getPossibleWinnings(player, imaginaryAvailableLocations);
             for (Location defendingLocation : imaginaryWinnings) {
-                final State imaginaryDefendingState = state.put(new Play(opponent, defendingLocation));
+                final State stateToFork = state.decisionMaker == opponent ? state : state.skipTurn();
+                final State imaginaryDefendingState = stateToFork.put(new Play(opponent, defendingLocation));
                 if (!hasFork(imaginaryDefendingState, opponent))
                     forkBlockingLocations.add(attackLocation);
             }

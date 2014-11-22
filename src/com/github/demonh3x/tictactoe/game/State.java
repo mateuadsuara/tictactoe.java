@@ -4,14 +4,16 @@ import java.util.*;
 
 public class State {
     public static State empty(Board board){
-        return new State(board, new HashMap<Location, Player>());
+        return new State(board, Player.X, new HashMap<Location, Player>());
     }
 
     public final Board board;
+    public final Player decisionMaker;
     private final Map<Location, Player> pieces;
 
-    private State(Board board, Map<Location, Player> pieces) {
+    private State(Board board, Player decisionMaker, Map<Location, Player> pieces) {
         this.board = board;
+        this.decisionMaker = decisionMaker;
         this.pieces = Collections.unmodifiableMap(pieces);
     }
 
@@ -21,10 +23,16 @@ public class State {
     }
 
     public State put(Play play) {
+        checkPlayerValidity(play.player);
         checkLocationValidity(play.location);
         final HashMap<Location, Player> newPieces = new HashMap<>(this.pieces);
         newPieces.put(play.location, play.player);
-        return new State(board, newPieces);
+        return new State(board, decisionMaker.next(), newPieces);
+    }
+
+    private void checkPlayerValidity(Player playerToFix) {
+        if (playerToFix != decisionMaker)
+            throw new IllegalArgumentException();
     }
 
     private void checkLocationValidity(Location l) {
@@ -37,5 +45,9 @@ public class State {
 
     public boolean isEmptyAt(Location l) {
         return lookAt(l) == null;
+    }
+
+    public State skipTurn() {
+        return new State(board, decisionMaker.next(), pieces);
     }
 }

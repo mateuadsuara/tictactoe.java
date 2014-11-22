@@ -42,7 +42,7 @@ public class FirstPossiblePlayInteractorTest {
     public void GivenStateWithFirstTwoPiecesInPlace_shouldReturnTheThirdLocation() {
         final State state = StateLiteral.empty()
                 .put(new Play(X, new Location(0, 0)))
-                .put(new Play(X, new Location(1, 0)));
+                .put(new Play(O, new Location(1, 0)));
 
         final Location played = interactor.play(state).location;
 
@@ -53,7 +53,7 @@ public class FirstPossiblePlayInteractorTest {
     public void GivenStateWithFirstThreePiecesInPlace_shouldReturnTheFourthLocation() {
         final State state = StateLiteral.empty()
                 .put(new Play(X, new Location(0, 0)))
-                .put(new Play(X, new Location(1, 0)))
+                .put(new Play(O, new Location(1, 0)))
                 .put(new Play(X, new Location(2, 0)));
 
         final Location played = interactor.play(state).location;

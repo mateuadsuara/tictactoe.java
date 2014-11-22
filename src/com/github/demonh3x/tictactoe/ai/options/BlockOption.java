@@ -17,7 +17,7 @@ public class BlockOption implements MoveOption {
     }
 
     private Results getLosingLocations() {
-        return new Results(state, getAllLocations()).available().winnableBy(opponent);
+        return new Results(state.skipTurn(), getAllLocations()).available().winnableBy(opponent);
     }
 
     private List<Location> getAllLocations() {
