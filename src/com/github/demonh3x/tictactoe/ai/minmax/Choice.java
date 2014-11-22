@@ -35,4 +35,13 @@ public class Choice implements GameTree {
         this.location = location;
         this.next = next;
     }
+
+    @Override
+    public String toString() {
+        return "Choice{" +
+                "decisionMaker=" + decisionMaker +
+                ", location=" + location +
+                ", next=" + next +
+                '}';
+    }
 }
