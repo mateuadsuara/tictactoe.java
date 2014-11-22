@@ -103,7 +103,7 @@ public class StateTest {
             }
 
             final String reason = String.format(
-                    "Expected state.lookAt(Location(x:%s, y:%s)) to throw IllegalArgumentException",
+                    "Expected state.lookAt(Location(col:%s, row:%s)) to throw IllegalArgumentException",
                     x, y
             );
             assertThat(reason, exceptionThrown, is(true));
@@ -155,7 +155,7 @@ public class StateTest {
             }
 
             final String reason = String.format(
-                    "Expected state.put(Play(Player, Location(x:%s, y:%s))) to throw IllegalArgumentException",
+                    "Expected state.put(Play(Player, Location(col:%s, row:%s))) to throw IllegalArgumentException",
                     x, y
             );
             assertThat(reason, exceptionThrown, is(true));

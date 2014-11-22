@@ -22,7 +22,7 @@ public class LocationTest {
 
     @Test
     public void stringRepresentation() {
-        assertThat(new Location(0, 0).toString(), is("[x:0, y:0]"));
-        assertThat(new Location(1, 1).toString(), is("[x:1, y:1]"));
+        assertThat(new Location(0, 0).toString(), is("[col:0, row:0]"));
+        assertThat(new Location(1, 1).toString(), is("[col:1, row:1]"));
     }
 }

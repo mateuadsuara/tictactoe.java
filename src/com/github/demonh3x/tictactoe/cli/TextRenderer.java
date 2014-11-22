@@ -24,7 +24,7 @@ public class TextRenderer {
         Set<Integer> columns = new HashSet<>();
 
         for (Location location : allLocations)
-            columns.add(location.x);
+            columns.add(location.col);
 
         return columns;
     }
@@ -33,7 +33,7 @@ public class TextRenderer {
         Set<Integer> rows = new HashSet<>();
 
         for (Location location : allLocations)
-            rows.add(location.y);
+            rows.add(location.row);
 
         return rows;
     }
@@ -77,7 +77,7 @@ public class TextRenderer {
 
         String footer = "+";
 
-        for (int x = 0; x < size; x++){
+        for (int col = 0; col < size; col++){
             footer += "---+";
         }
 
@@ -102,9 +102,9 @@ public class TextRenderer {
         Collections.sort(locations, new Comparator<Location>() {
             @Override
             public int compare(Location a, Location b) {
-                if (a.y != b.y)
-                    return a.y - b.y;
-                return a.x - b.x;
+                if (a.row != b.row)
+                    return a.row - b.row;
+                return a.col - b.col;
             }
         });
         String[] renderedPieces = new String[locations.size()];

@@ -48,14 +48,14 @@ public class TicTacToeBoard implements Board{
     @Override
     public Location opposite(Location location) {
         final int maxX = COLUMNS - 1;
-        final int oppositeX = Math.abs(location.x - maxX);
+        final int oppositeX = Math.abs(location.col - maxX);
         final int maxY = ROWS - 1;
-        final int oppositeY = Math.abs(location.y - maxY);
+        final int oppositeY = Math.abs(location.row - maxY);
         return new Location(oppositeX, oppositeY);
     }
 
     @Override
     public boolean contains(Location location) {
-        return location.x < COLUMNS && location.x >= 0 && location.y < ROWS && location.y >= 0;
+        return location.col < COLUMNS && location.col >= 0 && location.row < ROWS && location.row >= 0;
     }
 }

@@ -1,22 +1,22 @@
 package com.github.demonh3x.tictactoe.game;
 
 public class Location {
-    public static String toString(int x, int y){
-        return String.format("[x:%s, y:%s]", x, y);
+    public static String toString(int col, int row){
+        return String.format("[col:%s, row:%s]", col, row);
     }
 
-    public final int x;
-    public final int y;
+    public final int col;
+    public final int row;
 
-    public Location(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Location(int col, int row) {
+        this.col = col;
+        this.row = row;
     }
 
     @Override
     public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
+        int result = col;
+        result = 31 * result + row;
         return result;
     }
 
@@ -26,11 +26,11 @@ public class Location {
             return false;
 
         Location other = (Location) obj;
-        return x == other.x && y == other.y;
+        return col == other.col && row == other.row;
     }
 
     @Override
     public String toString() {
-        return toString(x, y);
+        return toString(col, row);
     }
 }

@@ -27,7 +27,7 @@ public class HumanCliInteractor implements Interactor {
     }
 
     private Location askForAValidLocation(State state) {
-        print("Location format: \"x,y\" (without the quotes)");
+        print("Location format: \"col,row\" (without the quotes)");
 
         Location location;
         boolean isValid;
@@ -80,16 +80,16 @@ public class HumanCliInteractor implements Interactor {
     }
 
     private Location parseLocation(String line) throws IllegalArgumentException {
-        final int x, y;
+        final int col, row;
 
         try {
             final String[] parts = line.split(",");
-            x = Integer.parseInt(parts[0].trim());
-            y = Integer.parseInt(parts[1].trim());
+            col = Integer.parseInt(parts[0].trim());
+            row = Integer.parseInt(parts[1].trim());
         } catch (Throwable t){
             throw new IllegalArgumentException(t);
         }
 
-        return new Location(x, y);
+        return new Location(col, row);
     }
 }
