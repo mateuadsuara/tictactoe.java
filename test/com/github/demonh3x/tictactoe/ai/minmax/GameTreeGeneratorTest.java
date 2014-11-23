@@ -6,6 +6,8 @@ import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -77,6 +79,37 @@ public class GameTreeGeneratorTest {
                         X, O, O
                 ),
                 new Choice(X, new Location(0, 1), new WinningOutcome(X))
+        );
+    }
+
+    @Test
+    public void GivenThreeChoicesFinishingTheGame_ShouldGenerateAOneLevelTree() {
+        assertGameTree(
+                StateLiteral.create(
+                        X, O, _,
+                        _, X, O,
+                        X, O, _
+                ),
+                new Choice(X, new HashMap<Location, GameTree>(){{
+                    put(new Location(2, 0), new WinningOutcome(X));
+                    put(new Location(0, 1), new WinningOutcome(X));
+                    put(new Location(2, 2), new WinningOutcome(X));
+                }})
+        );
+    }
+
+    @Test
+    public void GivenAExtensibleSituation_ShouldGenerateAMultiLevelTree() {
+        assertGameTree(
+                StateLiteral.create(
+                        X, X, O,
+                        _, O, O,
+                        X, _, X
+                ),
+                new Choice(O, new HashMap<Location, GameTree>(){{
+                    put(new Location(0, 1), new WinningOutcome(O));
+                    put(new Location(1, 2), new Choice(X, new Location(0, 1), new WinningOutcome(X)));
+                }})
         );
     }
 }

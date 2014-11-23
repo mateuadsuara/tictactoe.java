@@ -6,6 +6,11 @@ import com.github.demonh3x.tictactoe.game.Player;
 import com.github.demonh3x.tictactoe.game.State;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class GameTreeGenerator {
     private final Player[] players;
 
@@ -21,14 +26,21 @@ public class GameTreeGenerator {
     }
 
     private Choice determineChoices(State initialState) {
+        Map<Location, GameTree> subTrees = new HashMap<>();
+        for (Location emptyLocation : findEmptyLocations(initialState)) {
+            subTrees.put(emptyLocation, generate(initialState.play(emptyLocation)));
+        }
+        return new Choice(initialState.decisionMaker, subTrees);
+    }
+
+    private List<Location> findEmptyLocations(State initialState) {
+        List<Location> emptyLocations = new ArrayList<>();
         for (Location l : initialState.board.getAllLocations()) {
             if (initialState.isEmptyAt(l)) {
-                GameTree subTree = generate(initialState.play(l));
-                return new Choice(initialState.decisionMaker, l, subTree);
+                emptyLocations.add(l);
             }
         }
-
-        throw new NotImplementedException();
+        return emptyLocations;
     }
 
     private GameTree determineOutcome(Logic logic) {
