@@ -25,4 +25,11 @@ public class WinningOutcome implements GameTree {
     public int hashCode() {
         return winner.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "WinningOutcome{" +
+                 winner +
+                '}';
+    }
 }

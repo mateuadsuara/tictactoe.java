@@ -8,4 +8,9 @@ public final class DrawOutcome implements GameTree {
     }
 
     private DrawOutcome(){}
+
+    @Override
+    public String toString() {
+        return "Draw";
+    }
 }
