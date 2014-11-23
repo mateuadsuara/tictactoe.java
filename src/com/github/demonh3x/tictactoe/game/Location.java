@@ -1,6 +1,17 @@
 package com.github.demonh3x.tictactoe.game;
 
+import java.util.Comparator;
+
 public class Location {
+    public static final Comparator<Location> COMPARATOR = new Comparator<Location>() {
+        @Override
+        public int compare(Location a, Location b) {
+            if (a.row != b.row)
+                return a.row - b.row;
+            return a.col - b.col;
+        }
+    };
+    
     public static String toString(int col, int row){
         return String.format("[col:%s, row:%s]", col, row);
     }

@@ -4,9 +4,7 @@ import com.github.demonh3x.tictactoe.game.*;
 import org.junit.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static com.github.demonh3x.tictactoe.game.Player.O;
 import static com.github.demonh3x.tictactoe.game.Player.X;
@@ -57,12 +55,12 @@ public class TextRendererTest {
     private Board createBoard(final List<Location> availableLocations) {
         return new Board() {
             @Override
-            public List<Location> getAllLocations() {
-                return availableLocations;
+            public Set<Location> getAllLocations() {
+                return new HashSet<>(availableLocations);
             }
 
             @Override
-            public List<List<Location>> getPossibleLines() {
+            public Set<Set<Location>> getPossibleLines() {
                 throw new NotImplementedException();
             }
 

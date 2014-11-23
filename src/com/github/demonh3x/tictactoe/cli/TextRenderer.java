@@ -20,7 +20,7 @@ public class TextRenderer {
         );
     }
 
-    private Set<Integer> getColumns(List<Location> allLocations) {
+    private Set<Integer> getColumns(Collection<Location> allLocations) {
         Set<Integer> columns = new HashSet<>();
 
         for (Location location : allLocations)
@@ -29,7 +29,7 @@ public class TextRenderer {
         return columns;
     }
 
-    private Set<Integer> getRows(List<Location> allLocations) {
+    private Set<Integer> getRows(Collection<Location> allLocations) {
         Set<Integer> rows = new HashSet<>();
 
         for (Location location : allLocations)
@@ -38,7 +38,7 @@ public class TextRenderer {
         return rows;
     }
 
-    private String generateBoard(List<Location> allLocations) {
+    private String generateBoard(Collection<Location> allLocations) {
         if (allLocations.size() == 0)
             return "";
 
@@ -98,19 +98,13 @@ public class TextRenderer {
     }
 
     private String[] getRenderedPieces(State state) {
-        List<Location> locations = new ArrayList<>(state.board.getAllLocations());
-        Collections.sort(locations, new Comparator<Location>() {
-            @Override
-            public int compare(Location a, Location b) {
-                if (a.row != b.row)
-                    return a.row - b.row;
-                return a.col - b.col;
-            }
-        });
-        String[] renderedPieces = new String[locations.size()];
+        Set<Location> sortedLocations = new TreeSet<>(Location.COMPARATOR);
+        sortedLocations.addAll(state.board.getAllLocations());
+
+        String[] renderedPieces = new String[sortedLocations.size()];
 
         int i = 0;
-        for (Location l : locations){
+        for (Location l : sortedLocations){
             renderedPieces[i] = renderPiece(state.lookAt(l));
             i++;
         }

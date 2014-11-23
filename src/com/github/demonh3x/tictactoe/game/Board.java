@@ -1,9 +1,9 @@
 package com.github.demonh3x.tictactoe.game;
 
-import java.util.List;
+import java.util.Set;
 
 public interface Board {
-    public List<Location> getAllLocations();
-    public List<List<Location>> getPossibleLines();
+    public Set<Location> getAllLocations();
+    public Set<Set<Location>> getPossibleLines();
     public boolean contains(Location location);
 }

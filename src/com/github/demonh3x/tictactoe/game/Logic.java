@@ -1,6 +1,7 @@
 package com.github.demonh3x.tictactoe.game;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Logic {
@@ -15,15 +16,11 @@ public class Logic {
     }
 
     private boolean isFull() {
-        for (Location l : getAllLocations())
+        for (Location l : state.board.getAllLocations())
             if (state.lookAt(l) == null)
                 return false;
 
         return true;
-    }
-
-    private List<Location> getAllLocations() {
-        return state.board.getAllLocations();
     }
 
     private boolean hasALine() {
@@ -31,15 +28,11 @@ public class Logic {
     }
 
     private List<Player> getWinningLine() {
-        for (List<Location> line : getPossibleLines())
+        for (Collection<Location> line : state.board.getPossibleLines())
             if (isAWinningLine(getPiecesInTheLine(line)))
                 return getPiecesInTheLine(line);
 
         return null;
-    }
-
-    private List<List<Location>> getPossibleLines() {
-        return state.board.getPossibleLines();
     }
 
     private boolean isAWinningLine(List<Player> piecesInTheLine) {
@@ -55,7 +48,7 @@ public class Logic {
         return true;
     }
 
-    private List<Player> getPiecesInTheLine(List<Location> line) {
+    private List<Player> getPiecesInTheLine(Collection<Location> line) {
         ArrayList<Player> linePieces = new ArrayList<>(line.size());
 
         for (Location location : line)
