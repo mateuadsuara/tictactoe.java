@@ -1,23 +1,20 @@
 package com.github.demonh3x.tictactoe.ai.minmax;
 
 import com.github.demonh3x.tictactoe.game.Location;
-import com.github.demonh3x.tictactoe.game.Player;
 
 import java.util.*;
 
 public class Choice implements GameTree {
-    private final Player decisionMaker;
     private final Map<Location, GameTree> subTrees;
 
-    public Choice(Player decisionMaker, Map<Location, GameTree> subTrees) {
+    public Choice(Map<Location, GameTree> subTrees) {
         if (subTrees.isEmpty())
             throw new IllegalArgumentException("The SubTrees shouldn't be empty!");
-        this.decisionMaker = decisionMaker;
         this.subTrees = subTrees;
     }
 
-    public Choice(Player decisionMaker, final Location location, final GameTree next) {
-        this(decisionMaker, new HashMap<Location, GameTree>(){{
+    public Choice(final Location location, final GameTree next) {
+        this(new HashMap<Location, GameTree>(){{
             put(location, next);
         }});
     }
@@ -25,8 +22,7 @@ public class Choice implements GameTree {
     @Override
     public String toString() {
         return "Choice{" +
-                "decisionMaker=" + decisionMaker +
-                ", subTrees=" + subTrees +
+                subTrees +
                 '}';
     }
 
@@ -37,7 +33,6 @@ public class Choice implements GameTree {
 
         Choice choice = (Choice) o;
 
-        if (!decisionMaker.equals(choice.decisionMaker)) return false;
         if (!subTrees.equals(choice.subTrees)) return false;
 
         return true;
@@ -45,9 +40,7 @@ public class Choice implements GameTree {
 
     @Override
     public int hashCode() {
-        int result = decisionMaker.hashCode();
-        result = 31 * result + subTrees.hashCode();
-        return result;
+        return subTrees.hashCode();
     }
 
     @Override

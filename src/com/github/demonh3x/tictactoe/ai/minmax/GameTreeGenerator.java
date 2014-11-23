@@ -29,7 +29,7 @@ public class GameTreeGenerator {
         for (Location emptyLocation : findEmptyLocations(initialState)) {
             subTrees.put(emptyLocation, generate(initialState.play(emptyLocation)));
         }
-        return new Choice(initialState.decisionMaker, subTrees);
+        return new Choice(subTrees);
     }
 
     private List<Location> findEmptyLocations(State initialState) {

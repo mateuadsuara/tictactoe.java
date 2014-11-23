@@ -5,8 +5,6 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static com.github.demonh3x.tictactoe.game.Player.O;
-import static com.github.demonh3x.tictactoe.game.Player.X;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -18,14 +16,14 @@ public class GameTreeTest {
     @Test
     public void GivenImmediateOutcomes_ShouldPreferWinning() {
         assertStrategy(
-                new Choice(X, new HashMap<Location, GameTree>() {{
+                new Choice(new HashMap<Location, GameTree>() {{
                     put(new Location(0, 0), WinningOutcome.get());
                     put(new Location(1, 1), DrawOutcome.get());
                 }}),
                 new Strategy(1, new Location(0, 0))
         );
         assertStrategy(
-                new Choice(O, new HashMap<Location, GameTree>() {{
+                new Choice(new HashMap<Location, GameTree>() {{
                     put(new Location(0, 1), WinningOutcome.get());
                     put(new Location(1, 1), DrawOutcome.get());
                 }}),
@@ -36,7 +34,7 @@ public class GameTreeTest {
     @Test
     public void GivenImmediateOutcomesForTheOther_ShouldSupposeWouldPreferWinning() {
         assertStrategy(
-                new Choice(O, new HashMap<Location, GameTree>() {{
+                new Choice(new HashMap<Location, GameTree>() {{
                     put(new Location(1, 0), WinningOutcome.get());
                     put(new Location(1, 1), DrawOutcome.get());
                 }}),
@@ -47,8 +45,8 @@ public class GameTreeTest {
     @Test
     public void GivenATwoLevelChoiceTree_ShouldPreferDrawOverADefeat() {
         assertStrategy(
-                new Choice(X, new HashMap<Location, GameTree>() {{
-                    put(new Location(1, 0), new Choice(O, new Location(1, 1), WinningOutcome.get()));
+                new Choice(new HashMap<Location, GameTree>() {{
+                    put(new Location(1, 0), new Choice(new Location(1, 1), WinningOutcome.get()));
                     put(new Location(1, 1), DrawOutcome.get());
                 }}),
                 new Strategy(0, new Location(1, 1))
@@ -58,8 +56,8 @@ public class GameTreeTest {
     @Test
     public void GivenATwoLevelChoiceTree_ShouldPreferWinningOverADraw() {
         assertStrategy(
-                new Choice(X, new HashMap<Location, GameTree>() {{
-                    put(new Location(1, 0), new Choice(O, new HashMap<Location, GameTree>() {{
+                new Choice(new HashMap<Location, GameTree>() {{
+                    put(new Location(1, 0), new Choice(new HashMap<Location, GameTree>() {{
                         put(new Location(1, 1), DrawOutcome.get());
                     }}));
                     put(new Location(1, 1), WinningOutcome.get());

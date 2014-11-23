@@ -62,7 +62,7 @@ public class GameTreeGeneratorTest {
                         O, O, X,
                         X, _, O
                 ),
-                new Choice(X, new Location(1, 2), DrawOutcome.get())
+                new Choice(new Location(1, 2), DrawOutcome.get())
         );
         assertGameTree(
                 StateLiteral.create(
@@ -70,7 +70,7 @@ public class GameTreeGeneratorTest {
                         _, X, O,
                         X, O, X
                 ),
-                new Choice(X, new Location(0, 1), DrawOutcome.get())
+                new Choice(new Location(0, 1), DrawOutcome.get())
         );
         assertGameTree(
                 StateLiteral.create(
@@ -78,7 +78,7 @@ public class GameTreeGeneratorTest {
                         _, X, X,
                         X, O, O
                 ),
-                new Choice(X, new Location(0, 1), WinningOutcome.get())
+                new Choice(new Location(0, 1), WinningOutcome.get())
         );
     }
 
@@ -90,7 +90,7 @@ public class GameTreeGeneratorTest {
                         _, X, O,
                         X, O, _
                 ),
-                new Choice(X, new HashMap<Location, GameTree>(){{
+                new Choice(new HashMap<Location, GameTree>(){{
                     put(new Location(2, 0), WinningOutcome.get());
                     put(new Location(0, 1), WinningOutcome.get());
                     put(new Location(2, 2), WinningOutcome.get());
@@ -106,9 +106,9 @@ public class GameTreeGeneratorTest {
                         _, O, O,
                         X, _, X
                 ),
-                new Choice(O, new HashMap<Location, GameTree>(){{
+                new Choice(new HashMap<Location, GameTree>(){{
                     put(new Location(0, 1), WinningOutcome.get());
-                    put(new Location(1, 2), new Choice(X, new Location(0, 1), WinningOutcome.get()));
+                    put(new Location(1, 2), new Choice(new Location(0, 1), WinningOutcome.get()));
                 }})
         );
     }
