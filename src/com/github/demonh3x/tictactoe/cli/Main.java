@@ -36,13 +36,13 @@ public class Main {
         final List<Interactor> playingOrder;
         if (userWantsToPlayFirst()){
             playingOrder = Arrays.asList(
-                    new HumanCliInteractor(xPlayer, System.out, System.in),
+                    new HumanCliInteractor(System.out, System.in),
                     new NewellSimonInteractor(oPlayer, xPlayer)
             );
         } else {
             playingOrder = Arrays.asList(
                     new NewellSimonInteractor(xPlayer, oPlayer),
-                    new HumanCliInteractor(oPlayer, System.out, System.in)
+                    new HumanCliInteractor(System.out, System.in)
             );
         }
         return playingOrder;

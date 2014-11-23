@@ -6,17 +6,15 @@ import java.io.*;
 
 public class HumanCliInteractor implements Interactor {
     private final BufferedReader input;
-    private final Player representedPlayer;
     private final PrintStream output;
 
-    public HumanCliInteractor(Player representedPlayer, PrintStream output, InputStream input){
-        this.representedPlayer = representedPlayer;
+    public HumanCliInteractor(PrintStream output, InputStream input){
         this.output = output;
         this.input = new BufferedReader(new InputStreamReader(input));
     }
 
     @Override
-    public Location play(State state) {
+    public Location choose(State state) {
         print("Your turn! Where do you play?");
 
         return askForAValidLocation(state);

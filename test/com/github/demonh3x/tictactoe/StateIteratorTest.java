@@ -19,7 +19,7 @@ public class StateIteratorTest {
         public List<State> receivedStatesToPlay = new ArrayList<>();
 
         @Override
-        public Location play(State state) {
+        public Location choose(State state) {
             receivedStatesToPlay.add(state);
             return locationToPlay;
         }

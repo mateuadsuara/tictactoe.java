@@ -6,7 +6,7 @@ import com.github.demonh3x.tictactoe.game.*;
 
 public class FirstPossiblePlayInteractor implements Interactor {
     @Override
-    public Location play(State state) {
+    public Location choose(State state) {
         return getDecisionMaker(state).getLocation();
     }
 

@@ -22,7 +22,7 @@ public class MinmaxInteractorTest {
 
     private Location play(State state) {
         Interactor interactor = new MinmaxInteractor();
-        return interactor.play(state);
+        return interactor.choose(state);
     }
 
     private void assertPlayedOneOfLocationList(State state, List<Location> expectedOneOfThis){
