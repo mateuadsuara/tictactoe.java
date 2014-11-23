@@ -13,4 +13,9 @@ public final class DrawOutcome implements GameTree {
     public String toString() {
         return "Draw";
     }
+
+    @Override
+    public Strategy bestStrategy() {
+        return new Strategy(0);
+    }
 }

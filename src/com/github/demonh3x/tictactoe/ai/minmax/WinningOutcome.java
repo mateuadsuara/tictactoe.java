@@ -32,4 +32,9 @@ public class WinningOutcome implements GameTree {
                  winner +
                 '}';
     }
+
+    @Override
+    public Strategy bestStrategy() {
+        return new Strategy(-1);
+    }
 }

@@ -3,8 +3,7 @@ package com.github.demonh3x.tictactoe.ai.minmax;
 import com.github.demonh3x.tictactoe.game.Location;
 import com.github.demonh3x.tictactoe.game.Player;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Choice implements GameTree {
     private final Player decisionMaker;
@@ -50,4 +49,29 @@ public class Choice implements GameTree {
         result = 31 * result + subTrees.hashCode();
         return result;
     }
+
+    @Override
+    public Strategy bestStrategy() {
+        Map<Integer, List<Location>> resultsByScore = new HashMap<>();
+        resultsByScore.put(-1, new ArrayList<Location>());
+        resultsByScore.put(0, new ArrayList<Location>());
+        resultsByScore.put(1, new ArrayList<Location>());
+
+        int bestScore = Integer.MIN_VALUE;
+
+        for (Map.Entry<Location, GameTree> option : subTrees.entrySet()) {
+            Location location = option.getKey();
+            GameTree subTree = option.getValue();
+
+            Strategy opponentStrategy = subTree.bestStrategy();
+            int score = -opponentStrategy.score;
+            resultsByScore.get(score).add(location);
+            if (score > bestScore) {
+                bestScore = score;
+            }
+        }
+
+        return new Strategy(bestScore, resultsByScore.get(bestScore));
+    }
+
 }
