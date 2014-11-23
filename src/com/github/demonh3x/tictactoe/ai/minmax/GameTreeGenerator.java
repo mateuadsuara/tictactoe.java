@@ -45,7 +45,7 @@ public class GameTreeGenerator {
     private GameTree determineOutcome(Logic logic) {
         for (Player p : players)
             if (logic.hasWon(p))
-                return new WinningOutcome(p);
+                return WinningOutcome.get();
 
         return DrawOutcome.get();
     }

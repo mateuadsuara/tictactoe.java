@@ -19,14 +19,14 @@ public class GameTreeTest {
     public void GivenImmediateOutcomes_ShouldPreferWinning() {
         assertStrategy(
                 new Choice(X, new HashMap<Location, GameTree>() {{
-                    put(new Location(0, 0), new WinningOutcome(X));
+                    put(new Location(0, 0), WinningOutcome.get());
                     put(new Location(1, 1), DrawOutcome.get());
                 }}),
                 new Strategy(1, new Location(0, 0))
         );
         assertStrategy(
                 new Choice(O, new HashMap<Location, GameTree>() {{
-                    put(new Location(0, 1), new WinningOutcome(O));
+                    put(new Location(0, 1), WinningOutcome.get());
                     put(new Location(1, 1), DrawOutcome.get());
                 }}),
                 new Strategy(1, new Location(0, 1))
@@ -37,7 +37,7 @@ public class GameTreeTest {
     public void GivenImmediateOutcomesForTheOther_ShouldSupposeWouldPreferWinning() {
         assertStrategy(
                 new Choice(O, new HashMap<Location, GameTree>() {{
-                    put(new Location(1, 0), new WinningOutcome(O));
+                    put(new Location(1, 0), WinningOutcome.get());
                     put(new Location(1, 1), DrawOutcome.get());
                 }}),
                 new Strategy(1, new Location(1, 0))
@@ -48,7 +48,7 @@ public class GameTreeTest {
     public void GivenATwoLevelChoiceTree_ShouldPreferDrawOverADefeat() {
         assertStrategy(
                 new Choice(X, new HashMap<Location, GameTree>() {{
-                    put(new Location(1, 0), new Choice(O, new Location(1, 1), new WinningOutcome(O)));
+                    put(new Location(1, 0), new Choice(O, new Location(1, 1), WinningOutcome.get()));
                     put(new Location(1, 1), DrawOutcome.get());
                 }}),
                 new Strategy(0, new Location(1, 1))
@@ -62,7 +62,7 @@ public class GameTreeTest {
                     put(new Location(1, 0), new Choice(O, new HashMap<Location, GameTree>() {{
                         put(new Location(1, 1), DrawOutcome.get());
                     }}));
-                    put(new Location(1, 1), new WinningOutcome(X));
+                    put(new Location(1, 1), WinningOutcome.get());
                 }}),
                 new Strategy(1, new Location(1, 1))
         );

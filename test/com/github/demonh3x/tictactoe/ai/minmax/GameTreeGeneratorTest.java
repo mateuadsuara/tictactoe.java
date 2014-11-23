@@ -29,7 +29,7 @@ public class GameTreeGeneratorTest {
                         O, O, _,
                         _, _, _
                 ),
-                new WinningOutcome(X)
+                WinningOutcome.get()
         );
 
         assertGameTree(
@@ -38,7 +38,7 @@ public class GameTreeGeneratorTest {
                         O, O, O,
                         X, _, _
                 ),
-                new WinningOutcome(O)
+                WinningOutcome.get()
         );
     }
 
@@ -78,7 +78,7 @@ public class GameTreeGeneratorTest {
                         _, X, X,
                         X, O, O
                 ),
-                new Choice(X, new Location(0, 1), new WinningOutcome(X))
+                new Choice(X, new Location(0, 1), WinningOutcome.get())
         );
     }
 
@@ -91,9 +91,9 @@ public class GameTreeGeneratorTest {
                         X, O, _
                 ),
                 new Choice(X, new HashMap<Location, GameTree>(){{
-                    put(new Location(2, 0), new WinningOutcome(X));
-                    put(new Location(0, 1), new WinningOutcome(X));
-                    put(new Location(2, 2), new WinningOutcome(X));
+                    put(new Location(2, 0), WinningOutcome.get());
+                    put(new Location(0, 1), WinningOutcome.get());
+                    put(new Location(2, 2), WinningOutcome.get());
                 }})
         );
     }
@@ -107,8 +107,8 @@ public class GameTreeGeneratorTest {
                         X, _, X
                 ),
                 new Choice(O, new HashMap<Location, GameTree>(){{
-                    put(new Location(0, 1), new WinningOutcome(O));
-                    put(new Location(1, 2), new Choice(X, new Location(0, 1), new WinningOutcome(X)));
+                    put(new Location(0, 1), WinningOutcome.get());
+                    put(new Location(1, 2), new Choice(X, new Location(0, 1), WinningOutcome.get()));
                 }})
         );
     }
