@@ -16,10 +16,10 @@ public class HumanCliInteractor implements Interactor {
     }
 
     @Override
-    public Play play(State state) {
+    public Location play(State state) {
         print("Your turn! Where do you play?");
 
-        return new Play(representedPlayer, askForAValidLocation(state));
+        return askForAValidLocation(state);
     }
 
     private void print(String message){

@@ -22,8 +22,7 @@ public class StateIterator implements Iterator<State> {
             throw new NoSuchElementException();
 
         final Interactor interactor = interactors.next();
-        final Play chosenPlay = interactor.play(state);
-        state = state.play(chosenPlay.location);
+        state = state.play(interactor.play(state));
 
         return state;
     }

@@ -17,18 +17,16 @@ public class MinmaxInteractorTest {
     private static final Player _ = null;
 
     private void assertPlayedLocation(State state, Location location) {
-        Play play = play(state);
-        assertThat(play.location, is(location));
+        assertThat(play(state), is(location));
     }
 
-    private Play play(State state) {
+    private Location play(State state) {
         Interactor interactor = new MinmaxInteractor();
         return interactor.play(state);
     }
 
     private void assertPlayedOneOfLocationList(State state, List<Location> expectedOneOfThis){
-        Play play = play(state);
-        assertThat(expectedOneOfThis, hasItem(play.location));
+        assertThat(expectedOneOfThis, hasItem(play(state)));
     }
 
     @Test

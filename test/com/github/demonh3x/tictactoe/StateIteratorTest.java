@@ -13,23 +13,15 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import static com.github.demonh3x.tictactoe.game.Player.*;
-
 public class StateIteratorTest {
     public class InteractorSpy implements Interactor {
-        private final Player representingPlayer;
-
         public Location locationToPlay;
         public List<State> receivedStatesToPlay = new ArrayList<>();
 
-        public InteractorSpy(Player representingPlayer){
-            this.representingPlayer = representingPlayer;
-        }
-
         @Override
-        public Play play(State state) {
+        public Location play(State state) {
             receivedStatesToPlay.add(state);
-            return new Play(representingPlayer, locationToPlay);
+            return locationToPlay;
         }
     }
 
@@ -44,8 +36,8 @@ public class StateIteratorTest {
 
     @Before
     public void setUp() {
-        xInteractor = new InteractorSpy(X);
-        oInteractor = new InteractorSpy(O);
+        xInteractor = new InteractorSpy();
+        oInteractor = new InteractorSpy();
     }
 
     @Test

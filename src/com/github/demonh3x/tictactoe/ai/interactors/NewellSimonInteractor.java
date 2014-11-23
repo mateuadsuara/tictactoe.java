@@ -1,11 +1,7 @@
 package com.github.demonh3x.tictactoe.ai.interactors;
 
-import com.github.demonh3x.tictactoe.ai.options.FirstPossibleMoveOption;
 import com.github.demonh3x.tictactoe.ai.options.*;
-import com.github.demonh3x.tictactoe.game.Interactor;
-import com.github.demonh3x.tictactoe.game.Play;
-import com.github.demonh3x.tictactoe.game.Player;
-import com.github.demonh3x.tictactoe.game.State;
+import com.github.demonh3x.tictactoe.game.*;
 
 import java.util.Arrays;
 
@@ -19,8 +15,8 @@ public class NewellSimonInteractor implements Interactor {
     }
 
     @Override
-    public Play play(State state) {
-        return new Play(representedPlayer, getDecisionMaker(state).getLocation());
+    public Location play(State state) {
+        return getDecisionMaker(state).getLocation();
     }
 
     private FirstPossibleMoveOption getDecisionMaker(State state) {

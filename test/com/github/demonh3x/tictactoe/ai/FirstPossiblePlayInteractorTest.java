@@ -9,21 +9,19 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import static com.github.demonh3x.tictactoe.game.Player.*;
-
 public class FirstPossiblePlayInteractorTest {
     Interactor interactor;
 
     @Before
     public void setUp() {
-        interactor = new FirstPossiblePlayInteractor(X);
+        interactor = new FirstPossiblePlayInteractor();
     }
 
     @Test
     public void GivenAnEmptyState_shouldReturnTheFirstLocation() {
         final State state = StateLiteral.empty();
 
-        final Location played = interactor.play(state).location;
+        final Location played = interactor.play(state);
 
         assertThat(played, is(new Location(0, 0)));
     }
@@ -33,7 +31,7 @@ public class FirstPossiblePlayInteractorTest {
         final State state = StateLiteral.empty()
                 .play(new Location(0, 0));
 
-        final Location played = interactor.play(state).location;
+        final Location played = interactor.play(state);
 
         assertThat(played, is(new Location(1, 0)));
     }
@@ -44,7 +42,7 @@ public class FirstPossiblePlayInteractorTest {
                 .play(new Location(0, 0))
                 .play(new Location(1, 0));
 
-        final Location played = interactor.play(state).location;
+        final Location played = interactor.play(state);
 
         assertThat(played, is(new Location(2, 0)));
     }
@@ -56,7 +54,7 @@ public class FirstPossiblePlayInteractorTest {
                 .play(new Location(1, 0))
                 .play(new Location(2, 0));
 
-        final Location played = interactor.play(state).location;
+        final Location played = interactor.play(state);
 
         assertThat(played, is(new Location(0, 1)));
     }

@@ -18,21 +18,15 @@ public class NewellSimonInteractorTest {
     private static final Player _ = null;
 
     private void assertPlayedLocation(Player represented, State state, Location location) {
-        Play play = play(represented, state);
-        assertThat(play.player, is(represented));
-        assertThat(play.location, is(location));
-    }
-
-    private Play play(Player represented, State state) {
         Player opponent = represented == X? O: X;
         Interactor interactor = new NewellSimonInteractor(represented, opponent);
-        return interactor.play(state);
+        assertThat(interactor.play(state), is(location));
     }
 
     private void assertPlayedOneOfLocationList(Player represented, State state, List<Location> expectedOneOfThis){
-        Play play = play(represented, state);
-        assertThat(play.player, is(represented));
-        assertThat(expectedOneOfThis, hasItem(play.location));
+        Player opponent = represented == X? O: X;
+        Interactor interactor = new NewellSimonInteractor(represented, opponent);
+        assertThat(expectedOneOfThis, hasItem((interactor.play(state))));
     }
 
     @Test
