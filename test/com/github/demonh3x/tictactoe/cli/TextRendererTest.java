@@ -67,26 +67,6 @@ public class TextRendererTest {
             }
 
             @Override
-            public List<Location> getCenters() {
-                throw new NotImplementedException();
-            }
-
-            @Override
-            public List<Location> getCorners() {
-                throw new NotImplementedException();
-            }
-
-            @Override
-            public List<Location> getSides() {
-                throw new NotImplementedException();
-            }
-
-            @Override
-            public Location opposite(Location location) {
-                throw new NotImplementedException();
-            }
-
-            @Override
             public boolean contains(Location location) {
                 return availableLocations.contains(location);
             }

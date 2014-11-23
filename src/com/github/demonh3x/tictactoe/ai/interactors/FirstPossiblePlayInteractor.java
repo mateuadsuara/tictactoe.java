@@ -1,16 +1,20 @@
 package com.github.demonh3x.tictactoe.ai.interactors;
 
-import com.github.demonh3x.tictactoe.ai.MoveOption;
-import com.github.demonh3x.tictactoe.ai.options.AvailableOption;
-import com.github.demonh3x.tictactoe.game.*;
+import com.github.demonh3x.tictactoe.game.Interactor;
+import com.github.demonh3x.tictactoe.game.Location;
+import com.github.demonh3x.tictactoe.game.State;
+
+import java.util.ArrayList;
 
 public class FirstPossiblePlayInteractor implements Interactor {
     @Override
     public Location choose(State state) {
-        return getDecisionMaker(state).getLocation();
-    }
+        final ArrayList<Location> available = new ArrayList<>();
 
-    private MoveOption getDecisionMaker(State state) {
-        return new AvailableOption(state);
+        for (Location location : state.board.getAllLocations())
+            if (state.isEmptyAt(location))
+                available.add(location);
+
+        return available.get(0);
     }
 }
