@@ -15,7 +15,7 @@ public class TextRendererTest {
     @Test
     public void emptyTicTacToeBoard() {
         final TextRenderer renderer = new TextRenderer(new HashMap<Player, Character>());
-        final State state = State.empty(new TicTacToeBoard());
+        final State state = State.empty(new SquareBoard(3));
         assertThat(renderer.render(state), is(
                 "     0   1   2\n" +
                 "   +---+---+---+\n" +
@@ -36,7 +36,7 @@ public class TextRendererTest {
 
         final TextRenderer renderer = new TextRenderer(mappings);
 
-        State state = State.empty(new TicTacToeBoard());
+        State state = State.empty(new SquareBoard(3));
         state = state.play(new Location(0, 0));
         state = state.play(new Location(1, 0));
 

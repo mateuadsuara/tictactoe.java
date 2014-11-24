@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class StateLiteral {
-    private static final TicTacToeBoard TIC_TAC_TOE_BOARD = new TicTacToeBoard();
+    private static final Board BOARD = new SquareBoard(3);
     private static final Location[] LOCATIONS = new Location[]{
             new Location(0, 0),
             new Location(1, 0),
@@ -21,7 +21,7 @@ public class StateLiteral {
     };
 
     public static State empty(){
-        return State.empty(TIC_TAC_TOE_BOARD);
+        return State.empty(BOARD);
     }
 
     public static State create(Player... pieces) {

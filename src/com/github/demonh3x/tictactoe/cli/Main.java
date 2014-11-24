@@ -21,7 +21,7 @@ public class Main {
                 new CliObserver(System.out, mappings)
         );
 
-        final State initialState = State.empty(new TicTacToeBoard());
+        final State initialState = State.empty(new SquareBoard(3));
         final StateIterator iterator = new StateIterator(
                 initialState,
                 new CyclingIterator<>(askPlayingOrder())

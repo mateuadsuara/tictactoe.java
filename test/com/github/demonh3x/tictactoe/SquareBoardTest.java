@@ -8,8 +8,10 @@ import org.junit.Test;
 
 import java.util.Set;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class SquareBoardTest {
     private void assertAllLocations(int sideSize, Set<Location> expectedLocations) {
@@ -43,16 +45,21 @@ public class SquareBoardTest {
 
     private void assertLines(int sideSize, Set<Set<Location>> expectedLines) {
         Board board = new SquareBoard(sideSize);
-        assertThat(board.getPossibleLines(), is(expectedLines));
+        Set<Set<Location>> lines = board.getPossibleLines();
+        assertThat(lines, is(expectedLines));
     }
 
     @Test
     public void aBoard2By2_has4PossibleLines() {
         assertLines(2, LiteralSet.of(
                 LiteralSet.of(new Location(0, 0), new Location(1, 0)),
+                LiteralSet.of(new Location(0, 1), new Location(1, 1)),
+
                 LiteralSet.of(new Location(0, 0), new Location(0, 1)),
+                LiteralSet.of(new Location(1, 0), new Location(1, 1)),
+
                 LiteralSet.of(new Location(0, 0), new Location(1, 1)),
-                LiteralSet.of(new Location(0, 1), new Location(1, 1))
+                LiteralSet.of(new Location(0, 1), new Location(1, 0))
         ));
     }
 
@@ -70,5 +77,27 @@ public class SquareBoardTest {
                 LiteralSet.of(new Location(0, 0), new Location(1, 1), new Location(2, 2)),
                 LiteralSet.of(new Location(2, 0), new Location(1, 1), new Location(0, 2))
         ));
+    }
+
+    @Test
+    public void aBoard2By2_containsTheLocationsInside() {
+        Board board = new SquareBoard(2);
+        assertTrue(board.contains(new Location(0, 0)));
+        assertTrue(board.contains(new Location(1, 1)));
+        assertFalse(board.contains(new Location(-1, 0)));
+        assertFalse(board.contains(new Location(0, -1)));
+        assertFalse(board.contains(new Location(2, 1)));
+        assertFalse(board.contains(new Location(1, 2)));
+    }
+
+    @Test
+    public void aBoard3By3_containsTheLocationsInside() {
+        Board board = new SquareBoard(3);
+        assertTrue(board.contains(new Location(0, 0)));
+        assertTrue(board.contains(new Location(2, 2)));
+        assertFalse(board.contains(new Location(-1, 0)));
+        assertFalse(board.contains(new Location(0, -1)));
+        assertFalse(board.contains(new Location(3, 2)));
+        assertFalse(board.contains(new Location(2, 3)));
     }
 }

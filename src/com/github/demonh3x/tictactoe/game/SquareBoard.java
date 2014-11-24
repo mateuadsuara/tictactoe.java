@@ -23,11 +23,64 @@ public class SquareBoard implements Board {
 
     @Override
     public Set<Set<Location>> getPossibleLines() {
-        return null;
+        Set<Set<Location>> lines = new HashSet<>();
+
+        for (int col = 0; col < sideSize; col++) {
+            for (int row = 0; row < sideSize; row++) {
+                lines.add(getHorizontalLineFrom(col, row));
+                lines.add(getVerticalLineFrom(col, row));
+                lines.add(getDescendingDiagonalLineFrom(col, row));
+                lines.add(getAscendingDiagonalLineFrom(col, row));
+            }
+        }
+        lines.remove(null);
+
+        return lines;
+    }
+
+    private Set<Location> getAscendingDiagonalLineFrom(int col, int row) {
+        if (row > 0 || col > 0) return null;
+
+        Set<Location> line = new HashSet<>();
+        for (int i = 0; i < sideSize; i++){
+            line.add(new Location(i, i));
+        }
+        return line;
+    }
+
+    private Set<Location> getDescendingDiagonalLineFrom(int col, int row) {
+        if (row < sideSize -1 || col > 0) return null;
+
+        Set<Location> line = new HashSet<>();
+        for (int i = 0; i < sideSize; i++){
+            line.add(new Location(i, (sideSize-1) -i));
+        }
+        return line;
+    }
+
+    private Set<Location> getVerticalLineFrom(int col, int row) {
+        if (row > 0) return null;
+
+        Set<Location> line = new HashSet<>();
+        for (int r = 0; r < sideSize; r++){
+            line.add(new Location(col, r));
+        }
+        return line;
+    }
+
+    private Set<Location> getHorizontalLineFrom(int col, int row) {
+        if (col > 0) return null;
+
+        Set<Location> line = new HashSet<>();
+        for (int c = 0; c < sideSize; c++){
+            line.add(new Location(c, row));
+        }
+        return line;
     }
 
     @Override
     public boolean contains(Location location) {
-        return false;
+        return location.col >= 0 && location.col < sideSize
+                && location.row >= 0 && location.row < sideSize;
     }
 }
