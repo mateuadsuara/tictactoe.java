@@ -10,8 +10,16 @@ public class SquareBoard implements Board {
         this.sideSize = sideSize;
     }
 
+    private Set<Location> locations = null;
     @Override
     public Set<Location> getAllLocations() {
+        if (locations == null)
+            locations = createAllLocations();
+
+        return locations;
+    }
+
+    private Set<Location> createAllLocations() {
         final HashSet<Location> locations = new HashSet<>();
 
         for (int x = 0; x < sideSize; x++)
@@ -21,8 +29,16 @@ public class SquareBoard implements Board {
         return locations;
     }
 
+    private Set<Set<Location>> lines = null;
     @Override
     public Set<Set<Location>> getPossibleLines() {
+        if (lines == null)
+            lines = createLines();
+
+        return lines;
+    }
+
+    private Set<Set<Location>> createLines() {
         Set<Set<Location>> lines = new HashSet<>();
 
         for (int col = 0; col < sideSize; col++) {
